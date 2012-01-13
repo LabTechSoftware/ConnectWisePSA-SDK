@@ -33,7 +33,15 @@ class ConnectWisePSA
 	
 	}
 	
-	public function Call($function, $params)
+    /*
+     * This is a method created so we can if needed abstract the actual API call and use other libraries like nusoap or Zend's soap stuff.
+     * Because poor windows doesnt like PHP 5.3
+     * 
+     * @param string $method this is the method your wanting to call from the api
+     * @param array $params this is an array of the methods parameters.
+     * @returns SoapObject 
+     */
+	public function Call($method, $params)
 	{
 		$wsdl = 'https://'.$this->CW_ROOT_DOMAIN.'/v4_6_release/apis/1.5/'.$this->TheAPIType.'.asmx?wsdl';
 	
@@ -43,7 +51,7 @@ class ConnectWisePSA
 			{
 				if(!@file_get_contents($wsdl)) { throw new SoapFault('Server', 'Error loading WSDL: ' . $wsdl); }
 				$TheSoapObject = new SoapClient($wsdl, $this->TheSoapOptions);
-				return $TheSoapObject->__call($function, array($params));
+				return $TheSoapObject->__call($method, array($params));
 			}
 			catch(SoapFault $fault) { return $fault;  }
 		}
@@ -54,10 +62,12 @@ class ConnectWisePSA
 	}
 	
 	
-	
+	/*
+     * This is the autoloader for all the SDK's classes
+     */
 	public static function autoloader($name)
 	{
-		if(is_file(dirname(__FILE__)."/".$name.".php")) { include_once dirname(__FILE__)."/".$name.".php"; }
+		if(strtolower(substr($name, 0, 2)) == 'cw' && is_file(dirname(__FILE__)."/".$name.".php")) { include_once dirname(__FILE__)."/".$name.".php"; }
 	}
 
 }
