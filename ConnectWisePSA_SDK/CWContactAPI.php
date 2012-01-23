@@ -1,7 +1,7 @@
 <?php
 
 
-class CWContactAPI extends ConnectWisePSA
+class CWContactAPI extends ConnectWisePSA_SDK
 {
 	function __construct($CW_ROOT_DOMAIN="", $CW_COMPANY="", $CW_INTEGREATOR_USERNAME="", $CW_INTEGREATOR_PASSWORD="")
 	{

@@ -1,7 +1,7 @@
 <?php
 
 
-class CWReportingAPI extends ConnectWisePSA
+class CWReportingAPI extends ConnectWisePSA_SDK
 {
     function __construct($CW_ROOT_DOMAIN="", $CW_COMPANY="", $CW_INTEGREATOR_USERNAME="", $CW_INTEGREATOR_PASSWORD="")
     {
@@ -59,11 +59,4 @@ class CWReportingAPI extends ConnectWisePSA
         }
         catch(SoapFault $fault) { return $fault;  }
     }
-    
-    
-    
-    
-    
-    
-    
 }

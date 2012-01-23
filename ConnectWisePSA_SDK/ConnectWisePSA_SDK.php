@@ -3,7 +3,7 @@
 
 
 
-class ConnectWisePSA
+class ConnectWisePSA_SDK
 {
 	public $CW_ROOT_DOMAIN, $CW_COMPANY, $CW_INTEGREATOR_USERNAME, $CW_INTEGREATOR_PASSWORD, $TheAPIType, $TheSoapOptions, $TheSoapObject;
 
@@ -72,4 +72,4 @@ class ConnectWisePSA
 
 }
 // Register the autoloader.
-spl_autoload_register(array('ConnectWisePSA', 'autoloader'));
+spl_autoload_register(array('ConnectWisePSA_SDK', 'autoloader'));
