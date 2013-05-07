@@ -9,7 +9,116 @@ class Configuration
 {
     protected static $currentApi = 'ConfigurationAPI';
 
-    public static function findTypes($limit, $skip, $conditions = null, $orderBy = null)
+    /**
+     * @todo test
+     */
+    public static function addConfiguration(array $config)
+    {
+        /*
+            $requiredKeys = array('configuration' => array('Id', 'ConfigurationTypeId', 'ConfigurationType', 'Status', 'ConfigurationName',
+                'ContactName', 'CompanyName', 'CompanyId', 'ContactId', 'OwnerLevelId', 'BillingUnitId', 
+                'Manufacturer', 'ManufacturerId', 'SerialNumber', 'ModelNumber', 'TagNumber', 'PurchaseDate',
+                'InstallationDate', 'InstalledBy', 'WarrantyExpiration', 'LastUpdate', 'UpdatedBy', 'AddressId',
+                'AddressLine1', 'AddressLine2', 'City', 'State', 'ZipCode', 'VendorNotes', 'Notes', 'MacAddress',
+                'LastLoginName', 'BillFlag', 'BackupSuccesses', 'BackupIncomplete', 'BackupFailed', 'BackupRestores',
+                'LastBackupDate', 'BackupServerName', 'BackupBillableSpaceGb', 'BackupProtectedDeviceList', 'BackupYear',
+                'BackupMonth', 'IPAddress', 'DefaultGateway', 'OSType', 'OSInfo', 'CPUSpeed', 'RAM', 'LocalHardDrives', 
+                'IsActive', 'ConfigurationQuestions'
+            ));
+        */
+
+        ApiRequestParams::set('configuration', $config);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->AddConfiguration(ApiRequestParams::getAll());
+
+        ApiResult::addResult($results->AddConfigurationResult);
+
+        return ApiResult::getAll();
+    }
+
+    /**
+     * @todo test
+     */
+    public static function addConfigurationType(array $configType)
+    {
+        ApiRequestParams::set('configurationType', $configType);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->AddConfigurationType(ApiRequestParams::getAll());
+
+        ApiResult::addResult($results->AddConfigurationTypeResult);
+
+        return ApiResult::getAll();
+    }
+
+    /**
+     * @todo test
+     */
+    public static function addOrUpdateConfiguration(array $config)
+    {
+        ApiRequestParams::set('configuration', $config);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->AddOrUpdateConfiguration(ApiRequestParams::getAll());
+
+        ApiResult::addResult($results->AddOrUpdateConfigurationResult);
+
+        return ApiResult::getAll();
+    }
+
+    /**
+     * @todo test
+     */
+    public static function addOrUpdateConfigurationType(array $configType)
+    {
+        ApiRequestParams::set('configurationType', $configType);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->AddOrUpdateConfigurationType(ApiRequestParams::getAll());
+
+        ApiResult::addResult($results->AddOrUpdateConfigurationTypeResult);
+
+        return ApiResult::getAll();
+    }
+
+    public static function findConfigurationTypes($limit = 0, $skip = 0, $conditions = null, $orderBy = null)
+    {
+        if (is_int($limit) === false)
+        {
+            throw new ApiException('Limit value must be an integer.');
+        }
+
+        if (is_int($skip) === false)
+        {
+            throw new ApiException('Skip value must be an integer.');
+        }
+
+        ApiRequestParams::set('limit', $limit);
+        ApiRequestParams::set('skip', $skip);
+        ApiRequestParams::set('conditions', $conditions);
+        ApiRequestParams::set('orderBy', $orderBy);
+
+        $findResults = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->FindConfigurationTypes(ApiRequestParams::getAll());
+
+        if (method_exists($findResults->FindConfigurationTypesResult, 'ConfigurationTypeFindResult') === true)
+        {
+            ApiResult::addResult($findResults->FindConfigurationTypesResult->ConfigurationTypeFindResult);
+        }
+        elseif (property_exists($findResults->FindConfigurationTypesResult, 'ConfigurationTypeFindResult') === true)
+        {
+            ApiResult::addResult($findResults->FindConfigurationTypesResult->ConfigurationTypeFindResult);
+        }
+        else
+        {
+            ApiResult::addResult($findResults->FindConfigurationTypesResult);
+        }
+
+        return ApiResult::getAll();
+    }
+
+    public static function findConfigurations($limit = 0, $skip = 0, $conditions = null, $orderBy = null)
     {
         if (is_int($limit) === false)
         {
@@ -29,98 +138,243 @@ class Configuration
         $findResults = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->FindConfigurations(ApiRequestParams::getAll());
 
-        ApiResult::addResult($findResults->FindConfigurationsResult->ConfigurationFindResult);
+        if (method_exists($findResults->FindConfigurationsResult, 'ConfigurationFindResult') === true)
+        {
+            ApiResult::addResult($findResults->FindConfigurationsResult->ConfigurationFindResult);
+        }
+        elseif (property_exists($findResults->FindConfigurationsResult, 'ConfigurationFindResult') === true)
+        {
+            ApiResult::addResult($findResults->FindConfigurationsResult->ConfigurationFindResult);
+        }
+        else
+        {
+            ApiResult::addResult($findResults->FindConfigurationsResult);
+        }
 
         return ApiResult::getAll();
     }
 
-    public static function addConfiruration()
+    public static function findConfigurationsCount($isOpen = false, $conditions = '')
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_bool($isOpen) === false)
+        {
+            throw new ApiException('Is Open param must be boolean.');
+        }
+
+        ApiRequestParams::set('conditions', $conditions);
+        ApiRequestParams::set('isOpen', $isOpen);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->FindConfigurationsCount(ApiRequestParams::getAll());
+
+        ApiResult::addResult($results->FindConfigurationsCountResult);
+
+        return ApiResult::getAll();
     }
 
-    public static function addConfigurationType()
+    public static function getConfiguration($id)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($id) === false)
+        {
+            throw new ApiException('Configuration ID must be an integer.');
+        }
+
+        ApiRequestParams::set('id', $id);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->GetConfiguration(ApiRequestParams::getAll());
+
+        ApiResult::addResult($results->GetConfigurationResult);
+
+        return ApiResult::getAll();
     }
 
-    public static function addOrUpdateConfiguration()
+    public static function getConfigurationType($id)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($id) === false)
+        {
+            throw new ApiException('ConfigurationType ID must be an integer.');
+        }
+
+        ApiRequestParams::set('id', $id);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->GetConfigurationType(ApiRequestParams::getAll());
+
+        ApiResult::addResult($results->GetConfigurationTypeResult);
+
+        return ApiResult::getAll();
     }
 
-    public static function addOrUpdateConfigurationType()
+    public static function loadConfiguration($id)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($id) === false)
+        {
+            throw new ApiException('Configuration ID must be an integer.');
+        }
+
+        ApiRequestParams::set('id', $id);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->LoadConfiguration(ApiRequestParams::getAll());
+
+        ApiResult::addResult($results->LoadConfigurationResult);
+
+        return ApiResult::getAll();
     }
 
-    public static function deleteConfiguration()
+    public static function loadConfigurationType($id)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($id) === false)
+        {
+            throw new ApiException('ConfigurationType ID must be an integer.');
+        }
+
+        ApiRequestParams::set('id', $id);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->LoadConfigurationType(ApiRequestParams::getAll());
+
+        ApiResult::addResult($results->LoadConfigurationTypeResult);
+
+        return ApiResult::getAll();
     }
 
-    public static function deleteConfigurationType()
+    /**
+     * @todo test
+     */
+    public static function updateConfiguration(array $configuration)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        ApiRequestParams::set('configuration', $configuration);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->UpdateConfiguration(ApiRequestParams::getAll());
+
+        ApiResult::addResult($results->UpdateConfigurationResult);
+
+        return ApiResult::getAll();
     }
 
-    public static function deleteConfigurationTypeQuestion()
+    /**
+     * @todo test
+     */
+    public static function updateConfigurationType(array $configurationType)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        ApiRequestParams::set('configurationType', $configurationType);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->UpdateConfigurationType(ApiRequestParams::getAll());
+
+        ApiResult::addResult($results->UpdateConfigurationTypeResult);
+
+        return ApiResult::getAll();
     }
 
-    public static function deletePossibleResponse()
+    /**
+     * @todo test
+     */
+    public static function deleteConfiguration($id)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($id) === false)
+        {
+            throw new ApiException('Configuration ID must be an integer.');
+        }
+
+        ApiRequestParams::set('id', $id);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->DeleteConfiguration(ApiRequestParams::getAll());
+
+        if (method_exists($results, 'DeleteConfigurationResult') === true)
+        {
+            ApiResult::addResult($results->DeleteConfigurationResult);    
+        }
+        else
+        {
+            ApiResult::addResult($results);
+        }
+
+        return ApiResult::getAll();
     }
 
-    public static function findConfigurationsCount()
+    /**
+     * @todo test
+     */
+    public static function deleteConfigurationType($id)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($id) === false)
+        {
+            throw new ApiException('ConfigurationType ID must be an integer.');
+        }
+
+        ApiRequestParams::set('id', $id);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->DeleteConfigurationType(ApiRequestParams::getAll());
+
+        if (method_exists($results, 'DeleteConfigurationTypeResult') === true)
+        {
+            ApiResult::addResult($results->DeleteConfigurationTypeResult);
+        }
+        else
+        {
+            ApiResult::addResult($results);
+        }
+
+        return ApiResult::getAll();
     }
 
-    public static function getConfiguration()
+    /**
+     * @todo test
+     */
+    public static function deleteConfigurationTypeQuestion($id)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($id) === false)
+        {
+            throw new ApiException('ConfigurationTypeQuestion ID must be an integer.');
+        }
+
+        ApiRequestParams::set('id', $id);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->DeleteConfigurationTypeQuestion(ApiRequestParams::getAll());
+
+        if (method_exists($results, 'DeleteConfigurationTypeQuestionResult') === true)
+        {
+            ApiResult::addResult($results->DeleteConfigurationTypeQuestionResult);
+        }
+        else
+        {
+            ApiResult::addResult($results);
+        }
+
+        return ApiResult::getAll();
     }
 
-    public static function getConfigurationType()
+    /**
+     * @todo test
+     */
+    public static function deletePossibleResponse($id)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
-    }
+        if (is_int($id) === false)
+        {
+            throw new ApiException('PossibleResponse ID must be an integer.');
+        }
 
-    public static function loadConfiguration()
-    {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
-    }
+        ApiRequestParams::set('id', $id);
 
-    public static function loadConfigurationType()
-    {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
-    }
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->DeletePossibleResponse(ApiRequestParams::getAll());
 
-    public static function updateConfiguration()
-    {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
-    }
+        if (method_exists($results, 'DeletePossibleResponseResult') === true)
+        {
+            ApiResult::addResult($results->DeletePossibleResponseResult);
+        }
+        else
+        {
+            ApiResult::addResult($results);
+        }
 
-    public static function updateConfigurationType()
-    {
-        // NOT IMPLIMENTED YET
-        throw new ApiException(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        return ApiResult::getAll();
     }
 }
