@@ -67,14 +67,7 @@ class ApiResource
         
         if (method_exists($objectInstance, $method) === true)
         {
-            if (is_null($arguments) === true)
-            {
-                return $objectInstance->$method();
-            }
-            else
-            {
-                return $objectInstance->$method($arguments);
-            }   
+            return (is_null($arguments) === true) ? $objectInstance->$method() : $objectInstance->$method($arguments);
         }
 
         throw new ApiException('Method does not exist in resource.');
