@@ -1,4 +1,4 @@
-<?php namespace Api;
+<?php namespace ConnectWiseApi;
 
 use stdClass;
 
@@ -11,12 +11,25 @@ class ApiRequestParams
 {
     public static $params = array();
 
+    /**
+     * Set a parameter 
+     *
+     * @param mixed (string/integer) $key
+     * @param mixed 
+     * @return void
+     */
     public static function set($key, $value)
     {
         static::$params[$key] = $value;
     }
 
-    public static function setMany(array $params)
+    /**
+     * Set multiple parameters
+     *
+     * @param array $params
+     * @return void
+     */
+    public static function setMultiple(array $params)
     {
         foreach ($params as $paramKey => $paramVal)
         {
@@ -24,16 +37,32 @@ class ApiRequestParams
         }
     }
 
+    /**
+     * Get a parameter
+     *
+     * @param mixed (string/integer)
+     * @return mixed
+     */
     public static function get($key)
     {
-        static::$params[$key];
+        return static::$params[$key];
     }
 
+    /**
+     * Get all parameters
+     *
+     * @return mixed
+     */
     public static function getAll()
     {
         return static::$params;
     }
 
+    /**
+     * Get all parameters as an object (stdClass)
+     *
+     * @return stdClass
+     */
     public static function getAllObject()
     {
         $retClass = new stdClass;

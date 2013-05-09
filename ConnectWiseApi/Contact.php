@@ -1,16 +1,29 @@
-<?php namespace Api\ConnectWise;
+<?php namespace ConnectWiseApi;
 
-use Api\ApiResource,
-    Api\ApiRequestParams,
-    Api\ApiResult,
-    Api\ApiException;
+use ConnectWiseApi\ApiResource,
+    ConnectWiseApi\ApiRequestParams,
+    ConnectWiseApi\ApiResult,
+    ConnectWiseApi\ApiException;
 
 class Contact
 {
+    /**
+     * The API name for the SOAP connection
+     *
+     * @var string
+     */
     protected static $currentApi = 'ContactAPI';
     
     /**
-     * @todo test
+     * Adds a contact to a specified group
+     *
+     * @todo Need a valid group id to finish testing this
+     *
+     * @throws ApiException
+     * @param integer $contactId
+     * @param integer $groupId
+     * @param string $note
+     * @return mixed
      */
     public static function addContactToGroup($contactId, $groupId, $note = '')
     {
@@ -31,30 +44,41 @@ class Contact
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->AddContactToGroup(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->AddContactToGroupResult);
+        ApiResult::addResultFromObject($results, 'AddContactToGroupResult');
 
         return ApiResult::getAll();
     }
     
     /**
-     * @todo test
+     * Adds or updates a contact
+     * Set RecId & Id to 0 to add new contact. If non-zero, the existing contact with that Id is updated.
+     *
+     * @param array $contactData
+     * @return mixed
      */
-    public static function addOrUpdateContact(array $contact)
+    public static function addOrUpdateContact(array $contactData)
     {
-        ApiRequestParams::set('contact', $contact);
+        ApiRequestParams::set('contact', $contactData);
 
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->AddOrUpdateContact(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->AddOrUpdateContactResult);
+        ApiResult::addResultFromObject($results, 'AddOrUpdateContactResult');
 
         return ApiResult::getAll();
     }
     
     /**
-     * @todo test
+     * Adds or updates a contact's communication item
+     * If the communicationItem id (inside of $commItemData) is 0, the communication item is added. 
+     * If non-zero, the existing communicationItem with that Id is updated.
+     *
+     * @throws ApiException
+     * @param integer $contactId
+     * @param array $method
+     * @return mixed
      */
-    public static function addOrUpdateContactCommunicationItem($contactId, array $method)
+    public static function addOrUpdateContactCommunicationItem($contactId, array $commItemData)
     {
         if (is_int($contactId) === false)
         {
@@ -62,18 +86,25 @@ class Contact
         }
 
         ApiRequestParams::set('contactId', $contactId);
-        ApiRequestParams::set('ContactMethod', $method);
+        ApiRequestParams::set('ContactMethod', $commItemData);
 
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->AddOrUpdateContactCommunicationItem(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->AddOrUpdateContactCommunicationItemResult);
+        ApiResult::addResultFromObject($results, 'AddOrUpdateContactCommunicationItemResult');
 
         return ApiResult::getAll();
     }
     
     /**
-     * @todo test
+     * Adds or updates a contact note. 
+     * If the note Id is 0, and the contactId is set; the note is added. 
+     * If non-zero, the existing note with that Id is updated.
+     *
+     * @throws ApiException
+     * @param integer $contactId
+     * @param array $note
+     * @return mixed
      */
     public static function addOrUpdateContactNote($contactId, array $note)
     {
@@ -88,19 +119,24 @@ class Contact
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->AddOrUpdateContactNote(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->AddOrUpdateContactNoteResult);
+        ApiResult::addResultFromObject($results, 'AddOrUpdateContactNoteResult');
 
         return ApiResult::getAll();
     }
 
     /**
+     * @todo Disabled until CW fixes authentication issues -- DO NOT USE THIS METHOD!
+     * 
+     * f/ Marc: 
      * This is a very dangerous method right now. You should not use this unless you know what it does.
      * I reccomend if your trying to authenticate via portal password you use the FindContacts method
-     * @param array $params email, loginpw and portalName please.
+     * @param array $params
      */
-    /*
-    public static function authenticate($params=array())
+    public static function authenticate(array $params)
     {
+        throw new ApiException('Authenticate method unvailable.');
+
+        /*
         $params2['email'] = $params['email'];
         $params2['loginpw'] = $params['loginpw'];
         $params2['portalName'] = $params['portalName'];
@@ -112,9 +148,19 @@ class Contact
             return $results->AuthenticateResult;
         }
         catch(SoapFault $fault) { return $fault;  }
+        */
     }
-    */
     
+    /**
+     * Finds contact information by a set of conditions
+     * 
+     * @throws ApiException
+     * @param integer $limit
+     * @param integer $skip
+     * @param string $orderBy
+     * @param string $conditions
+     * @return mixed
+     */
     public static function findCompanies($limit = 0, $skip = 0, $orderBy = null, $conditions = null)
     {
         if (is_int($limit) === false)
@@ -135,18 +181,7 @@ class Contact
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->FindCompanies(ApiRequestParams::getAll());
 
-        if (method_exists($results->FindCompaniesResult, 'ContactFindResult') === true)
-        {
-            ApiResult::addResult($results->FindCompaniesResult->ContactFindResult);
-        }
-        elseif (property_exists($results->FindCompaniesResult, 'ContactFindResult') === true)
-        {
-            ApiResult::addResult($results->FindCompaniesResult->ContactFindResult);
-        }
-        else
-        {
-            ApiResult::addResult($results->FindCompaniesResult);
-        }
+        ApiResult::addResultFromObject($results->FindCompaniesResult, 'ContactFindResult');
 
         return ApiResult::getAll();
     }
@@ -154,10 +189,12 @@ class Contact
     /**
      * Finds contact information by a set of conditions
      *
-     * @param integer $limit      Limits the number of results a query should return
-     * @param integer $skip       How many to skip, good for pagination
-     * @param string  $conditions [description]
-     * @param string  $orderBy    Which property to sort by.
+     * @throws ApiException
+     * @param integer $limit
+     * @param integer $skip
+     * @param string $orderBy
+     * @param string $conditions
+     * @return mixed
      */
     public static function findContacts($limit = 0, $skip = 0, $orderBy = null, $conditions = null)
     {
@@ -179,22 +216,16 @@ class Contact
         $findResults = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->FindContacts(ApiRequestParams::getAll());
 
-        if (method_exists($findResults->FindContactsResult, 'ContactFindResult') === true)
-        {
-            ApiResult::addResult($findResults->FindContactsResult->ContactFindResult);
-        }
-        elseif (property_exists($findResults->FindContactsResult, 'ContactFindResult') === true)
-        {
-            ApiResult::addResult($findResults->FindContactsResult->ContactFindResult);
-        }
-        else
-        {
-            ApiResult::addResult($findResults->FindContactsResult);
-        }
+        ApiResult::addResultFromObject($findResults->FindContactsResult, 'ContactFindResult');
 
         return ApiResult::getAll();
     }
     
+    // --- stopping point - azavala 3/9/13 ---
+
+    /**
+     * @todo test
+     */
     public static function findContactsCount($conditions = null)
     {
         ApiRequestParams::set('conditions', $conditions);
@@ -207,6 +238,9 @@ class Contact
         return ApiResult::getAll();
     }
     
+    /**
+     * @todo test
+     */
     public static function getAllCommunicationTypesAndDescriptions()
     {
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
@@ -228,6 +262,9 @@ class Contact
         return ApiResult::getAll();
     }
     
+    /**
+     * @todo test
+     */
     public static function getAllContactCommunicationItems($contactId)
     {
         if (is_int($contactId) === false)
@@ -256,6 +293,14 @@ class Contact
         return ApiResult::getAll();
     }
     
+    /**
+     * Gets all notes for contact by database record id. 
+     * If no contact exists with the given id, an empty array is returned
+     *
+     * @throws ApiException
+     * @param integer $contactId
+     * @return array
+     */
     public static function getAllContactNotes($contactId)
     {
         if (is_int($contactId) === false)
@@ -268,18 +313,7 @@ class Contact
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->GetAllContactNotes(ApiRequestParams::getAll());
 
-        if (method_exists($results->GetAllContactNotesResult, 'ContactNote') === true)
-        {
-            ApiResult::addResult($results->GetAllContactNotesResult->ContactNote);    
-        }
-        elseif (property_exists($results->GetAllContactNotesResult, 'ContactNote') === true)
-        {
-            ApiResult::addResult($results->GetAllContactNotesResult->ContactNote);
-        }
-        else
-        {
-            ApiResult::addResult($results->GetAllContactNotesResult);
-        }
+        ApiResult::addResultFromObject($results->GetAllContactNotesResult, 'ContactNote');
 
         return ApiResult::getAll();
     }
@@ -304,38 +338,37 @@ class Contact
         return ApiResult::getAll();
     }
     
-    public static function getByRecId($recId)
+    /**
+     * Alias of getContact
+     *
+     * @see getContact()
+     */
+    public static function getContactByRecId($recId)
     {
-        if (is_int($recId) === false)
-        {
-            throw new ApiException('RecID must be an integer.');
-        }
-
-        ApiRequestParams::set('id', $recId);
-
-        $getResults = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetContact(ApiRequestParams::getAll());
-
-        $evalResults = (round($getResults->GetContactResult->ContactRecID) > 0) ? $getResults->GetContactResult : array();
-
-        ApiResult::addResult($evalResults);
-
-        return ApiResult::getAll();
+        return static::getContact($recId);
     }
 
-    public static function getContact($contactId)
+    /**
+     * Gets a contact by database record id ("rec id"). 
+     * If no contact exists with the given id, an empty array is returned
+     *
+     * @throws ApiException
+     * @param integer $contactRecId
+     * @return mixed
+     */
+    public static function getContact($contactRecId)
     {
-        if (is_int($contactId) === false)
+        if (is_int($contactRecId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact Rec ID must be an integer.');
         }
 
-        ApiRequestParams::set('id', $contactId);
+        ApiRequestParams::set('id', $contactRecId);
 
-        $getResults = ApiResource::run('api_connection', 'start', static::$currentApi)
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->GetContact(ApiRequestParams::getAll());
 
-        ApiResult::addResult($getResults->GetContactResult);
+        ApiResult::addResultFromObject($results, 'GetContactResult');
 
         return ApiResult::getAll();
     }
@@ -369,8 +402,6 @@ class Contact
 
         return ApiResult::getAll();
     }
-    
-    ////// stopping point - azavala 5/7 ///////
 
     public static function getContactNote()
     {
