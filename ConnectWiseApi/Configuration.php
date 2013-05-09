@@ -1,44 +1,42 @@
-<?php namespace Api\ConnectWise;
+<?php namespace ConnectWiseApi;
 
-use Api\ApiResource,
-    Api\ApiRequestParams,
-    Api\ApiResult,
-    Api\ApiException;
+use ConnectWiseApi\ApiResource,
+    ConnectWiseApi\ApiRequestParams,
+    ConnectWiseApi\ApiResult,
+    ConnectWiseApi\ApiException;
 
 class Configuration
 {
+    /**
+     * The API name for the SOAP connection
+     *
+     * @var string
+     */
     protected static $currentApi = 'ConfigurationAPI';
 
     /**
-     * @todo test
+     * Add a new configuration
+     *
+     * @param array $config
+     * @return mixed
      */
     public static function addConfiguration(array $config)
     {
-        /*
-            $requiredKeys = array('configuration' => array('Id', 'ConfigurationTypeId', 'ConfigurationType', 'Status', 'ConfigurationName',
-                'ContactName', 'CompanyName', 'CompanyId', 'ContactId', 'OwnerLevelId', 'BillingUnitId', 
-                'Manufacturer', 'ManufacturerId', 'SerialNumber', 'ModelNumber', 'TagNumber', 'PurchaseDate',
-                'InstallationDate', 'InstalledBy', 'WarrantyExpiration', 'LastUpdate', 'UpdatedBy', 'AddressId',
-                'AddressLine1', 'AddressLine2', 'City', 'State', 'ZipCode', 'VendorNotes', 'Notes', 'MacAddress',
-                'LastLoginName', 'BillFlag', 'BackupSuccesses', 'BackupIncomplete', 'BackupFailed', 'BackupRestores',
-                'LastBackupDate', 'BackupServerName', 'BackupBillableSpaceGb', 'BackupProtectedDeviceList', 'BackupYear',
-                'BackupMonth', 'IPAddress', 'DefaultGateway', 'OSType', 'OSInfo', 'CPUSpeed', 'RAM', 'LocalHardDrives', 
-                'IsActive', 'ConfigurationQuestions'
-            ));
-        */
-
         ApiRequestParams::set('configuration', $config);
 
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->AddConfiguration(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->AddConfigurationResult);
+        ApiResult::addResultFromObject($results, 'AddConfigurationResult');
 
         return ApiResult::getAll();
     }
 
     /**
-     * @todo test
+     * Add a new configuration type
+     *
+     * @param array $configType
+     * @return mixed
      */
     public static function addConfigurationType(array $configType)
     {
@@ -47,13 +45,16 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->AddConfigurationType(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->AddConfigurationTypeResult);
+        ApiResult::addResultFromObject($results, 'AddConfigurationTypeResult');
 
         return ApiResult::getAll();
     }
 
     /**
-     * @todo test
+     * Adds or updates a configuration
+     *
+     * @param array $config
+     * @return mixed
      */
     public static function addOrUpdateConfiguration(array $config)
     {
@@ -62,13 +63,16 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->AddOrUpdateConfiguration(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->AddOrUpdateConfigurationResult);
+        ApiResult::addResultFromObject($results, 'AddOrUpdateConfigurationResult');
 
         return ApiResult::getAll();
     }
 
     /**
-     * @todo test
+     * Adds or updates a configuration type
+     *
+     * @param array $configType
+     * @return mixed
      */
     public static function addOrUpdateConfigurationType(array $configType)
     {
@@ -77,11 +81,21 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->AddOrUpdateConfigurationType(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->AddOrUpdateConfigurationTypeResult);
+        ApiResult::addResultFromObject($results, 'AddOrUpdateConfigurationTypeResult');
 
         return ApiResult::getAll();
     }
 
+    /**
+     * Finds configuration types
+     *
+     * @throws ApiException
+     * @param integer $limit
+     * @param integer $skip
+     * @param mixed (null/string) $conditions
+     * @param string $orderBy
+     * @return mixed
+     */
     public static function findConfigurationTypes($limit = 0, $skip = 0, $conditions = null, $orderBy = null)
     {
         if (is_int($limit) === false)
@@ -102,22 +116,21 @@ class Configuration
         $findResults = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->FindConfigurationTypes(ApiRequestParams::getAll());
 
-        if (method_exists($findResults->FindConfigurationTypesResult, 'ConfigurationTypeFindResult') === true)
-        {
-            ApiResult::addResult($findResults->FindConfigurationTypesResult->ConfigurationTypeFindResult);
-        }
-        elseif (property_exists($findResults->FindConfigurationTypesResult, 'ConfigurationTypeFindResult') === true)
-        {
-            ApiResult::addResult($findResults->FindConfigurationTypesResult->ConfigurationTypeFindResult);
-        }
-        else
-        {
-            ApiResult::addResult($findResults->FindConfigurationTypesResult);
-        }
+        ApiResult::addResultFromObject($findResults->FindConfigurationTypesResult, 'ConfigurationTypeFindResult');
 
         return ApiResult::getAll();
     }
 
+    /**
+     * Find configurations
+     *
+     * @throws ApiException
+     * @param integer $limit
+     * @param integer $skip
+     * @param mixed (null/string) $conditions
+     * @param string $orderBy
+     * @return mixed
+     */
     public static function findConfigurations($limit = 0, $skip = 0, $conditions = null, $orderBy = null)
     {
         if (is_int($limit) === false)
@@ -138,22 +151,19 @@ class Configuration
         $findResults = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->FindConfigurations(ApiRequestParams::getAll());
 
-        if (method_exists($findResults->FindConfigurationsResult, 'ConfigurationFindResult') === true)
-        {
-            ApiResult::addResult($findResults->FindConfigurationsResult->ConfigurationFindResult);
-        }
-        elseif (property_exists($findResults->FindConfigurationsResult, 'ConfigurationFindResult') === true)
-        {
-            ApiResult::addResult($findResults->FindConfigurationsResult->ConfigurationFindResult);
-        }
-        else
-        {
-            ApiResult::addResult($findResults->FindConfigurationsResult);
-        }
+        ApiResult::addResultFromObject($findResults->FindConfigurationsResult, 'ConfigurationFindResult');
 
         return ApiResult::getAll();
     }
 
+    /**
+     * Gets a count of available configurations. Optionally filters by the supplied conditions.
+     *
+     * @throws ApiException
+     * @param boolean $isOpen
+     * @param string $conditions
+     * @return mixed
+     */
     public static function findConfigurationsCount($isOpen = false, $conditions = '')
     {
         if (is_bool($isOpen) === false)
@@ -167,11 +177,19 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->FindConfigurationsCount(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->FindConfigurationsCountResult);
+        ApiResult::addResultFromObject($results, 'FindConfigurationsCountResult');
 
         return ApiResult::getAll();
     }
 
+    /**
+     * Gets a configuration by database record id. 
+     * If no configuration exists with the given id, an empty array is returned
+     *
+     * @throws ApiException
+     * @param integer $id
+     * @return mixed
+     */
     public static function getConfiguration($id)
     {
         if (is_int($id) === false)
@@ -184,11 +202,19 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->GetConfiguration(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->GetConfigurationResult);
+        ApiResult::addResultFromObject($results, 'GetConfigurationResult');
 
         return ApiResult::getAll();
     }
 
+    /**
+     * Gets a configuration type by database record id. 
+     * If no configuration exists with the given id, an empty array is returned
+     *
+     * @throws ApiException
+     * @param integer $id
+     * @return mixed
+     */
     public static function getConfigurationType($id)
     {
         if (is_int($id) === false)
@@ -201,11 +227,19 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->GetConfigurationType(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->GetConfigurationTypeResult);
+        ApiResult::addResultFromObject($results, 'GetConfigurationTypeResult');
 
         return ApiResult::getAll();
     }
 
+    /**
+     * Gets a configuration by database record id. 
+     * If no configuration exists with the given id, an exception (SoapFault) is thrown
+     *
+     * @throws ApiException
+     * @param integer $id
+     * @return mixed
+     */
     public static function loadConfiguration($id)
     {
         if (is_int($id) === false)
@@ -218,11 +252,19 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->LoadConfiguration(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->LoadConfigurationResult);
+        ApiResult::addResultFromObject($results, 'LoadConfigurationResult');
 
         return ApiResult::getAll();
     }
 
+    /**
+     * Gets a configuration type by database record id. 
+     * If no configuration exists with the given id, an exception (SoapFault) is thrown
+     *
+     * @throws ApiException
+     * @param integer $id
+     * @return mixed
+     */
     public static function loadConfigurationType($id)
     {
         if (is_int($id) === false)
@@ -235,13 +277,16 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->LoadConfigurationType(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->LoadConfigurationTypeResult);
+        ApiResult::addResultFromObject($results, 'LoadConfigurationTypeResult');
 
         return ApiResult::getAll();
     }
 
     /**
-     * @todo test
+     * Update an existing configuration
+     *
+     * @param array $configuration
+     * @return mixed
      */
     public static function updateConfiguration(array $configuration)
     {
@@ -250,13 +295,16 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->UpdateConfiguration(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->UpdateConfigurationResult);
+        ApiResult::addResultFromObject($results, 'UpdateConfigurationResult');
 
         return ApiResult::getAll();
     }
 
     /**
-     * @todo test
+     * Updates an existing configuration type
+     *
+     * @param array $configurationType
+     * @return mixed
      */
     public static function updateConfigurationType(array $configurationType)
     {
@@ -265,13 +313,17 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->UpdateConfigurationType(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->UpdateConfigurationTypeResult);
+        ApiResult::addResultFromObject($results, 'UpdateConfigurationTypeResult');
 
         return ApiResult::getAll();
     }
 
     /**
-     * @todo test
+     * Delete an existing configuration
+     *
+     * @throws ApiException
+     * @param integer $id
+     * @return mixed
      */
     public static function deleteConfiguration($id)
     {
@@ -285,20 +337,17 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->DeleteConfiguration(ApiRequestParams::getAll());
 
-        if (method_exists($results, 'DeleteConfigurationResult') === true)
-        {
-            ApiResult::addResult($results->DeleteConfigurationResult);    
-        }
-        else
-        {
-            ApiResult::addResult($results);
-        }
+        ApiResult::addResultFromObject($results, 'DeleteConfigurationResult');
 
         return ApiResult::getAll();
     }
 
     /**
-     * @todo test
+     * Deletes an existing configuration type
+     *
+     * @throws ApiException
+     * @param integer $id
+     * @return mixed
      */
     public static function deleteConfigurationType($id)
     {
@@ -312,20 +361,17 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->DeleteConfigurationType(ApiRequestParams::getAll());
 
-        if (method_exists($results, 'DeleteConfigurationTypeResult') === true)
-        {
-            ApiResult::addResult($results->DeleteConfigurationTypeResult);
-        }
-        else
-        {
-            ApiResult::addResult($results);
-        }
+        ApiResult::addResultFromObject($results, 'DeleteConfigurationTypeResult');
 
         return ApiResult::getAll();
     }
 
     /**
-     * @todo test
+     * Deletes a question from an existing configuration type
+     *
+     * @throws ApiException
+     * @param integer $id
+     * @return mixed
      */
     public static function deleteConfigurationTypeQuestion($id)
     {
@@ -339,20 +385,17 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->DeleteConfigurationTypeQuestion(ApiRequestParams::getAll());
 
-        if (method_exists($results, 'DeleteConfigurationTypeQuestionResult') === true)
-        {
-            ApiResult::addResult($results->DeleteConfigurationTypeQuestionResult);
-        }
-        else
-        {
-            ApiResult::addResult($results);
-        }
+        ApiResult::addResultFromObject($results, 'DeleteConfigurationTypeQuestionResult');
 
         return ApiResult::getAll();
     }
 
     /**
-     * @todo test
+     * Deletes a possible response from an existing configuration type question
+     *
+     * @throws ApiException
+     * @param integer $id
+     * @return mixed
      */
     public static function deletePossibleResponse($id)
     {
@@ -366,14 +409,7 @@ class Configuration
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->DeletePossibleResponse(ApiRequestParams::getAll());
 
-        if (method_exists($results, 'DeletePossibleResponseResult') === true)
-        {
-            ApiResult::addResult($results->DeletePossibleResponseResult);
-        }
-        else
-        {
-            ApiResult::addResult($results);
-        }
+        ApiResult::addResultFromObject($results, 'DeletePossibleResponseResult');
 
         return ApiResult::getAll();
     }

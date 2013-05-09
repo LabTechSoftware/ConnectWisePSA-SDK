@@ -1,7 +1,7 @@
-<?php namespace Api;
+<?php namespace ConnectWiseApi;
 
 use SoapClient,
-    Api\ApiException;
+    ConnectWiseApi\ApiException;
 
 /**
  * API (SOAP) Connection

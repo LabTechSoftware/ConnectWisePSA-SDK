@@ -1,6 +1,6 @@
-<?php namespace Api;
+<?php namespace ConnectWiseApi;
 
-use Api\ApiException;
+use ConnectWiseApi\ApiException;
 
 /**
  * API Results Storage
@@ -34,6 +34,34 @@ class ApiResult
     }
 
     /**
+     * Test/add a result from an soap call response object
+     *
+     * @throws ApiException
+     * @param object $resObject
+     * @param string $expected
+     * @return void
+     */
+    public static function addResultFromObject($resObject, $expected)
+    {
+        if (is_object($resObject) === false)
+        {
+            throw new ApiException('Cannot extract result from non object.');
+        }
+
+        // Method or property exists?
+        if (method_exists($resObject, $expected) === true OR property_exists($resObject, $expected) === true)
+        {
+            // Add the method/property result
+            static::addResult($resObject->$expected);
+        }
+        else
+        {
+            // Property/method does not exist, add the object itself
+            static::addResult($resObject);
+        }
+    }
+
+    /**
      * Add multiple results
      *
      * @param array $results
@@ -50,7 +78,6 @@ class ApiResult
     /**
      * Get one of the results from the data array
      *
-     * @throws ApiException
      * @param string $key
      * @return mixed
      */

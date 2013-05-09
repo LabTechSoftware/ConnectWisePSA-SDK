@@ -1,9 +1,9 @@
-<?php namespace Api\ConnectWise;
+<?php namespace ConnectWiseApi;
 
-use Api\ApiResource,
-    Api\ApiRequestParams,
-    Api\ApiResult,
-    Api\ApiException;
+use ConnectWiseApiApi\Resource,
+    ConnectWiseApiApi\RequestParams,
+    ConnectWiseApiApi\Result,
+    ConnectWiseApiApi\Exception;
 
 class Reporting
 {

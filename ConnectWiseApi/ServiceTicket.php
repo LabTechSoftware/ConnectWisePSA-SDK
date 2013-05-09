@@ -1,9 +1,9 @@
-<?php namespace Api\ConnectWise;
+<?php namespace ConnectWiseApi;
 
-use Api\ApiResource,
-    Api\ApiRequestParams,
-    Api\ApiResult,
-    Api\ApiException;
+use ConnectWiseApi\ApiResource,
+    ConnectWiseApi\ApiRequestParams,
+    ConnectWiseApi\ApiResult,
+    ConnectWiseApi\ApiException;
 
 class ServiceTicket
 {

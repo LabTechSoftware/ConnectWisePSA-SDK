@@ -1,6 +1,6 @@
-<?php namespace Api;
+<?php namespace ConnectWiseApi;
 
-use Api\ApiException;
+use ConnectWiseApi\ApiException;
 
 /**
  * API Credentials Container
