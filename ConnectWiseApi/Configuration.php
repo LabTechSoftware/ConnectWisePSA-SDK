@@ -18,7 +18,7 @@ class Configuration
      * Add a new configuration
      *
      * @param array $config
-     * @return mixed
+     * @return array
      */
     public static function addConfiguration(array $config)
     {
@@ -36,7 +36,7 @@ class Configuration
      * Add a new configuration type
      *
      * @param array $configType
-     * @return mixed
+     * @return array
      */
     public static function addConfigurationType(array $configType)
     {
@@ -54,7 +54,7 @@ class Configuration
      * Adds or updates a configuration
      *
      * @param array $config
-     * @return mixed
+     * @return array
      */
     public static function addOrUpdateConfiguration(array $config)
     {
@@ -72,7 +72,7 @@ class Configuration
      * Adds or updates a configuration type
      *
      * @param array $configType
-     * @return mixed
+     * @return array
      */
     public static function addOrUpdateConfigurationType(array $configType)
     {
@@ -94,7 +94,7 @@ class Configuration
      * @param integer $skip
      * @param mixed (null/string) $conditions
      * @param string $orderBy
-     * @return mixed
+     * @return array
      */
     public static function findConfigurationTypes($limit = 0, $skip = 0, $conditions = null, $orderBy = null)
     {
@@ -129,7 +129,7 @@ class Configuration
      * @param integer $skip
      * @param mixed (null/string) $conditions
      * @param string $orderBy
-     * @return mixed
+     * @return array
      */
     public static function findConfigurations($limit = 0, $skip = 0, $conditions = null, $orderBy = null)
     {
@@ -162,7 +162,7 @@ class Configuration
      * @throws ApiException
      * @param boolean $isOpen
      * @param string $conditions
-     * @return mixed
+     * @return array
      */
     public static function findConfigurationsCount($isOpen = false, $conditions = '')
     {
@@ -188,7 +188,7 @@ class Configuration
      *
      * @throws ApiException
      * @param integer $id
-     * @return mixed
+     * @return array
      */
     public static function getConfiguration($id)
     {
@@ -213,7 +213,7 @@ class Configuration
      *
      * @throws ApiException
      * @param integer $id
-     * @return mixed
+     * @return array
      */
     public static function getConfigurationType($id)
     {
@@ -238,7 +238,7 @@ class Configuration
      *
      * @throws ApiException
      * @param integer $id
-     * @return mixed
+     * @return array
      */
     public static function loadConfiguration($id)
     {
@@ -263,7 +263,7 @@ class Configuration
      *
      * @throws ApiException
      * @param integer $id
-     * @return mixed
+     * @return array
      */
     public static function loadConfigurationType($id)
     {
@@ -286,7 +286,7 @@ class Configuration
      * Update an existing configuration
      *
      * @param array $configuration
-     * @return mixed
+     * @return array
      */
     public static function updateConfiguration(array $configuration)
     {
@@ -304,7 +304,7 @@ class Configuration
      * Updates an existing configuration type
      *
      * @param array $configurationType
-     * @return mixed
+     * @return array
      */
     public static function updateConfigurationType(array $configurationType)
     {
@@ -323,7 +323,7 @@ class Configuration
      *
      * @throws ApiException
      * @param integer $id
-     * @return mixed
+     * @return array
      */
     public static function deleteConfiguration($id)
     {
@@ -347,7 +347,7 @@ class Configuration
      *
      * @throws ApiException
      * @param integer $id
-     * @return mixed
+     * @return array
      */
     public static function deleteConfigurationType($id)
     {
@@ -371,7 +371,7 @@ class Configuration
      *
      * @throws ApiException
      * @param integer $id
-     * @return mixed
+     * @return array
      */
     public static function deleteConfigurationTypeQuestion($id)
     {
@@ -395,7 +395,7 @@ class Configuration
      *
      * @throws ApiException
      * @param integer $id
-     * @return mixed
+     * @return array
      */
     public static function deletePossibleResponse($id)
     {

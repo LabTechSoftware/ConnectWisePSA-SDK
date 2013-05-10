@@ -41,22 +41,30 @@ class ApiResult
      * @param string $expected
      * @return void
      */
-    public static function addResultFromObject($resObject, $expected)
+    public static function addResultFromObject($resObject, $expected = null)
     {
         if (is_object($resObject) === false)
         {
             throw new ApiException('Cannot extract result from non object.');
         }
 
-        // Method or property exists?
-        if (method_exists($resObject, $expected) === true OR property_exists($resObject, $expected) === true)
+        if (is_null($expected) === false)
         {
-            // Add the method/property result
-            static::addResult($resObject->$expected);
+            // Method or property exists?
+            if (method_exists($resObject, $expected) === true OR property_exists($resObject, $expected) === true)
+            {
+                // Add the method/property result
+                static::addResult($resObject->$expected);
+            }
+            else
+            {
+                // Property/method does not exist, add the object itself
+                static::addResult($resObject);
+            }    
         }
         else
         {
-            // Property/method does not exist, add the object itself
+            // Only passed an object, no expected method/property
             static::addResult($resObject);
         }
     }
