@@ -1,45 +1,72 @@
 <?php namespace ConnectWiseApi;
 
-use ConnectWiseApiApi\Resource,
-    ConnectWiseApiApi\RequestParams,
-    ConnectWiseApiApi\Result,
-    ConnectWiseApiApi\Exception;
+use ConnectWiseApi\ApiResource,
+    ConnectWiseApi\ApiRequestParams,
+    ConnectWiseApi\ApiResult,
+    ConnectWiseApi\ApiException;
 
 class Reporting
 {
+    /**
+     * The API name for the SOAP connection
+     *
+     * @var string
+     */
     protected static $currentApi = 'ReportingAPI';
     
     /**
+     * Gets the list of reports accessible via the customer portal
      * @todo Test on a PSA account with sufficient permissions (insufficient perms throws an exception)
+     *
+     * @return array
      */
     public static function getPortalReports()
     {
         $getReports = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->GetPortalReports(ApiRequestParams::getAll());
 
-        ApiResult::addResult($getReports->GetPortalReportsResult);
+        ApiResult::addResultFromObject($getReports, 'GetPortalReportsResult');
 
         return ApiResult::getAll();
     }
-    
-    public static function getReportFields($reportName)
+
+    /**
+     * Gets the list of fields for a particular report
+     *
+     * @throws ApiException
+     * @param string $reportName
+     * @return array
+     */
+    public static function getReportFields($reportName = null)
     {
+        if (is_null($reportName) === true)
+        {
+            throw new ApiException('Report name required for get report fields.');
+        }
+
         ApiRequestParams::set('reportName', $reportName);
 
         $reportFields = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->GetReportFields(ApiRequestParams::getAll());
 
-        ApiResult::addResult($reportFields->GetReportFieldsResult);
+        ApiResult::addResultFromObject($reportFields, 'GetReportFieldsResult');
 
         return ApiResult::getAll();
     }
-    
+
+    /**
+     * Gets the list of available reports
+     *
+     * @throws ApiException
+     * @param boolean $includeFields
+     * @return array
+     */
     public static function getReports($includeFields = true)
     {
         // Check for boolean param
         if (is_bool($includeFields) === false)
         {
-            throw new ApiException('getReports parameter must be boolean.');
+            throw new ApiException('Include fields parameter must be boolean.');
         }
 
         ApiRequestParams::set('includeFields', $includeFields);
@@ -47,15 +74,24 @@ class Reporting
         $getResults = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->GetReports(ApiRequestParams::getAll());
 
-        ApiResult::addResult($getResults->GetReportsResult->Report);
+        ApiResult::addResultFromObject($getResults->GetReportsResult, 'Report');
 
         return ApiResult::getAll();
     }
     
     /**
+     * Run a portal report with the given set of condiitons
      * @todo Unable to test, need a valid portal report name to finish
+     *
+     * @throws ApiException
+     * @param integer $limit
+     * @param integer $skip
+     * @param string $reportName
+     * @param string $conditions
+     * @param string $orderBy
+     * @return array
      */
-    public static function runPortalReport($reportName = '', $conditions = '', $orderBy = '', $limit = 100, $skip = 0)
+    public static function runPortalReport($limit = 100, $skip = 0, $reportName = '', $conditions = '', $orderBy = '')
     {
         if (is_int($limit) === false)
         {
@@ -76,31 +112,43 @@ class Reporting
         $runReport = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->RunPortalReport(ApiRequestParams::getAll());
 
-        ApiResult::addResult($runReport->RunPortalReportResult);
+        ApiResult::addResultFromObject($runReport->RunPortalReportResult, 'ResultRow');
 
         return ApiResult::getAll();
     }
 
+    /**
+     * Runs a particular report with a given set of conditions. Returnss the # of records that would be returned.
+     *
+     * @param string $reportName
+     * @param string $conditions
+     * @return array
+     */
     public static function runReportCount($reportName, $conditions = '')
     {
         ApiRequestParams::set('reportName', $reportName);
 
-        $reportCountResult = ApiResource::run('api_connection', 'start', static::$currentApi)
+        $result = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->RunReportCount(ApiRequestParams::getAll());
 
-        ApiResult::addResult($reportCountResult->RunReportCountResult);
+        ApiResult::addResultFromObject($result, 'RunReportCountResult');
 
         return ApiResult::getAll();
     }
     
-    public static function runReportQuery($reportName = null, $conditions = '', $orderBy = '', $limit = 100, $skip = 0)
+    /**
+     * Runs a particular report with a given set of conditions
+     *
+     * @throws ApiException
+     * @param string $reportName
+     * @param integer $limit
+     * @param integer $skip
+     * @param string $conditions
+     * @param string $orderBy
+     * @return array
+     */
+    public static function runReportQuery($reportName, $limit = 100, $skip = 0, $conditions = '', $orderBy = '')
     {
-        // Report name? :O
-        if (is_null($reportName) === true)
-        {
-            throw new ApiException('No report name given.');
-        }
-
         if (is_int($limit) === false)
         {
             throw new ApiException('Limit value must be an integer.');
@@ -117,10 +165,10 @@ class Reporting
         ApiRequestParams::set('limit', $limit);
         ApiRequestParams::set('skip', $skip);
 
-        $runResults = ApiResource::run('api_connection', 'start', static::$currentApi)
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->RunReportQuery(ApiRequestParams::getAll());
 
-        ApiResult::addResult($runResults->RunReportQueryResult->ResultRow);
+        ApiResult::addResultFromObject($results->RunReportQueryResult, 'ResultRow');
 
         return ApiResult::getAll();
     }

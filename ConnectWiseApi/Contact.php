@@ -23,7 +23,7 @@ class Contact
      * @param integer $contactId
      * @param integer $groupId
      * @param string $note
-     * @return mixed
+     * @return array
      */
     public static function addContactToGroup($contactId, $groupId, $note = '')
     {
@@ -54,7 +54,7 @@ class Contact
      * Set RecId & Id to 0 to add new contact. If non-zero, the existing contact with that Id is updated.
      *
      * @param array $contactData
-     * @return mixed
+     * @return array
      */
     public static function addOrUpdateContact(array $contactData)
     {
@@ -76,7 +76,7 @@ class Contact
      * @throws ApiException
      * @param integer $contactId
      * @param array $method
-     * @return mixed
+     * @return array
      */
     public static function addOrUpdateContactCommunicationItem($contactId, array $commItemData)
     {
@@ -104,7 +104,7 @@ class Contact
      * @throws ApiException
      * @param integer $contactId
      * @param array $note
-     * @return mixed
+     * @return array
      */
     public static function addOrUpdateContactNote($contactId, array $note)
     {
@@ -137,17 +137,17 @@ class Contact
         throw new ApiException('Authenticate method unvailable.');
 
         /*
-        $params2['email'] = $params['email'];
-        $params2['loginpw'] = $params['loginpw'];
-        $params2['portalName'] = $params['portalName'];
-        
-        try
-        {
-            $results = $this->call('Authenticate', $params2);
-            if(is_soap_fault($results)) { throw $results; }
-            return $results->AuthenticateResult;
-        }
-        catch(SoapFault $fault) { return $fault;  }
+            $params2['email'] = $params['email'];
+            $params2['loginpw'] = $params['loginpw'];
+            $params2['portalName'] = $params['portalName'];
+            
+            try
+            {
+                $results = $this->call('Authenticate', $params2);
+                if(is_soap_fault($results)) { throw $results; }
+                return $results->AuthenticateResult;
+            }
+            catch(SoapFault $fault) { return $fault;  }
         */
     }
     
@@ -159,7 +159,7 @@ class Contact
      * @param integer $skip
      * @param string $orderBy
      * @param string $conditions
-     * @return mixed
+     * @return array
      */
     public static function findCompanies($limit = 0, $skip = 0, $orderBy = null, $conditions = null)
     {
@@ -194,7 +194,7 @@ class Contact
      * @param integer $skip
      * @param string $orderBy
      * @param string $conditions
-     * @return mixed
+     * @return array
      */
     public static function findContacts($limit = 0, $skip = 0, $orderBy = null, $conditions = null)
     {
@@ -220,11 +220,12 @@ class Contact
 
         return ApiResult::getAll();
     }
-    
-    // --- stopping point - azavala 3/9/13 ---
 
     /**
-     * @todo test
+     * Finds a count of available contacts by a set of conditions
+     *
+     * @param string $conditions
+     * @return array
      */
     public static function findContactsCount($conditions = null)
     {
@@ -233,37 +234,33 @@ class Contact
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->FindContactsCount(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->FindContactsCountResult);
+        ApiResult::addResultFromObject($results, 'FindContactsCountResult');
 
         return ApiResult::getAll();
     }
     
     /**
-     * @todo test
+     * Gets all communication types and descriptions
+     *
+     * @return array
      */
     public static function getAllCommunicationTypesAndDescriptions()
     {
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->GetAllCommunicationTypesAndDescription(ApiRequestParams::getAll());
 
-        if (method_exists($results->GetAllCommunicationTypesAndDescriptionResult, 'CommunicationTypeDescriptions') === true)
-        {
-            ApiResult::addResult($results->GetAllCommunicationTypesAndDescriptionResult->CommunicationTypeDescriptions);    
-        }
-        elseif (property_exists($results->GetAllCommunicationTypesAndDescriptionResult, 'CommunicationTypeDescriptions') === true)
-        {
-            ApiResult::addResult($results->GetAllCommunicationTypesAndDescriptionResult->CommunicationTypeDescriptions);
-        }
-        else
-        {
-            ApiResult::addResult($results->GetAllCommunicationTypesAndDescriptionResult);
-        }
+        ApiResult::addResultFromObject($results->GetAllCommunicationTypesAndDescriptionResult, 'CommunicationTypeDescriptions');
 
         return ApiResult::getAll();
     }
     
     /**
-     * @todo test
+     * Gets all communication items for contact by database record id
+     * If no contact exists with the given id, an empty array is returned
+     *
+     * @throws ApiException
+     * @param integer $contactId
+     * @return array
      */
     public static function getAllContactCommunicationItems($contactId)
     {
@@ -277,18 +274,7 @@ class Contact
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->GetAllContactCommunicationItems(ApiRequestParams::getAll());
 
-        if (method_exists($results->GetAllContactCommunicationItemsResult, 'ContactCommunicationItem') === true)
-        {
-            ApiResult::addResult($results->GetAllContactCommunicationItemsResult->ContactCommunicationItem);    
-        }
-        elseif (property_exists($results->GetAllContactCommunicationItemsResult, 'ContactCommunicationItem') === true)
-        {
-            ApiResult::addResult($results->GetAllContactCommunicationItemsResult->ContactCommunicationItem);
-        }
-        else
-        {
-            ApiResult::addResult($results->GetAllContactCommunicationItemsResult);
-        }
+        ApiResult::addResultFromObject($results->GetAllContactCommunicationItemsResult, 'ContactCommunicationItem');
 
         return ApiResult::getAll();
     }
@@ -319,21 +305,20 @@ class Contact
     }
     
     /**
-     * @todo test (need a valid image id)
+     * Gets an avatar image from the server
+     *
+     * @todo need a valid image id to test; method should work fine though...
+     * @param string $imageId
+     * @return array
      */
     public static function getAvatarImage($imageId)
     {
-        if (is_int($imageId) === false)
-        {
-            throw new ApiException('Contact ID must be an integer.');
-        }
-
         ApiRequestParams::set('imageId', $imageId);
 
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->GetAvatarImage(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->GetAvatarImageResult);
+        ApiResult::addResultFromObject($results, 'GetAvatarImageResult');
 
         return ApiResult::getAll();
     }
@@ -354,7 +339,7 @@ class Contact
      *
      * @throws ApiException
      * @param integer $contactRecId
-     * @return mixed
+     * @return array
      */
     public static function getContact($contactRecId)
     {
@@ -373,7 +358,17 @@ class Contact
         return ApiResult::getAll();
     }
     
-    public static function getContactCommunicationItem($contactId, $type, $description)
+    /**
+     * Gets a communication item for contact by database record contactId
+     * If no contact exists with the given id, an empty array is returned
+     *
+     * @throws ApiException
+     * @param integer $contactId
+     * @param string $type
+     * @param string $description
+     * @return array
+     */
+    public static function getContactCommunicationItem($contactId, $type, $description = '')
     {
         if (is_int($contactId) === false)
         {
@@ -387,72 +382,217 @@ class Contact
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->GetContactCommunicationItem(ApiRequestParams::getAll());
 
-        if (method_exists($results, 'ContactMethod') === true)
-        {
-            ApiResult::addResult($results->ContactMethod);    
-        }
-        elseif (property_exists($results, 'ContactMethod') === true)
-        {
-            ApiResult::addResult($results->ContactMethod);
-        }
-        else
-        {
-            ApiResult::addResult($results);
-        }
+        ApiResult::addResultFromObject($results, 'ContactMethod');
 
         return ApiResult::getAll();
     }
 
-    public static function getContactNote()
+    /**
+     * Gets a note for contact by database record id
+     * If no contact exists with the given id, an empty array is returned
+     *
+     * @throws ApiException
+     * @param integer $contactId
+     * @param integer $noteId
+     * @return array
+     */
+    public static function getContactNote($contactId, $noteId)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiExceptions(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($contactId) === false)
+        {
+            throw new ApiException('Contact id must be an integer.');
+        }
+
+        if (is_int($noteId) === false)
+        {
+            throw new ApiException('Note ID must be an integer.');
+        }
+
+        ApiRequestParams::set('contactId', $contactId);
+        ApiRequestParams::set('noteId', $noteId);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->GetContactNote(ApiRequestParams::getAll());
+
+        ApiResult::addResultFromObject($results, 'GetContactNoteResult');
+
+        return ApiResult::getAll();
     }
     
-    public static function getPortalConfigSettings()
+    /**
+     * Return the configuration settings for the specified portal
+     *
+     * @param string $portalName
+     * @return array
+     */
+    public static function getPortalConfigSettings($portalName = '')
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiExceptions(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        ApiRequestParams::set('portalName', $portalName);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->GetPortalConfigSettings(ApiRequestParams::getAll());
+
+        ApiResult::addResultFromObject($results, 'GetPortalConfigSettingsResult');
+
+        return ApiResult::getAll();
     }
     
-    public static function getPortalLoginCustomizations()
+    /**
+     * Get the login page customizations for the specified portal
+     *
+     * @param string $portalName
+     * @return array
+     */
+    public static function getPortalLoginCustomizations($portalName = '')
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiExceptions(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        ApiRequestParams::set('portalName', $portalName);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->GetPortalLoginCustomizations(ApiRequestParams::getAll());
+
+        ApiResult::addResultFromObject($results, 'GetPortalLoginCustomizationsResult');
+
+        return ApiResult::getAll();
     }
     
-    public static function getPortalSecurity()
+    /**
+     * Return the security settings for the contact logged into the portal
+     *
+     * @throws ApiException
+     * @param integer $portalContId
+     * @param string $portalCompName
+     * @return array
+     */
+    public static function getPortalSecurity($portalContId, $portalCompName = '')
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiExceptions(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($portalContId) === false)
+        {
+            throw new ApiException('Portal ContId must be an integer.');
+        }
+
+        ApiRequestParams::set('portalContId', $portalContId);
+        ApiRequestParams::set('portalCompName', $portalCompName);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->GetPortalSecurity(ApiRequestParams::getAll());
+
+        ApiResult::addResultFromObject($results->GetPortalSecurityResult, 'PortalSecurity');
+
+        return ApiResult::getAll();
     }
     
-    public static function loadContact()
+    /**
+     * Gets a contact by database record id
+     * If no contact exists with the given id, an exception (SoapFault) is thrown
+     *
+     * @throws ApiException
+     * @param integer $contactId
+     * @return array
+     */
+    public static function loadContact($contactId)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiExceptions(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($contactId) === false)
+        {
+            throw new ApiException('Contact ID must be an integer.');
+        }
+
+        ApiRequestParams::set('id', $contactId);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->LoadContact(ApiRequestParams::getAll());
+
+        ApiResult::addResultFromObject($results, 'LoadContactResult');
+
+        return ApiResult::getAll();
     }
     
-    public static function removeContactFromGroup()
+    /**
+     * Removes a contact from the specified group
+     *
+     * @todo Need a valid group id to finish testing this
+     *
+     * @throws ApiException
+     * @param integer $contactId
+     * @param integer $groupId
+     * @param string $note
+     * @return array 
+     */
+    public static function removeContactFromGroup($contactId, $groupId, $note = '')
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiExceptions(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($contactId) === false)
+        {
+            throw new ApiException('Contact ID must be an integer.');
+        }
+
+        if (is_int($groupId) === false)
+        {
+            throw new ApiException('Group ID must be an integer.');
+        }
+
+        ApiRequestParams::set('contactID', $contactId);
+        ApiRequestParams::set('groupID', $groupId);
+        ApiRequestParams::set('transactionNote', $note);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->RemoveContactFromGroup(ApiRequestParams::getAll());
+
+        ApiResult::addResultFromObject($results, 'RemoveContactFromGroupResult');
+
+        return ApiResult::getAll();
     }
     
-    public static function requestPassword()
+    /**
+     * Runs the "Forgot Password" process on the server
+     *
+     * @param string $emailAddress
+     * @return array
+     */
+    public static function requestPassword($emailAddress = '')
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiExceptions(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        ApiRequestParams::set('emailAddress', $emailAddress);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->RequestPassword(ApiRequestParams::getAll());
+
+        ApiResult::addResultFromObject($results);
+
+        return ApiResult::getAll();
     }
     
-    public static function setDefaultContactCommunicationItem()
+    /**
+     * Sets the default communication type for contactId, communcation type, and communication description
+     *
+     * @throws ApiException
+     * @param integer $contactId
+     * @param string $communicationType
+     * @param string $communicationDescription
+     * @return array
+     */
+    public static function setDefaultContactCommunicationItem($contactId, $communicationType, $communicationDescription)
     {
-        // NOT IMPLIMENTED YET
-        throw new ApiExceptions(__CLASS__."::".__FUNCTION__." is not implimented yet.");
+        if (is_int($contactId) === false)
+        {
+            throw new ApiException('Contact ID must be an integer.');
+        }
+
+        ApiRequestParams::set('contactId', $contactId);
+        ApiRequestParams::set('communicationType', $communicationType);
+        ApiRequestParams::set('communicationDescription', $communicationDescription);
+
+        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+            ->SetDefaultContactCommunicationItem(ApiRequestParams::getAll());
+
+        ApiResult::addResultFromObject($results, 'ContactMethod');
+
+        return ApiResult::getAll();
     }
 
     /**
-     * @todo test
+     * Deletes a contact by database record id
+     *
+     * @throws ApiException
+     * @param integer $id
+     * @return array
      */
     public static function deleteContact($id)
     {
@@ -466,13 +606,19 @@ class Contact
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->DeleteContact(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->DeleteContactResult);
+        ApiResult::addResultFromObject($results);
 
         return ApiResult::getAll();
     }
     
     /**
-     * @todo test
+     * Deletes a communication by database record for contactId, communcationType, and communicationDescription
+     *
+     * @throws ApiException 
+     * @param integer $contactId
+     * @param string $type
+     * @param string $description
+     * @return array
      */
     public static function deleteContactCommunicationItem($contactId, $type, $description = '')
     {
@@ -488,13 +634,18 @@ class Contact
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->DeleteContactCommunicationItem(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->DeleteContactCommunicationItemResult);
+        ApiResult::addResultFromObject($results);
 
         return ApiResult::getAll();
     }
     
     /**
-     * @todo test
+     * Deletes a note by database record id. Returns an empty array on success
+     *
+     * @throws ApiException
+     * @param integer $noteId
+     * @param integer $contactId
+     * @return array
      */
     public static function deleteNote($noteId, $contactId)
     {
@@ -514,7 +665,7 @@ class Contact
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
             ->DeleteNote(ApiRequestParams::getAll());
 
-        ApiResult::addResult($results->DeleteNoteResult);
+        ApiResult::addResultFromObject($results, 'DeleteNoteResult');
 
         return ApiResult::getAll();
     }
