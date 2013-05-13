@@ -108,6 +108,16 @@ class Configuration
             throw new ApiException('Skip value must be an integer.');
         }
 
+        if (is_string($conditions) === false)
+        {
+            throw new ApiException('Conditions must be a string.');
+        }
+
+        if (is_string($orderBy) === false)
+        {
+            throw new ApiException('Order by must be a string.');
+        }
+
         ApiRequestParams::set('limit', $limit);
         ApiRequestParams::set('skip', $skip);
         ApiRequestParams::set('conditions', $conditions);
@@ -143,6 +153,16 @@ class Configuration
             throw new ApiException('Skip value must be an integer.');
         }
 
+        if (is_string($conditions) === false)
+        {
+            throw new ApiException('Conditions must be a string.');
+        }
+
+        if (is_string($orderBy) === false)
+        {
+            throw new ApiException('Order by must be a string.');
+        }
+
         ApiRequestParams::set('limit', $limit);
         ApiRequestParams::set('skip', $skip);
         ApiRequestParams::set('conditions', $conditions);
@@ -169,6 +189,11 @@ class Configuration
         if (is_bool($isOpen) === false)
         {
             throw new ApiException('Is Open param must be boolean.');
+        }
+
+        if (is_string($conditions) === false)
+        {
+            throw new ApiException('Conditions must be a string.');
         }
 
         ApiRequestParams::set('conditions', $conditions);

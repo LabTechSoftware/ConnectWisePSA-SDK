@@ -43,7 +43,13 @@ function apiAutoloader($className)
     }
     
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-    require $fileName;
+    
+    $toLoad = dirname(__FILE__).'/'.$fileName;
+
+    if (is_file($toLoad) === true)
+    {
+        include $toLoad;
+    }
 }
 
 // Register autoload function

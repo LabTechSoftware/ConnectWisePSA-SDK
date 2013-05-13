@@ -126,6 +126,16 @@ class Reporting
      */
     public static function runReportCount($reportName, $conditions = '')
     {
+        if (is_string($reportName) === false)
+        {
+            throw new ApiException('Report name must be a string.');
+        }
+
+        if (is_string($conditions) === false)
+        {
+            throw new ApiException('Conditions must be a string.');
+        }
+
         ApiRequestParams::set('reportName', $reportName);
 
         $result = ApiResource::run('api_connection', 'start', static::$currentApi)
@@ -157,6 +167,21 @@ class Reporting
         if (is_int($skip) === false)
         {
             throw new ApiException('Skip value must be an integer.');
+        }
+
+        if (is_string($reportName) === false)
+        {
+            throw new ApiException('Report name must be a string.');
+        }
+
+        if (is_string($conditions) === false)
+        {
+            throw new ApiException('Conditions value must be a string.');
+        }
+
+        if (is_string($orderBy) === false)
+        {
+            throw new ApiException('Order by value must be a string.');
         }
         
         ApiRequestParams::set('reportName', $reportName);
