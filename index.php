@@ -15,10 +15,9 @@ try
     /**
      * Service Ticket API Examples
      */
-
     /*
     $test = ServiceTicket::addOrUpdateServiceTicketViaCompanyId('ConnectWise', array(
-        'TicketNumber' =>  959, 'SendingSrServiceRecid' => 959, 'DateReq' => '2013-02-02', 'SubBillingMethodId' => 'None',
+        'TicketNumber' =>  99, 'SendingSrServiceRecid' => 99, 'DateReq' => '2013-02-02', 'SubBillingMethodId' => 'None',
         'SubBillingAmount' => '100.00', 'SubDateAccepted' => '2013-01-02', 'SubDateAcceptedUtc' => '2013-01-01', 
         'BudgetHours' => '3.0', 'SkipCallback' => false, 'Approved' => false, 'ClosedFlag' => false, 'Summary' => 'This is a test (updated).',
         'Status' => 'N'
@@ -34,7 +33,7 @@ try
     */
     /*
     $test = ServiceTicket::addOrUpdateTicketProduct(array(
-        'Dropship' => false, 'SpecialOrder' => false, 'ForecastDetailId' => 0, 'TicketId' => 960, 'ProjectId' => 0, 
+        'Dropship' => false, 'SpecialOrder' => false, 'ForecastDetailId' => 0, 'TicketId' => 99, 'ProjectId' => 0, 
         'InvoiceId' => 0, 'SalesOrderId' => 0, 'Price' => 5.0, 'Cost' => 0.0, 'Quantity' => 3.00, 'ItemId' => 743, 
         'Description' => 'Test product', 'Invoice' => false, 'Taxable' => false, 'Billable' => false, 'Id' => 0,
         'OpportunityId' => 0, 'OwnerLevelRecid' => 2, 'Warehouse' => false, 'Bin' => false, 'BillingUnitRecid' => 10
@@ -62,7 +61,7 @@ try
     // $test = ServiceTicket::getTicketDocuments(328);
     // $test = ServiceTicket::deleteServiceTicket(959);
     // $test = ServiceTicket::findServiceTickets(20);
-    // $test = ServiceTicket::getTicketProductList(960);
+    // $test = ServiceTicket::getTicketProductList(99);
     // $test = ServiceTicket::getServiceStatuses(960);
     // $test = ServiceTicket::getServiceTicket(960);
     // $test = ServiceTicket::getTicketCount();

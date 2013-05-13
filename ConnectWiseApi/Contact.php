@@ -37,6 +37,11 @@ class Contact
             throw new ApiException('Group ID must be an integer.');
         }
 
+        if (is_string($note) === false)
+        {
+            throw new ApiException('Note value must be a string.');
+        }
+
         ApiRequestParams::set('contactID', $contactId);
         ApiRequestParams::set('groupID', $groupId);
         ApiRequestParams::set('transactionNote', $note);
@@ -173,6 +178,16 @@ class Contact
             throw new ApiException('Skip value must be an integer.');
         }
 
+        if (is_string($orderBy) === false)
+        {
+            throw new ApiException('Order by must be a string.');
+        }
+
+        if (is_string($conditions) === false)
+        {
+            throw new ApiException('Conditions must be a string.');
+        }
+
         ApiRequestParams::set('limit', $limit);
         ApiRequestParams::set('skip', $skip);
         ApiRequestParams::set('conditions', $conditions);
@@ -208,6 +223,16 @@ class Contact
             throw new ApiException('Skip value must be an integer.');
         }
 
+        if (is_string($orderBy) === false)
+        {
+            throw new ApiException('Order by must be a string.');
+        }
+
+        if (is_string($conditions) === false)
+        {
+            throw new ApiException('Conditions must be a string.');
+        }
+
         ApiRequestParams::set('limit', $limit);
         ApiRequestParams::set('skip', $skip);
         ApiRequestParams::set('conditions', $conditions);
@@ -229,6 +254,11 @@ class Contact
      */
     public static function findContactsCount($conditions = null)
     {
+        if (is_string($conditions) === false)
+        {
+            throw new ApiException('Conditions must be a string.');
+        }
+
         ApiRequestParams::set('conditions', $conditions);
 
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
@@ -375,6 +405,16 @@ class Contact
             throw new ApiException('Contact ID must be an integer.');
         }
 
+        if (is_string($type) === false)
+        {
+            throw new ApiException('Type must be a string.');
+        }
+
+        if (is_string($description) === false)
+        {
+            throw new ApiException('Description must be a string.');
+        }
+
         ApiRequestParams::set('contactId', $contactId);
         ApiRequestParams::set('communicationType', $type);
         ApiRequestParams::set('communicationDescription', $description);
@@ -427,6 +467,11 @@ class Contact
      */
     public static function getPortalConfigSettings($portalName = '')
     {
+        if (is_string($portalName) === false)
+        {
+            throw new ApiException('Portal name must be a string.');
+        }
+
         ApiRequestParams::set('portalName', $portalName);
 
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
@@ -445,6 +490,11 @@ class Contact
      */
     public static function getPortalLoginCustomizations($portalName = '')
     {
+        if (is_string($portalName) === false)
+        {
+            throw new ApiException('Portal name must be a string.');
+        }
+
         ApiRequestParams::set('portalName', $portalName);
 
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
@@ -468,6 +518,11 @@ class Contact
         if (is_int($portalContId) === false)
         {
             throw new ApiException('Portal ContId must be an integer.');
+        }
+
+        if (is_string($portalCompName) === false)
+        {
+            throw new ApiException('Portal name must be a string.');
         }
 
         ApiRequestParams::set('portalContId', $portalContId);
@@ -529,6 +584,11 @@ class Contact
             throw new ApiException('Group ID must be an integer.');
         }
 
+        if (is_string($note) === false)
+        {
+            throw new ApiException('Note must be a string.');
+        }
+
         ApiRequestParams::set('contactID', $contactId);
         ApiRequestParams::set('groupID', $groupId);
         ApiRequestParams::set('transactionNote', $note);
@@ -549,6 +609,11 @@ class Contact
      */
     public static function requestPassword($emailAddress = '')
     {
+        if (is_string($emailAddress) === false)
+        {
+            throw new ApiException('Email address must be a string.');
+        }
+
         ApiRequestParams::set('emailAddress', $emailAddress);
 
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
@@ -573,6 +638,16 @@ class Contact
         if (is_int($contactId) === false)
         {
             throw new ApiException('Contact ID must be an integer.');
+        }
+
+        if (is_string($communicationType) === false)
+        {
+            throw new ApiException('Communication type must be a string.');
+        }
+
+        if (is_string($communicationDescription) === false)
+        {
+            throw new ApiException('Communication description must be a string.');
         }
 
         ApiRequestParams::set('contactId', $contactId);
@@ -625,6 +700,16 @@ class Contact
         if (is_int($contactId) === false)
         {
             throw new ApiException('Contact ID must be an integer.');
+        }
+
+        if (is_string($type) === false)
+        {
+            throw new ApiException('Type must be a string.');
+        }
+
+        if (is_string($description) === false)
+        {
+            throw new ApiException('Description must be a string.');
         }
 
         ApiRequestParams::set('contactId', $contactId);

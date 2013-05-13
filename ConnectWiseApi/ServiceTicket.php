@@ -5,11 +5,13 @@ use ConnectWiseApi\ApiResource,
     ConnectWiseApi\ApiResult,
     ConnectWiseApi\ApiException;
 
-/**
- * @todo Testing...
- */
 class ServiceTicket
 {
+    /**
+     * The API name for the SOAP connection
+     *
+     * @var string
+     */
     protected static $currentApi = 'ServiceTicketApi';
     
     /**
@@ -23,6 +25,11 @@ class ServiceTicket
      **/
     public static function addOrUpdateServiceTicketViaCompanyId($companyId, array $serviceTicket)
     {
+        if (is_string($companyId) === false)
+        {
+            throw new ApiException('Company ID must be a string.');
+        }
+
         ApiRequestParams::set('companyId', $companyId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
@@ -46,6 +53,11 @@ class ServiceTicket
      **/
     public static function addOrUpdateServiceTicketViaManagedId($managedId, array $serviceTicket)
     {
+        if (is_string($managedId) === false)
+        {
+            throw new ApiException('Managed ID must be a string.');
+        }
+
         ApiRequestParams::set('managedId', $managedId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
@@ -85,6 +97,11 @@ class ServiceTicket
      */
     public static function addServiceTicketViaCompanyId($companyId, array $serviceTicket)
     {
+        if (is_string($companyId) === false)
+        {
+            throw new ApiException('Company ID must be a string.');
+        }
+
         ApiRequestParams::set('companyId', $companyId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
@@ -106,6 +123,11 @@ class ServiceTicket
      **/
     public static function addServiceTicketViaManagedId($managedId, array $serviceTicket)
     {
+        if (is_string($managedId) === false)
+        {
+            throw new ApiException('Managed ID must be a string.');
+        }
+
         ApiRequestParams::set('managedId', $managedId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
@@ -145,7 +167,7 @@ class ServiceTicket
      * @param string $orderBy
      * @return array
      */
-    public static function findServiceTickets($limit = 100, $skip = 0, $conditions = null, $orderBy = null)
+    public static function findServiceTickets($limit = 100, $skip = 0, $conditions = '', $orderBy = '')
     {
         if (is_int($limit) === false) 
         {
@@ -155,6 +177,16 @@ class ServiceTicket
         if (is_int($skip) === false)
         {
             throw new ApiException('Skip value must be an integer.');
+        }
+
+        if (is_string($conditions) === false)
+        {
+            throw new ApiException('Conditions value must be a string.');
+        }
+
+        if (is_string($orderBy) === false)
+        {
+            throw new ApiException('Order by value must be a string.');
         }
 
         ApiRequestParams::set('limit', $limit);
@@ -231,6 +263,11 @@ class ServiceTicket
         if (is_bool($isOpen) === false)
         {
             throw new ApiException('isOpen parameter must be boolean.');
+        }
+
+        if (is_string($conditions) === false)
+        {
+            throw new ApiException('Conditions value must be a string.');
         }
 
         ApiRequestParams::set('conditions', $conditions);
@@ -317,6 +354,21 @@ class ServiceTicket
             throw new ApiException('Skip value must be an integer.');
         }
 
+        if (is_string($terms) === false)
+        {
+            throw new ApiException('Terms value must be a string.');
+        }
+
+        if (is_string($type) === false)
+        {
+            throw new ApiException('Type value must be a string.');
+        }
+
+        if (is_string($start) === false)
+        {
+            throw new ApiException('Start value must be a string.');
+        }
+
         if ($type != 'Any' AND $type != 'All' AND $type != 'Exact')
         {
             throw new ApiException('KB type invalid. Must be "Any", "All" or "Exact".');
@@ -345,12 +397,25 @@ class ServiceTicket
      * @param string $type
      * @param string $start
      * @param integer $companyRecId
-     * @param integer $limit
-     * @param integer $skip
      * @return array
      **/
     public static function searchKnowledgebaseCount($terms, $type, $start, $companyRecId = '')
     {
+        if (is_string($terms) === false)
+        {
+            throw new ApiException('Terms value must be a string.');
+        }
+
+        if (is_string($type) === false)
+        {
+            throw new ApiException('Type value must be a string.');
+        }
+
+        if (is_string($start) === false)
+        {
+            throw new ApiException('Start value must be a string.');
+        }
+
         if ($type != 'Any' AND $type != 'All' AND $type != 'Exact')
         {
             throw new ApiException('KB type invalid. Must be "Any", "All" or "Exact".');
@@ -402,6 +467,11 @@ class ServiceTicket
      **/
     public static function updateServiceTicketViaCompanyId($companyId, array $serviceTicket)
     {
+        if (is_string($companyId) === false)
+        {
+            throw new ApiException('Start value must be a string.');
+        }
+
         ApiRequestParams::set('companyId', $companyId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
@@ -423,6 +493,11 @@ class ServiceTicket
      **/
     public static function updateServiceTicketViaManagedId($managedId, array $serviceTicket)
     {
+        if (is_string($managedId) === false)
+        {
+            throw new ApiException('Managed ID value must be a string.');
+        }
+
         ApiRequestParams::set('managedId', $managedId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
@@ -486,6 +561,11 @@ class ServiceTicket
      **/
     public static function deleteServiceTicket($ticketId)
     {
+        if (is_int($ticketId) === false)
+        {
+            throw new ApiException('Ticket ID must be an integer.');
+        }
+
         ApiRequestParams::set('ticketNumber', $ticketId);
 
         $results = ApiResource::run('api_connection', 'start', static::$currentApi)
