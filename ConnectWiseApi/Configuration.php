@@ -92,11 +92,11 @@ class Configuration
      * @throws ApiException
      * @param integer $limit
      * @param integer $skip
-     * @param mixed (null/string) $conditions
+     * @param mixed string $conditions
      * @param string $orderBy
      * @return array
      */
-    public static function findConfigurationTypes($limit = 0, $skip = 0, $conditions = null, $orderBy = null)
+    public static function findConfigurationTypes($limit = 0, $skip = 0, $conditions = '', $orderBy = '')
     {
         if (is_int($limit) === false)
         {
@@ -137,11 +137,11 @@ class Configuration
      * @throws ApiException
      * @param integer $limit
      * @param integer $skip
-     * @param mixed (null/string) $conditions
+     * @param mixed string $conditions
      * @param string $orderBy
      * @return array
      */
-    public static function findConfigurations($limit = 0, $skip = 0, $conditions = null, $orderBy = null)
+    public static function findConfigurations($limit = 0, $skip = 0, $conditions = '', $orderBy = '')
     {
         if (is_int($limit) === false)
         {

@@ -133,8 +133,8 @@ try
     ));
     */
     // $test = Contact::getAllContactNotes(201);
-    // $test = Contact::findCompanies(10, 0, 'Id');
-    // $test = Contact::findContacts(10, 0, 'Id', 'ContactRecID = 6');
+    // $test = Contact::findCompanies(5, 0, 'Id');
+    // $test = Contact::findContacts(5, 0, 'Id', 'ContactRecID = 6');
     // $test = Contact::getContactCommunicationItem(2, 'PhoneNumber', 'Direct');
     // $test = Contact::getAllCommunicationTypesAndDescriptions();
     // $test = Contact::getContactByRecId(201);
@@ -162,11 +162,9 @@ try
     
     /*
     $test = Configuration::addConfiguration(array(
-        'Id' => 99, 'ConfigurationTypeId' => 11, 'ConfigurationType' => 'License', 'StatusId' => 1, 
-        'ConfigurationName' => 'PSA Software Test 02', 'CompanyId' => '99'
+        'Id' => 99, 'ConfigurationTypeId' => 11, 'ConfigurationType' => 'License', 'StatusId' => 1, 'ConfigurationName' => 'PSA Software Test sdf21'
     ));
     */
-    
     /*
     $test = Configuration::addConfigurationType(array(
         'Id' => 99, 'Name' => 'Test Config Type', 'InactiveFlag' => false, 'SystemFlag' => true
@@ -183,7 +181,7 @@ try
         'Id' => 25, 'Name' => 'Test Config Type', 'InactiveFlag' => false, 'SystemFlag' => true
     ));
     */
-    // $test = Configuration::getConfiguration(557);
+    // $test = Configuration::getConfiguration(99);
     // $test = Configuration::loadConfiguration(557);
     // $test = Configuration::getConfigurationType(26);
     // $test = Configuration::loadConfigurationType(26);
@@ -208,7 +206,7 @@ try
         ))
     ));
     */
-    // $test = Configuration::deleteConfiguration(557);
+    // $test = Configuration::deleteConfiguration(99);
     // $test = Configuration::deleteConfigurationType(25);
     // $test = Configuration::deleteConfigurationTypeQuestion(99);
     // $test = Configuration::deletePossibleResponse(50);

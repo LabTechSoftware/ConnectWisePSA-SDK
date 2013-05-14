@@ -166,7 +166,7 @@ class Contact
      * @param string $conditions
      * @return array
      */
-    public static function findCompanies($limit = 0, $skip = 0, $orderBy = null, $conditions = null)
+    public static function findCompanies($limit = 0, $skip = 0, $orderBy = '', $conditions = '')
     {
         if (is_int($limit) === false)
         {
@@ -211,7 +211,7 @@ class Contact
      * @param string $conditions
      * @return array
      */
-    public static function findContacts($limit = 0, $skip = 0, $orderBy = null, $conditions = null)
+    public static function findContacts($limit = 0, $skip = 0, $orderBy = '', $conditions = '')
     {
         if (is_int($limit) === false)
         {
@@ -252,7 +252,7 @@ class Contact
      * @param string $conditions
      * @return array
      */
-    public static function findContactsCount($conditions = null)
+    public static function findContactsCount($conditions = '')
     {
         if (is_string($conditions) === false)
         {
