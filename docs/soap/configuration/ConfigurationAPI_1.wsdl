@@ -1,0 +1,941 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://connectwise.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://connectwise.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>ConnectWise Configuration API</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://connectwise.com">
+      <s:element name="GetConfiguration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ApiCredentials">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="IntegratorLoginId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="IntegratorPassword" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetConfigurationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConfigurationResult" type="tns:Configuration"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Configuration">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ConfigurationTypeId" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ConfigurationType" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="StatusId" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ConfigurationName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ContactName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyId" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ContactId" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="OwnerLevelId" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BillingUnitId" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Manufacturer" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ManufacturerId" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="SerialNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ModelNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="TagNumber" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PurchaseDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="InstallationDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="InstalledBy" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="WarrantyExpiration" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UpdatedBy" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="AddressId" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine1" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="VendorNotes" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Notes" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="MacAddress" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="LastLoginName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BillFlag" nillable="true" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BackupSuccesses" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BackupIncomplete" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BackupFailed" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BackupRestores" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="LastBackupDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="BackupServerName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BackupBillableSpaceGb" nillable="true" type="s:decimal"/>
+          <s:element minOccurs="0" maxOccurs="1" name="BackupProtectedDeviceList" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BackupYear" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BackupMonth" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="IPAddress" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="DefaultGateway" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="OSType" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="OSInfo" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CPUSpeed" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="RAM" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="LocalHardDrives" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="IsActive" nillable="true" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ConfigurationQuestions" type="tns:ArrayOfConfigurationQuestion"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfConfigurationQuestion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ConfigurationQuestion" nillable="true" type="tns:ConfigurationQuestion"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ConfigurationQuestion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="QuestionId" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Question" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SequenceNumber" type="s:decimal"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FieldType" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfDecimals" type="s:short"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Answer" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoadConfiguration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadConfigurationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadConfigurationResult" type="tns:Configuration"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindConfigurations">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="orderBy" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="limit" nillable="true" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="skip" nillable="true" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindConfigurationsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindConfigurationsResult" type="tns:ArrayOfConfigurationFindResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfConfigurationFindResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ConfigurationFindResult" nillable="true" type="tns:ConfigurationFindResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ConfigurationFindResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ConfigurationTypeId" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ConfigurationType" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="StatusId" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ConfigurationName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ContactName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="SerialNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ModelNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="TagNumber" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="WarrantyExpiration" nillable="true" type="s:dateTime"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FindConfigurationsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="isOpen" nillable="true" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindConfigurationsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FindConfigurationsCountResult" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddConfiguration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="configuration" type="tns:Configuration"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddConfigurationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddConfigurationResult" type="tns:Configuration"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateConfiguration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="configuration" type="tns:Configuration"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateConfigurationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateConfigurationResult" type="tns:Configuration"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateConfiguration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="configuration" type="tns:Configuration"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateConfigurationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddOrUpdateConfigurationResult" type="tns:Configuration"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteConfiguration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteConfigurationResponse">
+        <s:complexType/>
+      </s:element>
+      <s:element name="FindConfigurationTypes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="orderBy" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="limit" nillable="true" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="skip" nillable="true" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindConfigurationTypesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindConfigurationTypesResult" type="tns:ArrayOfConfigurationTypeFindResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfConfigurationTypeFindResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ConfigurationTypeFindResult" nillable="true" type="tns:ConfigurationTypeFindResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ConfigurationTypeFindResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="InactiveFlag" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SystemFlag" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetConfigurationType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConfigurationTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConfigurationTypeResult" type="tns:ConfigurationType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ConfigurationType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="InactiveFlag" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UpdatedBy" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SystemFlag" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ConfigurationTypeQuestions" type="tns:ArrayOfConfigurationTypeQuestion"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfConfigurationTypeQuestion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ConfigurationTypeQuestion" nillable="true" type="tns:ConfigurationTypeQuestion"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ConfigurationTypeQuestion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="FieldType" type="tns:FieldTypes"/>
+          <s:element minOccurs="1" maxOccurs="1" name="EntryType" type="tns:EntryTypes"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ConfigurationTypeId" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SequenceNumber" type="s:decimal"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Question" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfDecimals" nillable="true" type="s:short"/>
+          <s:element minOccurs="1" maxOccurs="1" name="RequiredFlag" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="InactiveFlag" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PossibleResponses" type="tns:ArrayOfPossibleResponse"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="FieldTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="TextArea"/>
+          <s:enumeration value="Currency"/>
+          <s:enumeration value="Date"/>
+          <s:enumeration value="Hyperlink"/>
+          <s:enumeration value="IpAddress"/>
+          <s:enumeration value="Checkbox"/>
+          <s:enumeration value="Number"/>
+          <s:enumeration value="Percent"/>
+          <s:enumeration value="Text"/>
+          <s:enumeration value="Password"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="EntryTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="EntryField"/>
+          <s:enumeration value="List"/>
+          <s:enumeration value="Option"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfPossibleResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PossibleResponse" nillable="true" type="tns:PossibleResponse"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PossibleResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ConfigurationTypeQuestionId" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DefaultFlag" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoadConfigurationType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadConfigurationTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadConfigurationTypeResult" type="tns:ConfigurationType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateConfigurationType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="configurationType" type="tns:ConfigurationType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateConfigurationTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateConfigurationTypeResult" type="tns:ConfigurationType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddConfigurationType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="configurationType" type="tns:ConfigurationType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddConfigurationTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddConfigurationTypeResult" type="tns:ConfigurationType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateConfigurationType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="configurationType" type="tns:ConfigurationType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateConfigurationTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddOrUpdateConfigurationTypeResult" type="tns:ConfigurationType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteConfigurationType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteConfigurationTypeResponse">
+        <s:complexType/>
+      </s:element>
+      <s:element name="DeleteConfigurationTypeQuestion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteConfigurationTypeQuestionResponse">
+        <s:complexType/>
+      </s:element>
+      <s:element name="DeletePossibleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePossibleResponseResponse">
+        <s:complexType/>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetConfigurationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConfiguration"/>
+  </wsdl:message>
+  <wsdl:message name="GetConfigurationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConfigurationResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LoadConfigurationSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadConfiguration"/>
+  </wsdl:message>
+  <wsdl:message name="LoadConfigurationSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadConfigurationResponse"/>
+  </wsdl:message>
+  <wsdl:message name="FindConfigurationsSoapIn">
+    <wsdl:part name="parameters" element="tns:FindConfigurations"/>
+  </wsdl:message>
+  <wsdl:message name="FindConfigurationsSoapOut">
+    <wsdl:part name="parameters" element="tns:FindConfigurationsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="FindConfigurationsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:FindConfigurationsCount"/>
+  </wsdl:message>
+  <wsdl:message name="FindConfigurationsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:FindConfigurationsCountResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddConfigurationSoapIn">
+    <wsdl:part name="parameters" element="tns:AddConfiguration"/>
+  </wsdl:message>
+  <wsdl:message name="AddConfigurationSoapOut">
+    <wsdl:part name="parameters" element="tns:AddConfigurationResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateConfigurationSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateConfiguration"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateConfigurationSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateConfigurationResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateConfigurationSoapIn">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateConfiguration"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateConfigurationSoapOut">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateConfigurationResponse"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteConfigurationSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteConfiguration"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteConfigurationSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteConfigurationResponse"/>
+  </wsdl:message>
+  <wsdl:message name="FindConfigurationTypesSoapIn">
+    <wsdl:part name="parameters" element="tns:FindConfigurationTypes"/>
+  </wsdl:message>
+  <wsdl:message name="FindConfigurationTypesSoapOut">
+    <wsdl:part name="parameters" element="tns:FindConfigurationTypesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetConfigurationTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConfigurationType"/>
+  </wsdl:message>
+  <wsdl:message name="GetConfigurationTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConfigurationTypeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LoadConfigurationTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadConfigurationType"/>
+  </wsdl:message>
+  <wsdl:message name="LoadConfigurationTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadConfigurationTypeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateConfigurationTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateConfigurationType"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateConfigurationTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateConfigurationTypeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddConfigurationTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:AddConfigurationType"/>
+  </wsdl:message>
+  <wsdl:message name="AddConfigurationTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:AddConfigurationTypeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateConfigurationTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateConfigurationType"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateConfigurationTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateConfigurationTypeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteConfigurationTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteConfigurationType"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteConfigurationTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteConfigurationTypeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteConfigurationTypeQuestionSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteConfigurationTypeQuestion"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteConfigurationTypeQuestionSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteConfigurationTypeQuestionResponse"/>
+  </wsdl:message>
+  <wsdl:message name="DeletePossibleResponseSoapIn">
+    <wsdl:part name="parameters" element="tns:DeletePossibleResponse"/>
+  </wsdl:message>
+  <wsdl:message name="DeletePossibleResponseSoapOut">
+    <wsdl:part name="parameters" element="tns:DeletePossibleResponseResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="ConfigurationApiSoap">
+    <wsdl:operation name="GetConfiguration">
+      <wsdl:documentation>Gets a configuration by database record id. If no configuration exists with the given id, null is returned.</wsdl:documentation>
+      <wsdl:input message="tns:GetConfigurationSoapIn"/>
+      <wsdl:output message="tns:GetConfigurationSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LoadConfiguration">
+      <wsdl:documentation>Gets a configuration by database record id. If no configuration exists with the given id, an error is returned.</wsdl:documentation>
+      <wsdl:input message="tns:LoadConfigurationSoapIn"/>
+      <wsdl:output message="tns:LoadConfigurationSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="FindConfigurations">
+      <wsdl:documentation>Gets a configuration by database record id. If no configuration exists with the given id, null is returned.</wsdl:documentation>
+      <wsdl:input message="tns:FindConfigurationsSoapIn"/>
+      <wsdl:output message="tns:FindConfigurationsSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="FindConfigurationsCount">
+      <wsdl:documentation>Gets a count of available configurations.  Optionally filters by the supplied conditions.</wsdl:documentation>
+      <wsdl:input message="tns:FindConfigurationsCountSoapIn"/>
+      <wsdl:output message="tns:FindConfigurationsCountSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddConfiguration">
+      <wsdl:documentation>Add a new Configuration.</wsdl:documentation>
+      <wsdl:input message="tns:AddConfigurationSoapIn"/>
+      <wsdl:output message="tns:AddConfigurationSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguration">
+      <wsdl:documentation>Update an existing configuration.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateConfigurationSoapIn"/>
+      <wsdl:output message="tns:UpdateConfigurationSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateConfiguration">
+      <wsdl:documentation>Adds or Updates a configuration.</wsdl:documentation>
+      <wsdl:input message="tns:AddOrUpdateConfigurationSoapIn"/>
+      <wsdl:output message="tns:AddOrUpdateConfigurationSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConfiguration">
+      <wsdl:documentation>Delete an existing configuration</wsdl:documentation>
+      <wsdl:input message="tns:DeleteConfigurationSoapIn"/>
+      <wsdl:output message="tns:DeleteConfigurationSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="FindConfigurationTypes">
+      <wsdl:documentation>Finds Configuration Types</wsdl:documentation>
+      <wsdl:input message="tns:FindConfigurationTypesSoapIn"/>
+      <wsdl:output message="tns:FindConfigurationTypesSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfigurationType">
+      <wsdl:documentation>Gets a configuration type by database record id. If no configuration exists with the given id, null is returned.</wsdl:documentation>
+      <wsdl:input message="tns:GetConfigurationTypeSoapIn"/>
+      <wsdl:output message="tns:GetConfigurationTypeSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LoadConfigurationType">
+      <wsdl:documentation>Gets a configuration type by database record id. If no configuration exists with the given id, an error is returned.</wsdl:documentation>
+      <wsdl:input message="tns:LoadConfigurationTypeSoapIn"/>
+      <wsdl:output message="tns:LoadConfigurationTypeSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfigurationType">
+      <wsdl:documentation>Updates an existing configuration type.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateConfigurationTypeSoapIn"/>
+      <wsdl:output message="tns:UpdateConfigurationTypeSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddConfigurationType">
+      <wsdl:documentation>Adds a new configuration type.</wsdl:documentation>
+      <wsdl:input message="tns:AddConfigurationTypeSoapIn"/>
+      <wsdl:output message="tns:AddConfigurationTypeSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateConfigurationType">
+      <wsdl:documentation>Adds or Updates a configuration type.</wsdl:documentation>
+      <wsdl:input message="tns:AddOrUpdateConfigurationTypeSoapIn"/>
+      <wsdl:output message="tns:AddOrUpdateConfigurationTypeSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConfigurationType">
+      <wsdl:documentation>Deletes an existing configuration type.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteConfigurationTypeSoapIn"/>
+      <wsdl:output message="tns:DeleteConfigurationTypeSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConfigurationTypeQuestion">
+      <wsdl:documentation>Deletes a question from an existing configuration type.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteConfigurationTypeQuestionSoapIn"/>
+      <wsdl:output message="tns:DeleteConfigurationTypeQuestionSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePossibleResponse">
+      <wsdl:documentation>Deletes a possible response from an existing configuration type question.</wsdl:documentation>
+      <wsdl:input message="tns:DeletePossibleResponseSoapIn"/>
+      <wsdl:output message="tns:DeletePossibleResponseSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ConfigurationApiSoap" type="tns:ConfigurationApiSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetConfiguration">
+      <soap:operation soapAction="http://connectwise.com/GetConfiguration" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadConfiguration">
+      <soap:operation soapAction="http://connectwise.com/LoadConfiguration" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindConfigurations">
+      <soap:operation soapAction="http://connectwise.com/FindConfigurations" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindConfigurationsCount">
+      <soap:operation soapAction="http://connectwise.com/FindConfigurationsCount" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddConfiguration">
+      <soap:operation soapAction="http://connectwise.com/AddConfiguration" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguration">
+      <soap:operation soapAction="http://connectwise.com/UpdateConfiguration" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateConfiguration">
+      <soap:operation soapAction="http://connectwise.com/AddOrUpdateConfiguration" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConfiguration">
+      <soap:operation soapAction="http://connectwise.com/DeleteConfiguration" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindConfigurationTypes">
+      <soap:operation soapAction="http://connectwise.com/FindConfigurationTypes" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfigurationType">
+      <soap:operation soapAction="http://connectwise.com/GetConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadConfigurationType">
+      <soap:operation soapAction="http://connectwise.com/LoadConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfigurationType">
+      <soap:operation soapAction="http://connectwise.com/UpdateConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddConfigurationType">
+      <soap:operation soapAction="http://connectwise.com/AddConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateConfigurationType">
+      <soap:operation soapAction="http://connectwise.com/AddOrUpdateConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConfigurationType">
+      <soap:operation soapAction="http://connectwise.com/DeleteConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConfigurationTypeQuestion">
+      <soap:operation soapAction="http://connectwise.com/DeleteConfigurationTypeQuestion" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePossibleResponse">
+      <soap:operation soapAction="http://connectwise.com/DeletePossibleResponse" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ConfigurationApiSoap12" type="tns:ConfigurationApiSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetConfiguration">
+      <soap12:operation soapAction="http://connectwise.com/GetConfiguration" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadConfiguration">
+      <soap12:operation soapAction="http://connectwise.com/LoadConfiguration" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindConfigurations">
+      <soap12:operation soapAction="http://connectwise.com/FindConfigurations" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindConfigurationsCount">
+      <soap12:operation soapAction="http://connectwise.com/FindConfigurationsCount" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddConfiguration">
+      <soap12:operation soapAction="http://connectwise.com/AddConfiguration" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguration">
+      <soap12:operation soapAction="http://connectwise.com/UpdateConfiguration" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateConfiguration">
+      <soap12:operation soapAction="http://connectwise.com/AddOrUpdateConfiguration" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConfiguration">
+      <soap12:operation soapAction="http://connectwise.com/DeleteConfiguration" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindConfigurationTypes">
+      <soap12:operation soapAction="http://connectwise.com/FindConfigurationTypes" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfigurationType">
+      <soap12:operation soapAction="http://connectwise.com/GetConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadConfigurationType">
+      <soap12:operation soapAction="http://connectwise.com/LoadConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfigurationType">
+      <soap12:operation soapAction="http://connectwise.com/UpdateConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddConfigurationType">
+      <soap12:operation soapAction="http://connectwise.com/AddConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateConfigurationType">
+      <soap12:operation soapAction="http://connectwise.com/AddOrUpdateConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConfigurationType">
+      <soap12:operation soapAction="http://connectwise.com/DeleteConfigurationType" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConfigurationTypeQuestion">
+      <soap12:operation soapAction="http://connectwise.com/DeleteConfigurationTypeQuestion" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePossibleResponse">
+      <soap12:operation soapAction="http://connectwise.com/DeletePossibleResponse" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ConfigurationApi">
+    <wsdl:documentation>ConnectWise Configuration API</wsdl:documentation>
+    <wsdl:port name="ConfigurationApiSoap" binding="tns:ConfigurationApiSoap">
+      <soap:address location="https://test.connectwise.com/v4_6_release/apis/1.5/ConfigurationAPI.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="ConfigurationApiSoap12" binding="tns:ConfigurationApiSoap12">
+      <soap12:address location="https://test.connectwise.com/v4_6_release/apis/1.5/ConfigurationAPI.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

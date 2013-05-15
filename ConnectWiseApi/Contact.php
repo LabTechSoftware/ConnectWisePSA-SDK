@@ -1,6 +1,7 @@
 <?php namespace ConnectWiseApi;
 
-use ConnectWiseApi\ApiResource,
+use SoapFault,
+    ConnectWiseApi\ApiResource,
     ConnectWiseApi\ApiRequestParams,
     ConnectWiseApi\ApiResult,
     ConnectWiseApi\ApiException;
@@ -39,25 +40,33 @@ class Contact
 
         if (is_string($note) === false)
         {
-            throw new ApiException('Note value must be a string.');
+            throw new ApiException('Note must be a string.');
         }
 
         ApiRequestParams::set('contactID', $contactId);
         ApiRequestParams::set('groupID', $groupId);
         ApiRequestParams::set('transactionNote', $note);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddContactToGroup(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddContactToGroup(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddContactToGroupResult');
+            ApiResult::addResultFromObject($results, 'AddContactToGroupResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
      * Adds or updates a contact
      * Set RecId & Id to 0 to add new contact. If non-zero, the existing contact with that Id is updated.
      *
+     * @throws ApiException
      * @param array $contactData
      * @return array
      */
@@ -65,12 +74,19 @@ class Contact
     {
         ApiRequestParams::set('contact', $contactData);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddOrUpdateContact(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddOrUpdateContact(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddOrUpdateContactResult');
+            ApiResult::addResultFromObject($results, 'AddOrUpdateContactResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -93,12 +109,19 @@ class Contact
         ApiRequestParams::set('contactId', $contactId);
         ApiRequestParams::set('ContactMethod', $commItemData);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddOrUpdateContactCommunicationItem(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddOrUpdateContactCommunicationItem(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddOrUpdateContactCommunicationItemResult');
+            ApiResult::addResultFromObject($results, 'ContactMethod');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -121,17 +144,25 @@ class Contact
         ApiRequestParams::set('contactId', $contactId);
         ApiRequestParams::set('note', $note);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddOrUpdateContactNote(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddOrUpdateContactNote(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddOrUpdateContactNoteResult');
+            ApiResult::addResultFromObject($results, 'AddOrUpdateContactNoteResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
      * @todo Disabled until CW fixes authentication issues -- DO NOT USE THIS METHOD!
-     * 
+     * @throws ApiException
+     *
      * f/ Marc: 
      * This is a very dangerous method right now. You should not use this unless you know what it does.
      * I reccomend if your trying to authenticate via portal password you use the FindContacts method
@@ -193,12 +224,19 @@ class Contact
         ApiRequestParams::set('conditions', $conditions);
         ApiRequestParams::set('orderBy', $orderBy);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->FindCompanies(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->FindCompanies(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results->FindCompaniesResult, 'ContactFindResult');
+            ApiResult::addResultFromObject($results->FindCompaniesResult, 'ContactFindResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -238,17 +276,25 @@ class Contact
         ApiRequestParams::set('conditions', $conditions);
         ApiRequestParams::set('orderBy', $orderBy);
 
-        $findResults = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->FindContacts(ApiRequestParams::getAll());
+        try
+        {
+            $findResults = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->FindContacts(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($findResults->FindContactsResult, 'ContactFindResult');
+            ApiResult::addResultFromObject($findResults->FindContactsResult, 'ContactFindResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
      * Finds a count of available contacts by a set of conditions
      *
+     * @throws ApiException
      * @param string $conditions
      * @return array
      */
@@ -261,27 +307,42 @@ class Contact
 
         ApiRequestParams::set('conditions', $conditions);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->FindContactsCount(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->FindContactsCount(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'FindContactsCountResult');
+            ApiResult::addResultFromObject($results, 'FindContactsCountResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
      * Gets all communication types and descriptions
      *
+     * @throws ApiException
      * @return array
      */
     public static function getAllCommunicationTypesAndDescriptions()
     {
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetAllCommunicationTypesAndDescription(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetAllCommunicationTypesAndDescription();
 
-        ApiResult::addResultFromObject($results->GetAllCommunicationTypesAndDescriptionResult, 'CommunicationTypeDescriptions');
-
-        return ApiResult::getAll();
+            ApiResult::addResultFromObject($results->GetAllCommunicationTypesAndDescriptionResult, 'CommunicationTypeDescriptions');
+            
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -301,12 +362,19 @@ class Contact
 
         ApiRequestParams::set('contactId', $contactId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetAllContactCommunicationItems(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetAllContactCommunicationItems(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results->GetAllContactCommunicationItemsResult, 'ContactCommunicationItem');
+            ApiResult::addResultFromObject($results->GetAllContactCommunicationItemsResult, 'ContactCommunicationItem');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -326,18 +394,26 @@ class Contact
 
         ApiRequestParams::set('contactId', $contactId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetAllContactNotes(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetAllContactNotes(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results->GetAllContactNotesResult, 'ContactNote');
+            ApiResult::addResultFromObject($results->GetAllContactNotesResult, 'ContactNote');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
      * Gets an avatar image from the server
      *
      * @todo need a valid image id to test; method should work fine though...
+     * @throws ApiException
      * @param string $imageId
      * @return array
      */
@@ -345,22 +421,29 @@ class Contact
     {
         ApiRequestParams::set('imageId', $imageId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetAvatarImage(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetAvatarImage(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'GetAvatarImageResult');
+            ApiResult::addResultFromObject($results, 'GetAvatarImageResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
-     * Alias of getContact
+     * Alias of getContactByRecId
      *
-     * @see getContact()
+     * @see getContactByRecId()
      */
-    public static function getContactByRecId($recId)
+    public static function getContact($recId)
     {
-        return static::getContact($recId);
+        return static::getContactByRecId($recId);
     }
 
     /**
@@ -371,7 +454,7 @@ class Contact
      * @param integer $contactRecId
      * @return array
      */
-    public static function getContact($contactRecId)
+    public static function getContactByRecId($contactRecId)
     {
         if (is_int($contactRecId) === false)
         {
@@ -380,12 +463,19 @@ class Contact
 
         ApiRequestParams::set('id', $contactRecId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetContact(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetContact(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'GetContactResult');
+            ApiResult::addResultFromObject($results, 'GetContactResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -419,12 +509,19 @@ class Contact
         ApiRequestParams::set('communicationType', $type);
         ApiRequestParams::set('communicationDescription', $description);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetContactCommunicationItem(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetContactCommunicationItem(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'ContactMethod');
+            ApiResult::addResultFromObject($results, 'ContactMethod');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -451,17 +548,25 @@ class Contact
         ApiRequestParams::set('contactId', $contactId);
         ApiRequestParams::set('noteId', $noteId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetContactNote(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetContactNote(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'GetContactNoteResult');
+            ApiResult::addResultFromObject($results, 'GetContactNoteResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
      * Return the configuration settings for the specified portal
      *
+     * @throws ApiException
      * @param string $portalName
      * @return array
      */
@@ -474,17 +579,25 @@ class Contact
 
         ApiRequestParams::set('portalName', $portalName);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetPortalConfigSettings(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetPortalConfigSettings(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'GetPortalConfigSettingsResult');
+            ApiResult::addResultFromObject($results, 'GetPortalConfigSettingsResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
      * Get the login page customizations for the specified portal
      *
+     * @throws ApiException
      * @param string $portalName
      * @return array
      */
@@ -497,12 +610,19 @@ class Contact
 
         ApiRequestParams::set('portalName', $portalName);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetPortalLoginCustomizations(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetPortalLoginCustomizations(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'GetPortalLoginCustomizationsResult');
+            ApiResult::addResultFromObject($results, 'GetPortalLoginCustomizationsResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }   
     }
     
     /**
@@ -528,12 +648,19 @@ class Contact
         ApiRequestParams::set('portalContId', $portalContId);
         ApiRequestParams::set('portalCompName', $portalCompName);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetPortalSecurity(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetPortalSecurity(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results->GetPortalSecurityResult, 'PortalSecurity');
+            ApiResult::addResultFromObject($results->GetPortalSecurityResult, 'PortalSecurity');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -553,12 +680,19 @@ class Contact
 
         ApiRequestParams::set('id', $contactId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->LoadContact(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->LoadContact(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'LoadContactResult');
+            ApiResult::addResultFromObject($results, 'LoadContactResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -593,17 +727,25 @@ class Contact
         ApiRequestParams::set('groupID', $groupId);
         ApiRequestParams::set('transactionNote', $note);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->RemoveContactFromGroup(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->RemoveContactFromGroup(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'RemoveContactFromGroupResult');
+            ApiResult::addResultFromObject($results, 'RemoveContactFromGroupResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
      * Runs the "Forgot Password" process on the server
      *
+     * @throws ApiException
      * @param string $emailAddress
      * @return array
      */
@@ -616,12 +758,19 @@ class Contact
 
         ApiRequestParams::set('emailAddress', $emailAddress);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->RequestPassword(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->RequestPassword(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results);
+            ApiResult::addResultFromObject($results);
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -654,12 +803,19 @@ class Contact
         ApiRequestParams::set('communicationType', $communicationType);
         ApiRequestParams::set('communicationDescription', $communicationDescription);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->SetDefaultContactCommunicationItem(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->SetDefaultContactCommunicationItem(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'ContactMethod');
+            ApiResult::addResultFromObject($results, 'ContactMethod');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -678,12 +834,19 @@ class Contact
 
         ApiRequestParams::set('id', $id);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->DeleteContact(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->DeleteContact(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results);
+            ApiResult::addResultFromObject($results);
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -716,12 +879,19 @@ class Contact
         ApiRequestParams::set('communicationType', $type);
         ApiRequestParams::set('communicationDescription', $description);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->DeleteContactCommunicationItem(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->DeleteContactCommunicationItem(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results);
+            ApiResult::addResultFromObject($results);
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -747,11 +917,18 @@ class Contact
         ApiRequestParams::set('id', $noteId);
         ApiRequestParams::set('contactId', $contactId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->DeleteNote(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->DeleteNote(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'DeleteNoteResult');
+            ApiResult::addResultFromObject($results, 'DeleteNoteResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 }

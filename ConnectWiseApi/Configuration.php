@@ -1,6 +1,7 @@
 <?php namespace ConnectWiseApi;
 
-use ConnectWiseApi\ApiResource,
+use SoapFault,
+    ConnectWiseApi\ApiResource,
     ConnectWiseApi\ApiRequestParams,
     ConnectWiseApi\ApiResult,
     ConnectWiseApi\ApiException;
@@ -17,6 +18,7 @@ class Configuration
     /**
      * Add a new configuration
      *
+     * @throws ApiException
      * @param array $config
      * @return array
      */
@@ -24,17 +26,25 @@ class Configuration
     {
         ApiRequestParams::set('configuration', $config);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddConfiguration(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddConfiguration(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddConfigurationResult');
-
-        return ApiResult::getAll();
+            ApiResult::addResultFromObject($results, 'AddConfigurationResult');
+            
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
      * Add a new configuration type
      *
+     * @throws ApiException
      * @param array $configType
      * @return array
      */
@@ -42,17 +52,25 @@ class Configuration
     {
         ApiRequestParams::set('configurationType', $configType);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddConfigurationType(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddConfigurationType(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddConfigurationTypeResult');
+            ApiResult::addResultFromObject($results, 'AddConfigurationTypeResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
      * Adds or updates a configuration
      *
+     * @throws ApiException
      * @param array $config
      * @return array
      */
@@ -60,17 +78,25 @@ class Configuration
     {
         ApiRequestParams::set('configuration', $config);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddOrUpdateConfiguration(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddOrUpdateConfiguration(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddOrUpdateConfigurationResult');
+            ApiResult::addResultFromObject($results, 'AddOrUpdateConfigurationResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
      * Adds or updates a configuration type
      *
+     * @throws ApiException
      * @param array $configType
      * @return array
      */
@@ -78,12 +104,19 @@ class Configuration
     {
         ApiRequestParams::set('configurationType', $configType);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddOrUpdateConfigurationType(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddOrUpdateConfigurationType(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddOrUpdateConfigurationTypeResult');
+            ApiResult::addResultFromObject($results, 'AddOrUpdateConfigurationTypeResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -123,12 +156,19 @@ class Configuration
         ApiRequestParams::set('conditions', $conditions);
         ApiRequestParams::set('orderBy', $orderBy);
 
-        $findResults = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->FindConfigurationTypes(ApiRequestParams::getAll());
+        try
+        {
+            $findResults = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->FindConfigurationTypes(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($findResults->FindConfigurationTypesResult, 'ConfigurationTypeFindResult');
+            ApiResult::addResultFromObject($findResults->FindConfigurationTypesResult, 'ConfigurationTypeFindResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -168,12 +208,19 @@ class Configuration
         ApiRequestParams::set('conditions', $conditions);
         ApiRequestParams::set('orderBy', $orderBy);
 
-        $findResults = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->FindConfigurations(ApiRequestParams::getAll());
+        try
+        {
+            $findResults = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->FindConfigurations(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($findResults->FindConfigurationsResult, 'ConfigurationFindResult');
+            ApiResult::addResultFromObject($findResults->FindConfigurationsResult, 'ConfigurationFindResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -199,12 +246,19 @@ class Configuration
         ApiRequestParams::set('conditions', $conditions);
         ApiRequestParams::set('isOpen', $isOpen);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->FindConfigurationsCount(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->FindConfigurationsCount(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'FindConfigurationsCountResult');
+            ApiResult::addResultFromObject($results, 'FindConfigurationsCountResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -224,12 +278,19 @@ class Configuration
 
         ApiRequestParams::set('id', $id);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetConfiguration(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetConfiguration(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'GetConfigurationResult');
+            ApiResult::addResultFromObject($results, 'GetConfigurationResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -249,12 +310,19 @@ class Configuration
 
         ApiRequestParams::set('id', $id);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetConfigurationType(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetConfigurationType(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'GetConfigurationTypeResult');
+            ApiResult::addResultFromObject($results, 'GetConfigurationTypeResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -274,12 +342,19 @@ class Configuration
 
         ApiRequestParams::set('id', $id);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->LoadConfiguration(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->LoadConfiguration(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'LoadConfigurationResult');
+            ApiResult::addResultFromObject($results, 'LoadConfigurationResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -299,17 +374,25 @@ class Configuration
 
         ApiRequestParams::set('id', $id);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->LoadConfigurationType(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->LoadConfigurationType(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'LoadConfigurationTypeResult');
+            ApiResult::addResultFromObject($results, 'LoadConfigurationTypeResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
      * Update an existing configuration
      *
+     * @throws ApiException
      * @param array $configuration
      * @return array
      */
@@ -317,17 +400,25 @@ class Configuration
     {
         ApiRequestParams::set('configuration', $configuration);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->UpdateConfiguration(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->UpdateConfiguration(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'UpdateConfigurationResult');
+            ApiResult::addResultFromObject($results, 'UpdateConfigurationResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
      * Updates an existing configuration type
      *
+     * @throws ApiException
      * @param array $configurationType
      * @return array
      */
@@ -335,12 +426,19 @@ class Configuration
     {
         ApiRequestParams::set('configurationType', $configurationType);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->UpdateConfigurationType(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->UpdateConfigurationType(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'UpdateConfigurationTypeResult');
+            ApiResult::addResultFromObject($results, 'UpdateConfigurationTypeResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -359,12 +457,19 @@ class Configuration
 
         ApiRequestParams::set('id', $id);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->DeleteConfiguration(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->DeleteConfiguration(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'DeleteConfigurationResult');
+            ApiResult::addResultFromObject($results, 'DeleteConfigurationResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -383,12 +488,19 @@ class Configuration
 
         ApiRequestParams::set('id', $id);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->DeleteConfigurationType(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->DeleteConfigurationType(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'DeleteConfigurationTypeResult');
+            ApiResult::addResultFromObject($results, 'DeleteConfigurationTypeResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -407,12 +519,19 @@ class Configuration
 
         ApiRequestParams::set('id', $id);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->DeleteConfigurationTypeQuestion(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->DeleteConfigurationTypeQuestion(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'DeleteConfigurationTypeQuestionResult');
+            ApiResult::addResultFromObject($results, 'DeleteConfigurationTypeQuestionResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -431,11 +550,18 @@ class Configuration
 
         ApiRequestParams::set('id', $id);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->DeletePossibleResponse(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->DeletePossibleResponse(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'DeletePossibleResponseResult');
+            ApiResult::addResultFromObject($results, 'DeletePossibleResponseResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 }

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://connectwise.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://connectwise.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>ConnectWise Reporting API</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://connectwise.com">
+      <s:element name="GetReports">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="includeFields" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ApiCredentials">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="IntegratorLoginId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="IntegratorPassword" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetReportsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReportsResult" type="tns:ArrayOfReport"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfReport">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Report" nillable="true" type="tns:Report"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Report">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Field" type="tns:FieldInfo"/>
+        </s:sequence>
+        <s:attribute name="Name" type="s:string"/>
+        <s:attribute name="Id" type="s:int" use="required"/>
+        <s:attribute name="Url" type="s:string"/>
+        <s:attribute name="IsCustom" type="s:boolean" use="required"/>
+      </s:complexType>
+      <s:complexType name="FieldInfo">
+        <s:attribute name="Name" type="s:string"/>
+        <s:attribute name="Type" type="tns:FindConditionsType" use="required"/>
+        <s:attribute name="IsNullable" type="s:boolean" use="required"/>
+      </s:complexType>
+      <s:simpleType name="FindConditionsType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Text"/>
+          <s:enumeration value="Boolean"/>
+          <s:enumeration value="Numeric"/>
+          <s:enumeration value="DateTime"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetReportFields">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="reportName" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReportFieldsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReportFieldsResult" type="tns:ArrayOfFieldInfo"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFieldInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FieldInfo" nillable="true" type="tns:FieldInfo"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPortalReports">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPortalReportsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPortalReportsResult" type="tns:ArrayOfReport"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RunPortalReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="reportName" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="orderBy" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="limit" nillable="true" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="skip" nillable="true" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RunPortalReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RunPortalReportResult" type="tns:ArrayOfResultRow"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfResultRow">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ResultRow" nillable="true" type="tns:ResultRow"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResultRow">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Value" type="tns:FieldValue"/>
+        </s:sequence>
+        <s:attribute name="Number" type="s:long" use="required"/>
+      </s:complexType>
+      <s:complexType name="FieldValue">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="Name" type="s:string"/>
+            <s:attribute name="Type" type="tns:FindConditionsType" use="required"/>
+            <s:attribute name="IsNullable" type="s:boolean" use="required"/>
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:element name="RunReportQuery">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="reportName" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="orderBy" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="limit" nillable="true" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="skip" nillable="true" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RunReportQueryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RunReportQueryResult" type="tns:ArrayOfResultRow"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RunReportCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="reportName" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RunReportCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RunReportCountResult" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetReportsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReports"/>
+  </wsdl:message>
+  <wsdl:message name="GetReportsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReportsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetReportFieldsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReportFields"/>
+  </wsdl:message>
+  <wsdl:message name="GetReportFieldsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReportFieldsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetPortalReportsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPortalReports"/>
+  </wsdl:message>
+  <wsdl:message name="GetPortalReportsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPortalReportsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="RunPortalReportSoapIn">
+    <wsdl:part name="parameters" element="tns:RunPortalReport"/>
+  </wsdl:message>
+  <wsdl:message name="RunPortalReportSoapOut">
+    <wsdl:part name="parameters" element="tns:RunPortalReportResponse"/>
+  </wsdl:message>
+  <wsdl:message name="RunReportQuerySoapIn">
+    <wsdl:part name="parameters" element="tns:RunReportQuery"/>
+  </wsdl:message>
+  <wsdl:message name="RunReportQuerySoapOut">
+    <wsdl:part name="parameters" element="tns:RunReportQueryResponse"/>
+  </wsdl:message>
+  <wsdl:message name="RunReportCountSoapIn">
+    <wsdl:part name="parameters" element="tns:RunReportCount"/>
+  </wsdl:message>
+  <wsdl:message name="RunReportCountSoapOut">
+    <wsdl:part name="parameters" element="tns:RunReportCountResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="ReportingApiSoap">
+    <wsdl:operation name="GetReports">
+      <wsdl:documentation>Gets the list of available reports.</wsdl:documentation>
+      <wsdl:input message="tns:GetReportsSoapIn"/>
+      <wsdl:output message="tns:GetReportsSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportFields">
+      <wsdl:documentation>Gets the list of fields for a particular report.</wsdl:documentation>
+      <wsdl:input message="tns:GetReportFieldsSoapIn"/>
+      <wsdl:output message="tns:GetReportFieldsSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetPortalReports">
+      <wsdl:documentation>Gets the list of reports accessible via the customer portal.</wsdl:documentation>
+      <wsdl:input message="tns:GetPortalReportsSoapIn"/>
+      <wsdl:output message="tns:GetPortalReportsSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="RunPortalReport">
+      <wsdl:documentation>Run a protal report with the given set of condiitons.</wsdl:documentation>
+      <wsdl:input message="tns:RunPortalReportSoapIn"/>
+      <wsdl:output message="tns:RunPortalReportSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="RunReportQuery">
+      <wsdl:documentation>Runs a particular report with a given set of conditions.</wsdl:documentation>
+      <wsdl:input message="tns:RunReportQuerySoapIn"/>
+      <wsdl:output message="tns:RunReportQuerySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="RunReportCount">
+      <wsdl:documentation>Runs a particular report with a given set of conditions.  Returnss the # of records that would be returned.</wsdl:documentation>
+      <wsdl:input message="tns:RunReportCountSoapIn"/>
+      <wsdl:output message="tns:RunReportCountSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ReportingApiSoap" type="tns:ReportingApiSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetReports">
+      <soap:operation soapAction="http://connectwise.com/GetReports" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportFields">
+      <soap:operation soapAction="http://connectwise.com/GetReportFields" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPortalReports">
+      <soap:operation soapAction="http://connectwise.com/GetPortalReports" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RunPortalReport">
+      <soap:operation soapAction="http://connectwise.com/RunPortalReport" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RunReportQuery">
+      <soap:operation soapAction="http://connectwise.com/RunReportQuery" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RunReportCount">
+      <soap:operation soapAction="http://connectwise.com/RunReportCount" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ReportingApiSoap12" type="tns:ReportingApiSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetReports">
+      <soap12:operation soapAction="http://connectwise.com/GetReports" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportFields">
+      <soap12:operation soapAction="http://connectwise.com/GetReportFields" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPortalReports">
+      <soap12:operation soapAction="http://connectwise.com/GetPortalReports" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RunPortalReport">
+      <soap12:operation soapAction="http://connectwise.com/RunPortalReport" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RunReportQuery">
+      <soap12:operation soapAction="http://connectwise.com/RunReportQuery" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RunReportCount">
+      <soap12:operation soapAction="http://connectwise.com/RunReportCount" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ReportingApi">
+    <wsdl:documentation>ConnectWise Reporting API</wsdl:documentation>
+    <wsdl:port name="ReportingApiSoap" binding="tns:ReportingApiSoap">
+      <soap:address location="https://test.connectwise.com/v4_6_release/apis/1.5/ReportingAPI.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="ReportingApiSoap12" binding="tns:ReportingApiSoap12">
+      <soap12:address location="https://test.connectwise.com/v4_6_release/apis/1.5/ReportingAPI.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

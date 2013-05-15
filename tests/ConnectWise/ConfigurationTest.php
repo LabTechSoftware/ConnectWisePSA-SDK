@@ -55,8 +55,10 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        // Set the config class instance
         $this->fixture = new ConnectWiseApi\Configuration;
 
+        // Set a random string to use in tests
         $this->randomString = 'Test Entry num' . rand(10, 1000);
     }
 
@@ -82,9 +84,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectWiseApi\Configuration::addConfiguration
      *
-     * @expectedException SoapFault
+     * @expectedException ConnectWiseApi\ApiException
      */
-    public function testAddConfigurationThrowsSoapFaultOnFail()
+    public function testAddConfigurationThrowsExceptionOnFail()
     {
        $this->fixture->addConfiguration($this->invalidNewConfig);
     }
@@ -103,9 +105,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectWiseApi\Configuration::addConfigurationType
      *
-     * @expectedException SoapFault
+     * @expectedException ConnectWiseApi\ApiException
      */
-    public function testAddConfigurationTypeThrowsSoapFaultOnFail()
+    public function testAddConfigurationTypeThrowsExceptionOnFail()
     {
        $this->fixture->addConfigurationType($this->invalidNewConfigType);
     }
@@ -128,9 +130,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectWiseApi\Configuration::addOrUpdateConfiguration
      *
-     * @expectedException SoapFault
+     * @expectedException ConnectWiseApi\ApiException
      */
-    public function testAddOrUpdateConfigurationThrowsSoapFaultOnFail()
+    public function testAddOrUpdateConfigurationThrowsExceptionOnFail()
     {
        $this->fixture->addOrUpdateConfiguration($this->invalidNewConfig);
     }
@@ -153,17 +155,19 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectWiseApi\Configuration::addOrUpdateConfigurationType
      *
-     * @expectedException SoapFault
+     * @expectedException ConnectWiseApi\ApiException
      */
-    public function testAddOrUpdateConfigurationTypeThrowsSoapFaultOnFail()
+    public function testAddOrUpdateConfigurationTypeThrowsExceptionOnFail()
     {
        $this->fixture->addOrUpdateConfigurationType($this->invalidNewConfigType);
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::findConfigurationTypes
+     *
+     * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testFindConfigurationTypesBadParam()
+    public function testFindConfigurationTypesBadParamThrowsException()
     {
         // Set these to whatever to test parameter value type fails
         $limit = 654.5;                 // expects integer
@@ -171,26 +175,15 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $conditions = 'sdf = sdfsd';    // expects string
         $orderBy = 2;                   // expects string
 
-        try
-        {
-            $this->fixture->findConfigurationTypes($limit, $skip, $conditions, $orderBy);    
-        }
-        catch (Exception $error)
-        {
-            if ($error instanceof ConnectWiseApi\ApiException OR $error instanceof SoapFault)
-            {
-                return;
-            }
-        }
-
-        // If we got this far, neither an ApiException or SoapFault was caught
-        $this->fail('Neither ApiException or SoapFault has been raised.');
+        $this->fixture->findConfigurationTypes($limit, $skip, $conditions, $orderBy);
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::findConfigurations
+     *
+     * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testFindConfigurationsBadParam()
+    public function testFindConfigurationsBadParamThrowsException()
     {
         // Set these to whatever to test parameter value type fails
         $limit = 654.5;                 // expects integer
@@ -198,50 +191,26 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $conditions = 'sdf = sdfsd';    // expects string
         $orderBy = 2;                   // expects string
 
-        try
-        {
-            $this->fixture->findConfigurations($limit, $skip, $conditions, $orderBy);    
-        }
-        catch (Exception $error)
-        {
-            if ($error instanceof ConnectWiseApi\ApiException OR $error instanceof SoapFault)
-            {
-                return;
-            }
-        }
-
-        // If we got this far, neither an ApiException or SoapFault was caught
-        $this->fail('Neither ApiException or SoapFault has been raised.');
+        $this->fixture->findConfigurations($limit, $skip, $conditions, $orderBy);
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::findConfigurationsCount
+     *
+     * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testFindConfigurationsCountBadParam()
+    public function testFindConfigurationsCountBadParamThrowsException()
     {
         $isOpen = 5;          // expects boolean
         $conditions = array();   // expects string
 
-        try
-        {
-            $this->fixture->findConfigurationsCount($isOpen, $conditions);
-        }
-        catch (Exception $error)
-        {
-            if ($error instanceof ConnectWiseApi\ApiException OR $error instanceof SoapFault)
-            {
-                return;
-            }
-        }
-
-        // If we got this far, neither an ApiException or SoapFault was caught
-        $this->fail('Neither ApiException or SoapFault has been raised.');
+        $this->fixture->findConfigurationsCount($isOpen, $conditions);
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::getConfiguration
      **/
-    public function testGetConfigurationWithInvalidId()
+    public function testGetConfigurationWithInvalidIdReturnsEmptyArray()
     {
         $this->assertCount(0, $this->fixture->getConfiguration(999));
     }
@@ -251,7 +220,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      * 
      * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testGetConfigurationWithBadParam()
+    public function testGetConfigurationWithBadParamThrowsException()
     {
         $this->fixture->getConfiguration('sdzx');
     }
@@ -259,7 +228,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectWiseApi\Configuration::getConfigurationType
      **/
-    public function testGetConfigurationTypeWithInvalidId()
+    public function testGetConfigurationTypeWithInvalidIdReturnsEmptyArray()
     {
         $this->assertCount(0, $this->fixture->getConfigurationType(999));
     }
@@ -269,72 +238,39 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      * 
      * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testGetConfigurationTypeWithBadParam()
+    public function testGetConfigurationTypeWithBadParamThrowsException()
     {
         $this->fixture->getConfigurationType('lskjsdf');
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::loadConfiguration
+     *
+     * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testLoadConfigurationWithBadParam()
+    public function testLoadConfigurationWithBadParamThrowsException()
     {
-        try
-        {
-            $this->fixture->loadConfiguration(999);
-        }
-        catch (Exception $error)
-        {
-            if ($error instanceof ConnectWiseApi\ApiException OR $error instanceof SoapFault)
-            {
-                return;
-            }
-        }
-
-        // If we got this far, neither an ApiException or SoapFault was caught
-        $this->fail('Neither ApiException or SoapFault has been raised.');
+        $this->fixture->loadConfiguration(999);
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::loadConfigurationType
+     *
+     * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testLoadConfigurationTypeWithBadParam()
+    public function testLoadConfigurationTypeWithBadParamThrowsException()
     {
-        try
-        {
-            $this->fixture->loadConfigurationType(999);
-        }
-        catch (Exception $error)
-        {
-            if ($error instanceof ConnectWiseApi\ApiException OR $error instanceof SoapFault)
-            {
-                return;
-            }
-        }
-
-        // If we got this far, neither an ApiException or SoapFault was caught
-        $this->fail('Neither ApiException or SoapFault has been raised.');
+        $this->fixture->loadConfigurationType(999);
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::updateConfiguration
+     *
+     * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testUpdateConfigurationWithInvalidArray()
+    public function testUpdateConfigurationWithInvalidArrayThrowsException()
     {
-        try
-        {
-            $this->fixture->updateConfiguration($this->invalidUpdateConfig);
-        }
-        catch (Exception $error)
-        {
-            if ($error instanceof ConnectWiseApi\ApiException OR $error instanceof SoapFault)
-            {
-                return;
-            }
-        }
-
-        // If we got this far, neither an ApiException or SoapFault was caught
-        $this->fail('Neither ApiException or SoapFault has been raised.');
+        $this->fixture->updateConfiguration($this->invalidUpdateConfig);
     }
 
     /**
@@ -347,23 +283,12 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers ConnectWiseApi\Configuration::updateConfigurationType
+     *
+     * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testUpdateConfigurationTypeWithInvalidArray()
+    public function testUpdateConfigurationTypeWithInvalidArrayThrowsException()
     {
-        try
-        {
-            $this->fixture->updateConfigurationType($this->invalidUpdateConfigType);
-        }
-        catch (Exception $error)
-        {
-            if ($error instanceof ConnectWiseApi\ApiException OR $error instanceof SoapFault)
-            {
-                return;
-            }
-        }
-
-        // If we got this far, neither an ApiException or SoapFault was caught
-        $this->fail('Neither ApiException or SoapFault has been raised.');
+        $this->fixture->updateConfigurationType($this->invalidUpdateConfigType);
     }
 
     /**
@@ -376,104 +301,60 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers ConnectWiseApi\Configuration::deleteConfiguration
+     *
+     * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testDeleteConfigurationInvalidId()
+    public function testDeleteConfigurationInvalidIdThrowsException()
     {
-        try
-        {
-            $this->fixture->deleteConfiguration(99); // Referenced by 23 service requests
-            // $this->fixture->deleteConfiguration('sdfsdf');
-        }
-        catch (Exception $error)
-        {
-            if ($error instanceof ConnectWiseApi\ApiException OR $error instanceof SoapFault)
-            {
-                return;
-            }
-        }
-
-        // If we got this far, neither an ApiException or SoapFault was caught
-        $this->fail('Neither ApiException or SoapFault has been raised.');
+        $this->fixture->deleteConfiguration(99); // "Referenced by 23 service requests"
+        // $this->fixture->deleteConfiguration('sdfsdf');
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::deleteConfiguration
      **/
-    public function testDeleteConfigurationNotFound()
+    public function testDeleteConfigurationNotFoundReturnsEmptyArray()
     {
         $this->assertCount(0, $this->fixture->deleteConfiguration(9987));
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::deleteConfigurationType
+     *
+     * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testDeleteConfigurationTypeInvalidId()
+    public function testDeleteConfigurationTypeInvalidIdThrowsException()
     {
-        try
-        {
-            $this->fixture->deleteConfigurationType('sdfsdf');
-        }
-        catch (Exception $error)
-        {
-            if ($error instanceof ConnectWiseApi\ApiException OR $error instanceof SoapFault)
-            {
-                return;
-            }
-        }
-
-        // If we got this far, neither an ApiException or SoapFault was caught
-        $this->fail('Neither ApiException or SoapFault has been raised.');
+        $this->fixture->deleteConfigurationType('sdfsdf');
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::deleteConfigurationType
      **/
-    public function testDeleteConfigurationTypeNotFound()
+    public function testDeleteConfigurationTypeNotFoundReturnsEmptyArray()
     {
         $this->assertCount(0, $this->fixture->deleteConfigurationType(9987));
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::deleteConfigurationTypeQuestion
+     *
+     * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testDeleteConfigurationTypeQuestionInvalidId()
+    public function testDeleteConfigurationTypeQuestionInvalidIdThrowsException()
     {
-        try
-        {
-            $this->fixture->deleteConfigurationTypeQuestion(9987);
-            // $this->fixture->deleteConfigurationTypeQuestion('sdfsdf');
-        }
-        catch (Exception $error)
-        {
-            if ($error instanceof ConnectWiseApi\ApiException OR $error instanceof SoapFault)
-            {
-                return;
-            }
-        }
-
-        // If we got this far, neither an ApiException or SoapFault was caught
-        $this->fail('Neither ApiException or SoapFault has been raised.');
+        $this->fixture->deleteConfigurationTypeQuestion(9987);
+        // $this->fixture->deleteConfigurationTypeQuestion('sdfsdf');
     }
 
     /**
      * @covers ConnectWiseApi\Configuration::deletePossibleResponse
+     *
+     * @expectedException ConnectWiseApi\ApiException
      **/
-    public function testDeletePossibleResponseInvalidId()
+    public function testDeletePossibleResponseInvalidIdThrowsException()
     {
-        try
-        {
-            // $this->fixture->deletePossibleResponse(9987);
-            $this->fixture->deletePossibleResponse('sdfsdf');
-        }
-        catch (Exception $error)
-        {
-            if ($error instanceof ConnectWiseApi\ApiException OR $error instanceof SoapFault)
-            {
-                return;
-            }
-        }
-
-        // If we got this far, neither an ApiException or SoapFault was caught
-        $this->fail('Neither ApiException or SoapFault has been raised.');
+        // $this->fixture->deletePossibleResponse(9987);
+        $this->fixture->deletePossibleResponse('sdfsdf');
     }
 }
