@@ -123,8 +123,8 @@ try
     ));
     */
     /*
-    $test = Contact::addOrUpdateContactCommunicationItem(201, array(
-        'Id' => 0, 'Type' => 'PhoneNumber', 'CommunicationTypeId' => 0, 'Description' => 'Direct'
+    $test = Contact::addOrUpdateContactCommunicationItem(2, array(
+        'Id' => 0, 'Type' => 'PhoneNumber', 'CommunicationTypeId' => 2, 'Description' => 'Home'
     ));
     */
     /*
@@ -134,13 +134,13 @@ try
     */
     // $test = Contact::getAllContactNotes(201);
     // $test = Contact::findCompanies(5, 0, 'Id');
-    // $test = Contact::findContacts(5, 0, 'Id', 'ContactRecID = 6');
+    // $test = Contact::findContacts(20, 0, 'Id');
     // $test = Contact::getContactCommunicationItem(2, 'PhoneNumber', 'Direct');
     // $test = Contact::getAllCommunicationTypesAndDescriptions();
     // $test = Contact::getContactByRecId(201);
     // $test = Contact::findContactsCount('FirstName = "LTWebDevGuy"');
     // $test = Contact::getAllCommunicationTypesAndDescriptions();
-    // $test = Contact::getAllContactCommunicationItems(201);
+    // $test = Contact::getAllContactCommunicationItems(2);
     // $test = Contact::getContactCommunicationItem(201, 'PhoneNumber', 'Cell');
     // $test = Contact::getContactNote(201, 9);
     // $test = Contact::getPortalConfigSettings('Default');
@@ -162,7 +162,7 @@ try
     
     /*
     $test = Configuration::addConfiguration(array(
-        'Id' => 99, 'ConfigurationTypeId' => 11, 'ConfigurationType' => 'License', 'StatusId' => 1, 'ConfigurationName' => 'PSA Software Test sdf21'
+        'Id' => 676, 'ConfigurationTypeId' => 11, 'ConfigurationType' => 'License', 'StatusId' => 1, 'ConfigurationName' => 'PSA Software Test sdf21'
     ));
     */
     /*
@@ -220,15 +220,7 @@ try
 }
 catch (Exception $error)
 {
-    if ($error instanceof SoapFault)
-    {
-        echo '<h1>Soap Fault Caught</h1>';
-    }
-    else
-    {
-        echo '<h1>'.get_class($error).' Exception Caught</h1>';
-    }
-
+    echo '<strong>'.get_class($error).' Exception Caught</strong>';
     echo '<hr />';
     echo $error->getMessage();
 }

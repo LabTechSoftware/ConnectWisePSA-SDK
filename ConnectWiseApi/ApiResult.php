@@ -60,6 +60,8 @@ class ApiResult
             {
                 // Property/method does not exist, add the object itself
                 static::addResult($resObject);
+
+                // throw new ApiException('Expected result ('.$expected.') does not exist in result object.');
             }    
         }
         else

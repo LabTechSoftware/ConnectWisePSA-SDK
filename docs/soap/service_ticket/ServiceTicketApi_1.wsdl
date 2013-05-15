@@ -1,0 +1,1323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://connectwise.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://connectwise.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>ConnectWise Service Ticket API</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://connectwise.com">
+      <s:element name="GetServiceTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketNumber" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ApiCredentials">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="IntegratorLoginId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="IntegratorPassword" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetServiceTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetServiceTicketResult" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ServiceTicket">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TicketNumber" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Summary" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="SiteName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Board" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceType" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Status" nillable="true" type="tns:NsnStatusId"/>
+          <s:element minOccurs="0" maxOccurs="1" name="StatusName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine1" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="StateId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Resolution" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="RemoteInternalCompanyName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ProblemDescription" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SendingSrServiceRecid" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DateReq" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SubBillingMethodId" type="tns:SrBillingMethod"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SubBillingAmount" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SubDateAccepted" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SubDateAcceptedUtc" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CustupdateFlag" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ContactName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ContactPhoneNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ContactPhoneExtension" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ContactEmailAddress" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="NewTicketContactEmailLookup" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="XRefID" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Configurations" type="tns:ArrayOfTicketConfiguration"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BudgetHours" type="s:decimal"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Priority" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SkipCallback" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PoNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Source" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="OpportunityId" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="DetailNotes" type="tns:ArrayOfTicketNote"/>
+          <s:element minOccurs="0" maxOccurs="1" name="InternalAnalysisNotes" type="tns:ArrayOfTicketNote"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResolutionNotes" type="tns:ArrayOfTicketNote"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Documents" type="tns:ArrayOfDocumentInfo"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceSubType" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceItem" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdateDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ActualHours" nillable="true" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BoardID" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="EnteredDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ClosedDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyRecId" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ContactRecId" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PortalTypeId" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Approved" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="RequiredDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DateReqUtc" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ClosedFlag" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="NsnStatusId">
+        <s:restriction base="s:string">
+          <s:enumeration value="N"/>
+          <s:enumeration value="R"/>
+          <s:enumeration value="P"/>
+          <s:enumeration value="Y"/>
+          <s:enumeration value="O"/>
+          <s:enumeration value="X"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="SrBillingMethod">
+        <s:restriction base="s:string">
+          <s:enumeration value="None"/>
+          <s:enumeration value="Actual"/>
+          <s:enumeration value="FixedFee"/>
+          <s:enumeration value="Override"/>
+          <s:enumeration value="NotToExceed"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfTicketConfiguration">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TicketConfiguration" nillable="true" type="tns:TicketConfiguration"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TicketConfiguration">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="DeviceId" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTicketNote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TicketNote" nillable="true" type="tns:TicketNote"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TicketNote">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="NoteText" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PortalIsInternalNote" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PortalIsExternalNote" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="IsPartOfDetailDescription" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="IsPartOfInternalAnalysis" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="IsPartOfResolution" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="MemberRecID" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ContactRecID" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DateCreated" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CreatedBy" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="MemberFullName" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDocumentInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentInfo" nillable="true" type="tns:DocumentInfo"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ServerFileName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdated" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Owner" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="isLink" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="IsPublic" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ChildDesc" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoadServiceTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketNumber" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadServiceTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadServiceTicketResult" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddServiceTicketViaManagedId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="managedId" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="serviceTicket" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddServiceTicketViaManagedIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddServiceTicketViaManagedIdResult" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateServiceTicketViaManagedId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="managedId" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="serviceTicket" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateServiceTicketViaManagedIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateServiceTicketViaManagedIdResult" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateServiceTicketViaManagedId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="managedId" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="serviceTicket" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateServiceTicketViaManagedIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddOrUpdateServiceTicketViaManagedIdResult" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddServiceTicketViaCompanyId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="companyId" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="serviceTicket" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddServiceTicketViaCompanyIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddServiceTicketViaCompanyIdResult" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateServiceTicketViaCompanyId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="companyId" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="serviceTicket" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateServiceTicketViaCompanyIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateServiceTicketViaCompanyIdResult" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateServiceTicketViaCompanyId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="companyId" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="serviceTicket" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateServiceTicketViaCompanyIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddOrUpdateServiceTicketViaCompanyIdResult" type="tns:ServiceTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteServiceTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketNumber" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteServiceTicketResponse">
+        <s:complexType/>
+      </s:element>
+      <s:element name="FindServiceTickets">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="orderBy" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="limit" nillable="true" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="skip" nillable="true" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindServiceTicketsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindServiceTicketsResult" type="tns:ArrayOfTicket"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTicket">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Ticket" nillable="true" type="tns:Ticket"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Ticket">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SRServiceRecID" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyRecId" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ContactRecId" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ContactName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine1" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="StateId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Board" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="BoardName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BoardID" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="TicketStatus" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="StatusName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ClosedFlag" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceType" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Priority" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Source" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Summary" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="EnteredDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdateDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Resources" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="RequiredDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ClosedDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="SiteName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BudgetHours" nillable="true" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ActualHours" nillable="true" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Approved" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ClosedBy" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ResolveMins" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ResPlanMins" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="RespondMins" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UpdatedBy" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetTicketCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="isOpen" nillable="true" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTicketCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetTicketCountResult" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServiceStatuses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketNumber" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServiceStatusesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetServiceStatusesResult" type="tns:ArrayOfString"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchKnowledgebase">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="searchTerms" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="searchType" type="tns:KbSearchType"/>
+            <s:element minOccurs="1" maxOccurs="1" name="searchStart" nillable="true" type="s:dateTime"/>
+            <s:element minOccurs="1" maxOccurs="1" name="companyRecID" nillable="true" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="limit" nillable="true" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="skip" nillable="true" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="KbSearchType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Any"/>
+          <s:enumeration value="All"/>
+          <s:enumeration value="Exact"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SearchKnowledgebaseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchKnowledgebaseResult" type="tns:ArrayOfKnowledgeBaseResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfKnowledgeBaseResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="KnowledgeBaseResult" nillable="true" type="tns:KnowledgeBaseResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="KnowledgeBaseResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SRServiceRecID" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ContactName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine1" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="StateId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Board" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="BoardName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="TicketStatus" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="StatusName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ClosedFlag" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceType" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceSubType" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceItem" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Priority" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Source" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Summary" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="DetailDescription" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="InternalNotes" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Resolution" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="EnteredDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdateDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="RequiredDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ClosedDate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="SiteName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BudgetHours" nillable="true" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ActualHours" nillable="true" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Approved" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BoardID" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ClosedBy" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyRecId" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ContactRecId" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UpdatedBy" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="EmergencyFlag" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchKnowledgebaseCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="searchTerms" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="searchType" type="tns:KbSearchType"/>
+            <s:element minOccurs="1" maxOccurs="1" name="searchStart" nillable="true" type="s:dateTime"/>
+            <s:element minOccurs="1" maxOccurs="1" name="companyRecID" nillable="true" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchKnowledgebaseCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SearchKnowledgebaseCountResult" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTicketDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketNumber" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTicketDocumentResponse">
+        <s:complexType/>
+      </s:element>
+      <s:element name="GetTicketProductList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketNumber" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTicketProductListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTicketProductListResult" type="tns:ArrayOfTicketProduct"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTicketProduct">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TicketProduct" nillable="true" type="tns:TicketProduct"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TicketProduct">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Dropship" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SpecialOrder" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ForecastDetailId" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="TicketId" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ProjectId" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="InvoiceId" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SalesOrderId" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Invoice" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Taxable" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Billable" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Cost" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ItemId" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="OpportunityId" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Warehouse" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Bin" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="QuoteNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="QuoteName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="OwnerLevelRecid" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BillingUnitRecid" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="BundleComponents" type="tns:ArrayOfComponent"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfComponent">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Component" nillable="true" type="tns:Component"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Component">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Product">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="SequenceNumber" type="s:int"/>
+              <s:element minOccurs="1" maxOccurs="1" name="ParentrecID" type="s:int"/>
+              <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int"/>
+              <s:element minOccurs="1" maxOccurs="1" name="ProductRecID" type="s:int"/>
+              <s:element minOccurs="1" maxOccurs="1" name="HidePrice" type="s:boolean"/>
+              <s:element minOccurs="1" maxOccurs="1" name="HideItemID" type="s:boolean"/>
+              <s:element minOccurs="1" maxOccurs="1" name="HideDescription" type="s:boolean"/>
+              <s:element minOccurs="1" maxOccurs="1" name="HideQuantity" type="s:boolean"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Warehouse" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Bin" type="s:string"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Product">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BundleComponents" type="tns:ArrayOfComponent"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ItemId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Category" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Subcategory" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Uom" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Cost" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Taxable" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="LongDescription" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Inactive" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Serialized" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Manufacturer" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Vendor" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="VendorSku" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Class" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ManufacturerPartNumber" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddTicketProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="ticketProduct" type="tns:TicketProduct"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddTicketProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddTicketProductResult" type="tns:TicketProduct"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTicketProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="ticketProduct" type="tns:TicketProduct"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTicketProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateTicketProductResult" type="tns:TicketProduct"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateTicketProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="ticketProduct" type="tns:TicketProduct"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateTicketProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddOrUpdateTicketProductResult" type="tns:TicketProduct"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTicketProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketNumber" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTicketProductResponse">
+        <s:complexType/>
+      </s:element>
+      <s:element name="GetTicketDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketNumber" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTicketDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTicketDocumentsResult" type="tns:ArrayOfDocumentInfo"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTicketNote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="note" type="tns:TicketNote"/>
+            <s:element minOccurs="1" maxOccurs="1" name="srServiceRecid" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTicketNoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateTicketNoteResult" type="tns:TicketNote"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetServiceTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:GetServiceTicket"/>
+  </wsdl:message>
+  <wsdl:message name="GetServiceTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:GetServiceTicketResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LoadServiceTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadServiceTicket"/>
+  </wsdl:message>
+  <wsdl:message name="LoadServiceTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadServiceTicketResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddServiceTicketViaManagedIdSoapIn">
+    <wsdl:part name="parameters" element="tns:AddServiceTicketViaManagedId"/>
+  </wsdl:message>
+  <wsdl:message name="AddServiceTicketViaManagedIdSoapOut">
+    <wsdl:part name="parameters" element="tns:AddServiceTicketViaManagedIdResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateServiceTicketViaManagedIdSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateServiceTicketViaManagedId"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateServiceTicketViaManagedIdSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateServiceTicketViaManagedIdResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateServiceTicketViaManagedIdSoapIn">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateServiceTicketViaManagedId"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateServiceTicketViaManagedIdSoapOut">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateServiceTicketViaManagedIdResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddServiceTicketViaCompanyIdSoapIn">
+    <wsdl:part name="parameters" element="tns:AddServiceTicketViaCompanyId"/>
+  </wsdl:message>
+  <wsdl:message name="AddServiceTicketViaCompanyIdSoapOut">
+    <wsdl:part name="parameters" element="tns:AddServiceTicketViaCompanyIdResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateServiceTicketViaCompanyIdSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateServiceTicketViaCompanyId"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateServiceTicketViaCompanyIdSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateServiceTicketViaCompanyIdResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateServiceTicketViaCompanyIdSoapIn">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateServiceTicketViaCompanyId"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateServiceTicketViaCompanyIdSoapOut">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateServiceTicketViaCompanyIdResponse"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteServiceTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteServiceTicket"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteServiceTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteServiceTicketResponse"/>
+  </wsdl:message>
+  <wsdl:message name="FindServiceTicketsSoapIn">
+    <wsdl:part name="parameters" element="tns:FindServiceTickets"/>
+  </wsdl:message>
+  <wsdl:message name="FindServiceTicketsSoapOut">
+    <wsdl:part name="parameters" element="tns:FindServiceTicketsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetTicketCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTicketCount"/>
+  </wsdl:message>
+  <wsdl:message name="GetTicketCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTicketCountResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetServiceStatusesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetServiceStatuses"/>
+  </wsdl:message>
+  <wsdl:message name="GetServiceStatusesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetServiceStatusesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SearchKnowledgebaseSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchKnowledgebase"/>
+  </wsdl:message>
+  <wsdl:message name="SearchKnowledgebaseSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchKnowledgebaseResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SearchKnowledgebaseCountSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchKnowledgebaseCount"/>
+  </wsdl:message>
+  <wsdl:message name="SearchKnowledgebaseCountSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchKnowledgebaseCountResponse"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteTicketDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteTicketDocument"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteTicketDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteTicketDocumentResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetTicketProductListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTicketProductList"/>
+  </wsdl:message>
+  <wsdl:message name="GetTicketProductListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTicketProductListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddTicketProductSoapIn">
+    <wsdl:part name="parameters" element="tns:AddTicketProduct"/>
+  </wsdl:message>
+  <wsdl:message name="AddTicketProductSoapOut">
+    <wsdl:part name="parameters" element="tns:AddTicketProductResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketProductSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTicketProduct"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketProductSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTicketProductResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateTicketProductSoapIn">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateTicketProduct"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateTicketProductSoapOut">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateTicketProductResponse"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteTicketProductSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteTicketProduct"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteTicketProductSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteTicketProductResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetTicketDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTicketDocuments"/>
+  </wsdl:message>
+  <wsdl:message name="GetTicketDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTicketDocumentsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketNoteSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTicketNote"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketNoteSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTicketNoteResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="ServiceTicketApiSoap">
+    <wsdl:operation name="GetServiceTicket">
+      <wsdl:documentation>Gets a service ticket by the ticket number. If no service ticket exists with the given ticket number, null is returned.</wsdl:documentation>
+      <wsdl:input message="tns:GetServiceTicketSoapIn"/>
+      <wsdl:output message="tns:GetServiceTicketSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LoadServiceTicket">
+      <wsdl:documentation>Gets a service ticket by the ticket number. If no service ticket exists with the given ticket number, an error is returned.</wsdl:documentation>
+      <wsdl:input message="tns:LoadServiceTicketSoapIn"/>
+      <wsdl:output message="tns:LoadServiceTicketSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddServiceTicketViaManagedId">
+      <wsdl:documentation>Adds a new service ticket for a company identified by managed id.</wsdl:documentation>
+      <wsdl:input message="tns:AddServiceTicketViaManagedIdSoapIn"/>
+      <wsdl:output message="tns:AddServiceTicketViaManagedIdSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateServiceTicketViaManagedId">
+      <wsdl:documentation>Updates an existing service ticket for a company identified by managed id.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateServiceTicketViaManagedIdSoapIn"/>
+      <wsdl:output message="tns:UpdateServiceTicketViaManagedIdSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateServiceTicketViaManagedId">
+      <wsdl:documentation>Adds or updates a service ticket for a company identified by managed id. If the service ticket number is 0, the service ticket is added. If non-zero, the existing service ticket with that ticket number is updated.</wsdl:documentation>
+      <wsdl:input message="tns:AddOrUpdateServiceTicketViaManagedIdSoapIn"/>
+      <wsdl:output message="tns:AddOrUpdateServiceTicketViaManagedIdSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddServiceTicketViaCompanyId">
+      <wsdl:documentation>Adds a new service ticket for a company identified by the text-based company id.</wsdl:documentation>
+      <wsdl:input message="tns:AddServiceTicketViaCompanyIdSoapIn"/>
+      <wsdl:output message="tns:AddServiceTicketViaCompanyIdSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateServiceTicketViaCompanyId">
+      <wsdl:documentation>Updates an existing service ticket for a company identified by the text-based company id.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateServiceTicketViaCompanyIdSoapIn"/>
+      <wsdl:output message="tns:UpdateServiceTicketViaCompanyIdSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateServiceTicketViaCompanyId">
+      <wsdl:documentation>Adds or updates a service ticket for a company identified by the text-based company id. If the service ticket number is 0, the service ticket is added. If non-zero, the existing service ticket with that ticket number is updated.</wsdl:documentation>
+      <wsdl:input message="tns:AddOrUpdateServiceTicketViaCompanyIdSoapIn"/>
+      <wsdl:output message="tns:AddOrUpdateServiceTicketViaCompanyIdSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteServiceTicket">
+      <wsdl:documentation>Deletes a service ticket by the ticket number.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteServiceTicketSoapIn"/>
+      <wsdl:output message="tns:DeleteServiceTicketSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="FindServiceTickets">
+      <wsdl:documentation>Finds service ticket information by a set of conditions.  If isOpen is set, it will pre-filter by the ticket status.</wsdl:documentation>
+      <wsdl:input message="tns:FindServiceTicketsSoapIn"/>
+      <wsdl:output message="tns:FindServiceTicketsSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketCount">
+      <wsdl:documentation>Gets the count of service tickets that meet the specified conditions</wsdl:documentation>
+      <wsdl:input message="tns:GetTicketCountSoapIn"/>
+      <wsdl:output message="tns:GetTicketCountSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceStatuses">
+      <wsdl:documentation>Gets the list of statuses available to the specified ticket.</wsdl:documentation>
+      <wsdl:input message="tns:GetServiceStatusesSoapIn"/>
+      <wsdl:output message="tns:GetServiceStatusesSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="SearchKnowledgebase">
+      <wsdl:documentation>Performs a Knowledgebase search using the specified parameters</wsdl:documentation>
+      <wsdl:input message="tns:SearchKnowledgebaseSoapIn"/>
+      <wsdl:output message="tns:SearchKnowledgebaseSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="SearchKnowledgebaseCount">
+      <wsdl:documentation>Counts the Knowledgebase records that will be returned by performing the associated search.</wsdl:documentation>
+      <wsdl:input message="tns:SearchKnowledgebaseCountSoapIn"/>
+      <wsdl:output message="tns:SearchKnowledgebaseCountSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTicketDocument">
+      <wsdl:documentation>Removes the document from the ticket</wsdl:documentation>
+      <wsdl:input message="tns:DeleteTicketDocumentSoapIn"/>
+      <wsdl:output message="tns:DeleteTicketDocumentSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketProductList">
+      <wsdl:documentation>Get a list of products for the specified ticket</wsdl:documentation>
+      <wsdl:input message="tns:GetTicketProductListSoapIn"/>
+      <wsdl:output message="tns:GetTicketProductListSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddTicketProduct">
+      <wsdl:documentation>Add a product on a ticket</wsdl:documentation>
+      <wsdl:input message="tns:AddTicketProductSoapIn"/>
+      <wsdl:output message="tns:AddTicketProductSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicketProduct">
+      <wsdl:documentation>Update a product on a ticket</wsdl:documentation>
+      <wsdl:input message="tns:UpdateTicketProductSoapIn"/>
+      <wsdl:output message="tns:UpdateTicketProductSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateTicketProduct">
+      <wsdl:documentation>Add or Update a product on a ticket</wsdl:documentation>
+      <wsdl:input message="tns:AddOrUpdateTicketProductSoapIn"/>
+      <wsdl:output message="tns:AddOrUpdateTicketProductSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTicketProduct">
+      <wsdl:documentation>Delete Product from a ticket</wsdl:documentation>
+      <wsdl:input message="tns:DeleteTicketProductSoapIn"/>
+      <wsdl:output message="tns:DeleteTicketProductSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketDocuments">
+      <wsdl:documentation>Gets the documents attached to the specified ticket</wsdl:documentation>
+      <wsdl:input message="tns:GetTicketDocumentsSoapIn"/>
+      <wsdl:output message="tns:GetTicketDocumentsSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicketNote">
+      <wsdl:documentation>Add a new ticket note or update an existing ticket note by service ticket Recid.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateTicketNoteSoapIn"/>
+      <wsdl:output message="tns:UpdateTicketNoteSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceTicketApiSoap" type="tns:ServiceTicketApiSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetServiceTicket">
+      <soap:operation soapAction="http://connectwise.com/GetServiceTicket" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadServiceTicket">
+      <soap:operation soapAction="http://connectwise.com/LoadServiceTicket" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddServiceTicketViaManagedId">
+      <soap:operation soapAction="http://connectwise.com/AddServiceTicketViaManagedId" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateServiceTicketViaManagedId">
+      <soap:operation soapAction="http://connectwise.com/UpdateServiceTicketViaManagedId" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateServiceTicketViaManagedId">
+      <soap:operation soapAction="http://connectwise.com/AddOrUpdateServiceTicketViaManagedId" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddServiceTicketViaCompanyId">
+      <soap:operation soapAction="http://connectwise.com/AddServiceTicketViaCompanyId" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateServiceTicketViaCompanyId">
+      <soap:operation soapAction="http://connectwise.com/UpdateServiceTicketViaCompanyId" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateServiceTicketViaCompanyId">
+      <soap:operation soapAction="http://connectwise.com/AddOrUpdateServiceTicketViaCompanyId" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteServiceTicket">
+      <soap:operation soapAction="http://connectwise.com/DeleteServiceTicket" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindServiceTickets">
+      <soap:operation soapAction="http://connectwise.com/FindServiceTickets" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketCount">
+      <soap:operation soapAction="http://connectwise.com/GetTicketCount" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceStatuses">
+      <soap:operation soapAction="http://connectwise.com/GetServiceStatuses" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchKnowledgebase">
+      <soap:operation soapAction="http://connectwise.com/SearchKnowledgebase" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchKnowledgebaseCount">
+      <soap:operation soapAction="http://connectwise.com/SearchKnowledgebaseCount" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTicketDocument">
+      <soap:operation soapAction="http://connectwise.com/DeleteTicketDocument" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketProductList">
+      <soap:operation soapAction="http://connectwise.com/GetTicketProductList" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTicketProduct">
+      <soap:operation soapAction="http://connectwise.com/AddTicketProduct" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicketProduct">
+      <soap:operation soapAction="http://connectwise.com/UpdateTicketProduct" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateTicketProduct">
+      <soap:operation soapAction="http://connectwise.com/AddOrUpdateTicketProduct" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTicketProduct">
+      <soap:operation soapAction="http://connectwise.com/DeleteTicketProduct" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketDocuments">
+      <soap:operation soapAction="http://connectwise.com/GetTicketDocuments" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicketNote">
+      <soap:operation soapAction="http://connectwise.com/UpdateTicketNote" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceTicketApiSoap12" type="tns:ServiceTicketApiSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetServiceTicket">
+      <soap12:operation soapAction="http://connectwise.com/GetServiceTicket" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadServiceTicket">
+      <soap12:operation soapAction="http://connectwise.com/LoadServiceTicket" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddServiceTicketViaManagedId">
+      <soap12:operation soapAction="http://connectwise.com/AddServiceTicketViaManagedId" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateServiceTicketViaManagedId">
+      <soap12:operation soapAction="http://connectwise.com/UpdateServiceTicketViaManagedId" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateServiceTicketViaManagedId">
+      <soap12:operation soapAction="http://connectwise.com/AddOrUpdateServiceTicketViaManagedId" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddServiceTicketViaCompanyId">
+      <soap12:operation soapAction="http://connectwise.com/AddServiceTicketViaCompanyId" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateServiceTicketViaCompanyId">
+      <soap12:operation soapAction="http://connectwise.com/UpdateServiceTicketViaCompanyId" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateServiceTicketViaCompanyId">
+      <soap12:operation soapAction="http://connectwise.com/AddOrUpdateServiceTicketViaCompanyId" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteServiceTicket">
+      <soap12:operation soapAction="http://connectwise.com/DeleteServiceTicket" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindServiceTickets">
+      <soap12:operation soapAction="http://connectwise.com/FindServiceTickets" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketCount">
+      <soap12:operation soapAction="http://connectwise.com/GetTicketCount" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceStatuses">
+      <soap12:operation soapAction="http://connectwise.com/GetServiceStatuses" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchKnowledgebase">
+      <soap12:operation soapAction="http://connectwise.com/SearchKnowledgebase" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchKnowledgebaseCount">
+      <soap12:operation soapAction="http://connectwise.com/SearchKnowledgebaseCount" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTicketDocument">
+      <soap12:operation soapAction="http://connectwise.com/DeleteTicketDocument" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketProductList">
+      <soap12:operation soapAction="http://connectwise.com/GetTicketProductList" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTicketProduct">
+      <soap12:operation soapAction="http://connectwise.com/AddTicketProduct" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicketProduct">
+      <soap12:operation soapAction="http://connectwise.com/UpdateTicketProduct" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateTicketProduct">
+      <soap12:operation soapAction="http://connectwise.com/AddOrUpdateTicketProduct" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTicketProduct">
+      <soap12:operation soapAction="http://connectwise.com/DeleteTicketProduct" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketDocuments">
+      <soap12:operation soapAction="http://connectwise.com/GetTicketDocuments" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicketNote">
+      <soap12:operation soapAction="http://connectwise.com/UpdateTicketNote" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServiceTicketApi">
+    <wsdl:documentation>ConnectWise Service Ticket API</wsdl:documentation>
+    <wsdl:port name="ServiceTicketApiSoap" binding="tns:ServiceTicketApiSoap">
+      <soap:address location="https://test.connectwise.com/v4_6_release/apis/1.5/ServiceTicketApi.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="ServiceTicketApiSoap12" binding="tns:ServiceTicketApiSoap12">
+      <soap12:address location="https://test.connectwise.com/v4_6_release/apis/1.5/ServiceTicketApi.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
