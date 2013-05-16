@@ -333,7 +333,7 @@ class Contact
         try
         {
             $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-                ->GetAllCommunicationTypesAndDescription();
+                ->GetAllCommunicationTypesAndDescription(ApiRequestParams::getAll());
 
             ApiResult::addResultFromObject($results->GetAllCommunicationTypesAndDescriptionResult, 'CommunicationTypeDescriptions');
             
@@ -379,20 +379,20 @@ class Contact
     
     /**
      * Gets all notes for contact by database record id. 
-     * If no contact exists with the given id, an empty array is returned
+     * If no contact exists with the given id, an exception is thrown in CW
      *
      * @throws ApiException
      * @param integer $contactId
      * @return array
      */
-    public static function getAllContactNotes($contactId)
+    public static function getAllContactNotes($contactRecId)
     {
-        if (is_int($contactId) === false)
+        if (is_int($contactRecId) === false)
         {
             throw new ApiException('Contact ID must be an integer.');
         }
 
-        ApiRequestParams::set('contactId', $contactId);
+        ApiRequestParams::set('contactId', $contactRecId);
 
         try
         {
@@ -412,13 +412,18 @@ class Contact
     /**
      * Gets an avatar image from the server
      *
-     * @todo need a valid image id to test; method should work fine though...
+     * @todo need a valid image id to test
      * @throws ApiException
      * @param string $imageId
      * @return array
      */
     public static function getAvatarImage($imageId)
     {
+        if (is_string($imageId) === false)
+        {
+            throw new ApiException('Avatar image id must be a string.');
+        }
+
         ApiRequestParams::set('imageId', $imageId);
 
         try
@@ -435,33 +440,23 @@ class Contact
             throw new ApiException($error->getMessage());
         }
     }
-    
-    /**
-     * Alias of getContactByRecId
-     *
-     * @see getContactByRecId()
-     */
-    public static function getContact($recId)
-    {
-        return static::getContactByRecId($recId);
-    }
 
     /**
-     * Gets a contact by database record id ("rec id"). 
-     * If no contact exists with the given id, an empty array is returned
+     * Gets a contact by database id
+     * If no contact exists with the given id, an exception is thrown in cw
      *
      * @throws ApiException
-     * @param integer $contactRecId
+     * @param integer $id
      * @return array
      */
-    public static function getContactByRecId($contactRecId)
+    public static function getContact($id)
     {
-        if (is_int($contactRecId) === false)
+        if (is_int($id) === false)
         {
-            throw new ApiException('Contact Rec ID must be an integer.');
+            throw new ApiException('Contact ID must be an integer.');
         }
 
-        ApiRequestParams::set('id', $contactRecId);
+        ApiRequestParams::set('id', $id);
 
         try
         {
@@ -480,7 +475,7 @@ class Contact
     
     /**
      * Gets a communication item for contact by database record contactId
-     * If no contact exists with the given id, an empty array is returned
+     * If no contact exists with the given id, an exception is thrown in CW
      *
      * @throws ApiException
      * @param integer $contactId
@@ -526,7 +521,7 @@ class Contact
 
     /**
      * Gets a note for contact by database record id
-     * If no contact exists with the given id, an empty array is returned
+     * If no contact or contact note exists with the given ids, an exception is thrown in CW
      *
      * @throws ApiException
      * @param integer $contactId
@@ -565,6 +560,7 @@ class Contact
     
     /**
      * Return the configuration settings for the specified portal
+     * An exception is thrown in CW if the portal is not found / doesn't exist
      *
      * @throws ApiException
      * @param string $portalName
@@ -596,6 +592,7 @@ class Contact
     
     /**
      * Get the login page customizations for the specified portal
+     * Returns an empty array if portal is not found / doesn't exist
      *
      * @throws ApiException
      * @param string $portalName
@@ -627,6 +624,7 @@ class Contact
     
     /**
      * Return the security settings for the contact logged into the portal
+     * This will always return an array of portal security settings regardless of what you send it
      *
      * @throws ApiException
      * @param integer $portalContId

@@ -114,45 +114,49 @@ try
     // $test = Contact::addContactToGroup(2, 20, 'testing'); // Need a valid group id 
     /*
     $test = Contact::addOrUpdateContact(array(
-        'FirstName' => 'LTWebDevGuy', 'LastName' => 'Testerino', 'ContactRecID' => 0, 'Id' => 0,
+        'FirstName' => 'LTWebDevGuyTEST23', 'LastName' => 'Testerino', 'ContactRecID' => 0, 'Id' => 0,
         'BirthDay' => '0001-01-01T00:00:00', 'Married' => false, 'CompanyId' => 'ConnectWise',
         'Children' => false, 'Anniversary' => '0001-01-01T00:00:00', 'PortalSecurityLevel' => 6,
         'DisablePortalLogin' => false, 'Inactive' => false,
         'UnsubscribeFlag' => false, 'LastUpdate' => '2011-06-30T09:35:27.113', 'PersonalAddressFlag' => false,
-        'Gender' => 'Male',
+        'Gender' => 'Male', 'Email' => 'dontemailmebrozz@domain.com'
     ));
     */
+
     /*
-    $test = Contact::addOrUpdateContactCommunicationItem(2, array(
-        'Id' => 0, 'Type' => 'PhoneNumber', 'CommunicationTypeId' => 2, 'Description' => 'Home'
+    Contact::addOrUpdateContactCommunicationItem(248, array(
+        'Id' => 0, 'Type' => 'PhoneNumber', 'CommunicationTypeId' => 2, 'Description' => 'Cell'
     ));
     */
+    // $test = Contact::getContactCommunicationItem(2, 'PhoneNumber', 'Direct');
+    // $test = Contact::getAllContactCommunicationItems(248);
+    // $test = Contact::setDefaultContactCommunicationItem(248, 'PhoneNumber', 'Direct');
+    // $test = Contact::deleteContactCommunicationItem(248, 'PhoneNumber', 'Home');
+
     /*
-    $test = Contact::addOrUpdateContactNote(201, array(
-        'Id' => 0, 'NoteType' => 'Comment', 'NoteText' => 'iRack is for shoes', 'IsFlagged' => false
+    Contact::addOrUpdateContactNote(248, array(
+        'Id' => 0, 'NoteType' => 'Comment', 'NoteText' => 'iRack bro 22', 'IsFlagged' => false
     ));
     */
-    // $test = Contact::getAllContactNotes(201);
+    
+    $test = Contact::getContact(123248);
+    // $test = Contact::getAvatarImage(2);
+    // $test = Contact::getAllContactNotes(248);
     // $test = Contact::findCompanies(5, 0, 'Id');
     // $test = Contact::findContacts(20, 0, 'Id');
-    // $test = Contact::getContactCommunicationItem(2, 'PhoneNumber', 'Direct');
-    // $test = Contact::getAllCommunicationTypesAndDescriptions();
-    // $test = Contact::getContactByRecId(201);
     // $test = Contact::findContactsCount('FirstName = "LTWebDevGuy"');
     // $test = Contact::getAllCommunicationTypesAndDescriptions();
-    // $test = Contact::getAllContactCommunicationItems(2);
-    // $test = Contact::getContactCommunicationItem(201, 'PhoneNumber', 'Cell');
-    // $test = Contact::getContactNote(201, 9);
+    // $test = Contact::getContactNote(2, 12);
     // $test = Contact::getPortalConfigSettings('Default');
     // $test = Contact::getPortalLoginCustomizations('Default');
-    // $test = Contact::getPortalSecurity(1);
-    // $test = Contact::loadContact(201);
+    // $test = Contact::getPortalSecurity(1, 'Wrong Co');
+    // $test = Contact::loadContact(2);
     // $test = Contact::removeContactFromGroup(201, 20, 'test'); // Need a valid group id
-    // $test = Contact::requestPassword('email@email.com');
-    // $test = Contact::setDefaultContactCommunicationItem(201, 'PhoneNumber', 'Direct');
-    // $test = Contact::deleteNote(10, 201);
-    // $test = Contact::deleteContactCommunicationItem(201, 'PhoneNumber', 'Direct');
-    // $test = Contact::deleteContact(201);
+    // $test = Contact::requestPassword('dontemailmebro@domain.com');
+    
+    // $test = Contact::deleteNote(46, 248);
+    
+    // $test = Contact::deleteContact(240);
 
     // ------------------------------------------------------------------------------------
 
