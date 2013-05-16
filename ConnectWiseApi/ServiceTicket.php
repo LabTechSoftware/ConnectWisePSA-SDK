@@ -1,6 +1,7 @@
 <?php namespace ConnectWiseApi;
 
-use ConnectWiseApi\ApiResource,
+use SoapFault,
+    ConnectWiseApi\ApiResource,
     ConnectWiseApi\ApiRequestParams,
     ConnectWiseApi\ApiResult,
     ConnectWiseApi\ApiException;
@@ -33,12 +34,19 @@ class ServiceTicket
         ApiRequestParams::set('companyId', $companyId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddOrUpdateServiceTicketViaCompanyId(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddOrUpdateServiceTicketViaCompanyId(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddOrUpdateServiceTicketViaCompanyIdResult');
+            ApiResult::addResultFromObject($results, 'AddOrUpdateServiceTicketViaCompanyIdResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -61,12 +69,19 @@ class ServiceTicket
         ApiRequestParams::set('managedId', $managedId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddOrUpdateServiceTicketViaManagedId(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddOrUpdateServiceTicketViaManagedId(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddOrUpdateServiceTicketViaManagedIdResult');
+            ApiResult::addResultFromObject($results, 'AddOrUpdateServiceTicketViaManagedIdResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -79,12 +94,19 @@ class ServiceTicket
     {
         ApiRequestParams::set('ticketProduct', $ticketProduct);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddOrUpdateTicketProduct(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddOrUpdateTicketProduct(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddOrUpdateTicketProductResult');
+            ApiResult::addResultFromObject($results, 'AddOrUpdateTicketProductResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -105,12 +127,19 @@ class ServiceTicket
         ApiRequestParams::set('companyId', $companyId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddServiceTicketViaCompanyId(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddServiceTicketViaCompanyId(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results->AddServiceTicketViaCompanyIdResult, 'Ticket');
+            ApiResult::addResultFromObject($results->AddServiceTicketViaCompanyIdResult, 'Ticket');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -131,12 +160,19 @@ class ServiceTicket
         ApiRequestParams::set('managedId', $managedId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddServiceTicketViaManagedId(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddServiceTicketViaManagedId(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddServiceTicketViaManagedIdResult');
+            ApiResult::addResultFromObject($results, 'AddServiceTicketViaManagedIdResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -149,12 +185,19 @@ class ServiceTicket
     {
         ApiRequestParams::set('ticketProduct', $ticketProduct);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->AddTicketProduct(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->AddTicketProduct(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'AddTicketProductResult');
+            ApiResult::addResultFromObject($results, 'AddTicketProductResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -194,12 +237,19 @@ class ServiceTicket
         ApiRequestParams::set('conditions', $conditions);
         ApiRequestParams::set('orderBy', $orderBy);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->FindServiceTickets(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->FindServiceTickets(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results->FindServiceTicketsResult, 'Ticket');
+            ApiResult::addResultFromObject($results->FindServiceTicketsResult, 'Ticket');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -218,12 +268,19 @@ class ServiceTicket
 
         ApiRequestParams::set('ticketNumber', $ticketId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetServiceStatuses(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetServiceStatuses(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'GetServiceStatusesResult');
+            ApiResult::addResultFromObject($results, 'GetServiceStatusesResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -243,12 +300,19 @@ class ServiceTicket
 
         ApiRequestParams::set('ticketNumber', $ticketId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetServiceTicket(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetServiceTicket(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'GetServiceTicketResult');
+            ApiResult::addResultFromObject($results, 'GetServiceTicketResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -273,12 +337,19 @@ class ServiceTicket
         ApiRequestParams::set('conditions', $conditions);
         ApiRequestParams::set('isOpen', $isOpen);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetTicketCount(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetTicketCount(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'GetTicketCountResult');
+            ApiResult::addResultFromObject($results, 'GetTicketCountResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -298,12 +369,19 @@ class ServiceTicket
 
         ApiRequestParams::set('ticketNumber', $ticketId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->LoadServiceTicket(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->LoadServiceTicket(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'LoadServiceTicketResult');
+            ApiResult::addResultFromObject($results, 'LoadServiceTicketResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -322,12 +400,19 @@ class ServiceTicket
 
         ApiRequestParams::set('ticketNumber', $ticketNumber);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetTicketProductList(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetTicketProductList(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results->GetTicketProductListResult, 'TicketProduct');
+            ApiResult::addResultFromObject($results->GetTicketProductListResult, 'TicketProduct');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -381,12 +466,19 @@ class ServiceTicket
         ApiRequestParams::set('limit', $limit);
         ApiRequestParams::set('skip', $skip);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->SearchKnowledgebase(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->SearchKnowledgebase(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results->SearchKnowledgebaseResult, 'KnowledgeBaseResult');
+            ApiResult::addResultFromObject($results->SearchKnowledgebaseResult, 'KnowledgeBaseResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -426,12 +518,19 @@ class ServiceTicket
         ApiRequestParams::set('searchStart', $start);
         ApiRequestParams::set('companyRecID', $companyRecId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->SearchKnowledgebaseCount(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->SearchKnowledgebaseCount(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'SearchKnowledgebaseCountResult');
+            ApiResult::addResultFromObject($results, 'SearchKnowledgebaseCountResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -450,12 +549,19 @@ class ServiceTicket
 
         ApiRequestParams::set('ticketNumber', $ticketNumber);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetTicketDocuments(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetTicketDocuments(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results->GetTicketDocumentsResult, 'DocumentInfo');
+            ApiResult::addResultFromObject($results->GetTicketDocumentsResult, 'DocumentInfo');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -475,12 +581,19 @@ class ServiceTicket
         ApiRequestParams::set('companyId', $companyId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->UpdateServiceTicketViaCompanyId(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->UpdateServiceTicketViaCompanyId(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'UpdateServiceTicketViaCompanyIdResult');
+            ApiResult::addResultFromObject($results, 'UpdateServiceTicketViaCompanyIdResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -501,12 +614,19 @@ class ServiceTicket
         ApiRequestParams::set('managedId', $managedId);
         ApiRequestParams::set('serviceTicket', $serviceTicket);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->UpdateServiceTicketViaManagedId(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->UpdateServiceTicketViaManagedId(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'UpdateServiceTicketViaManagedIdResult');
+            ApiResult::addResultFromObject($results, 'UpdateServiceTicketViaManagedIdResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -527,12 +647,19 @@ class ServiceTicket
         ApiRequestParams::set('note', $note);
         ApiRequestParams::set('srServiceRecid', $serviceRecId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->UpdateTicketNote(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->UpdateTicketNote(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'UpdateTicketNoteResult');
+            ApiResult::addResultFromObject($results, 'UpdateTicketNoteResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -545,12 +672,19 @@ class ServiceTicket
     {
         ApiRequestParams::set('ticketProduct', $product);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->UpdateTicketProduct(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->UpdateTicketProduct(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results, 'UpdateTicketProductResult');
+            ApiResult::addResultFromObject($results, 'UpdateTicketProductResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -568,12 +702,19 @@ class ServiceTicket
 
         ApiRequestParams::set('ticketNumber', $ticketId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->DeleteServiceTicket(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->DeleteServiceTicket(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results);
+            ApiResult::addResultFromObject($results);
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -599,12 +740,19 @@ class ServiceTicket
         ApiRequestParams::set('id', $docId);
         ApiRequestParams::set('ticketNumber', $ticketId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->DeleteTicketDocument(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->DeleteTicketDocument(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results);
+            ApiResult::addResultFromObject($results);
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -630,11 +778,18 @@ class ServiceTicket
         ApiRequestParams::set('id', $productId);
         ApiRequestParams::set('ticketNumber', $ticketId);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->DeleteTicketProduct(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->DeleteTicketProduct(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results);
+            ApiResult::addResultFromObject($results);
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 }

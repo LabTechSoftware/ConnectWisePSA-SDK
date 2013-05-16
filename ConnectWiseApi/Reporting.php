@@ -1,6 +1,7 @@
 <?php namespace ConnectWiseApi;
 
-use ConnectWiseApi\ApiResource,
+use SoapFault,
+    ConnectWiseApi\ApiResource,
     ConnectWiseApi\ApiRequestParams,
     ConnectWiseApi\ApiResult,
     ConnectWiseApi\ApiException;
@@ -22,12 +23,19 @@ class Reporting
      */
     public static function getPortalReports()
     {
-        $getReports = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetPortalReports(ApiRequestParams::getAll());
+        try
+        {
+            $getReports = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetPortalReports(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($getReports, 'GetPortalReportsResult');
+            ApiResult::addResultFromObject($getReports, 'GetPortalReportsResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();    
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -46,12 +54,19 @@ class Reporting
 
         ApiRequestParams::set('reportName', $reportName);
 
-        $reportFields = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetReportFields(ApiRequestParams::getAll());
+        try
+        {
+            $reportFields = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetReportFields(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($reportFields, 'GetReportFieldsResult');
+            ApiResult::addResultFromObject($reportFields, 'GetReportFieldsResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -71,12 +86,19 @@ class Reporting
 
         ApiRequestParams::set('includeFields', $includeFields);
 
-        $getResults = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->GetReports(ApiRequestParams::getAll());
+        try
+        {
+            $getResults = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->GetReports(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($getResults->GetReportsResult, 'Report');
+            ApiResult::addResultFromObject($getResults->GetReportsResult, 'Report');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -109,12 +131,19 @@ class Reporting
         ApiRequestParams::set('limit', $limit);
         ApiRequestParams::set('skip', $skip);
 
-        $runReport = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->RunPortalReport(ApiRequestParams::getAll());
+        try
+        {
+            $runReport = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->RunPortalReport(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($runReport->RunPortalReportResult, 'ResultRow');
+            ApiResult::addResultFromObject($runReport->RunPortalReportResult, 'ResultRow');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 
     /**
@@ -138,12 +167,19 @@ class Reporting
 
         ApiRequestParams::set('reportName', $reportName);
 
-        $result = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->RunReportCount(ApiRequestParams::getAll());
+        try
+        {
+            $result = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->RunReportCount(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($result, 'RunReportCountResult');
+            ApiResult::addResultFromObject($result, 'RunReportCountResult');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
     
     /**
@@ -190,11 +226,18 @@ class Reporting
         ApiRequestParams::set('limit', $limit);
         ApiRequestParams::set('skip', $skip);
 
-        $results = ApiResource::run('api_connection', 'start', static::$currentApi)
-            ->RunReportQuery(ApiRequestParams::getAll());
+        try
+        {
+            $results = ApiResource::run('api_connection', 'start', static::$currentApi)
+                ->RunReportQuery(ApiRequestParams::getAll());
 
-        ApiResult::addResultFromObject($results->RunReportQueryResult, 'ResultRow');
+            ApiResult::addResultFromObject($results->RunReportQueryResult, 'ResultRow');
 
-        return ApiResult::getAll();
+            return ApiResult::getAll();
+        }
+        catch (SoapFault $error)
+        {
+            throw new ApiException($error->getMessage());
+        }
     }
 }
