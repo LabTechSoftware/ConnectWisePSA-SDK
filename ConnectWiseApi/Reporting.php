@@ -45,11 +45,11 @@ class Reporting
      * @param string $reportName
      * @return array
      */
-    public static function getReportFields($reportName = null)
+    public static function getReportFields($reportName = '')
     {
-        if (is_null($reportName) === true)
+        if (is_string($reportName) === false)
         {
-            throw new ApiException('Report name required for get report fields.');
+            throw new ApiException('Report name must be a string.');
         }
 
         ApiRequestParams::set('reportName', $reportName);
@@ -59,7 +59,7 @@ class Reporting
             $reportFields = ApiResource::run('api_connection', 'start', static::$currentApi)
                 ->GetReportFields(ApiRequestParams::getAll());
 
-            ApiResult::addResultFromObject($reportFields, 'GetReportFieldsResult');
+            ApiResult::addResultFromObject($reportFields->GetReportFieldsResult, 'FieldInfo');
 
             return ApiResult::getAll();
         }

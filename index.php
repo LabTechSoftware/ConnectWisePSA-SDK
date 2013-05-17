@@ -17,7 +17,7 @@ try
      */
     /*
     $test = ServiceTicket::addOrUpdateServiceTicketViaCompanyId('ConnectWise', array(
-        'TicketNumber' =>  99, 'SendingSrServiceRecid' => 99, 'DateReq' => '2013-02-02', 'SubBillingMethodId' => 'None',
+        'TicketNumber' =>  0, 'SendingSrServiceRecid' => 99, 'DateReq' => '2013-02-02', 'SubBillingMethodId' => 'None',
         'SubBillingAmount' => '100.00', 'SubDateAccepted' => '2013-01-02', 'SubDateAcceptedUtc' => '2013-01-01', 
         'BudgetHours' => '3.0', 'SkipCallback' => false, 'Approved' => false, 'ClosedFlag' => false, 'Summary' => 'This is a test (updated).',
         'Status' => 'N'
@@ -56,15 +56,41 @@ try
     ));
     */
 
-    // $test = ServiceTicket::deleteTicketProduct(26, 960);
-    // $test = ServiceTicket::deleteTicketDocument(262, 328);
-    // $test = ServiceTicket::getTicketDocuments(328);
-    // $test = ServiceTicket::deleteServiceTicket(959);
-    // $test = ServiceTicket::findServiceTickets(20);
-    // $test = ServiceTicket::getTicketProductList(99);
+    // $test = ServiceTicket::deleteTicketProduct(83, 960);
+    // $test = ServiceTicket::deleteTicketDocument(264, 387);
+    // $test = ServiceTicket::getTicketDocuments(387); // doc id:  264, ticket: 387
+        
+    // ticket Id: 899, doc id: 266 <-- last ticket found w/ docs available
+    /*
+    foreach (range(874, 1000) as $num)
+    {
+        try 
+        {
+            echo $num . '<br />';
+
+            if (count(ServiceTicket::getTicketDocuments($num)) > 0)
+            {
+                echo '<pre>';
+                echo print_r(ServiceTicket::getTicketDocuments($num));
+                echo '</pre>';
+                break;
+            }
+        } 
+        catch (Exception $error)
+        {
+            echo 'Error caught';
+        }
+
+        echo '<hr />';
+    }
+    */
+    
+    // $test = ServiceTicket::deleteServiceTicket(961);
+    // $test = ServiceTicket::findServiceTickets(10, 0, 'Approved = false');
+    // $test = ServiceTicket::getTicketProductList(960);
     // $test = ServiceTicket::getServiceStatuses(960);
-    // $test = ServiceTicket::getServiceTicket(960);
-    // $test = ServiceTicket::getTicketCount();
+    // $test = ServiceTicket::getServiceTicket(654697);
+    // $test = ServiceTicket::getTicketCount(true, 'wat = "ok"');
     // $test = ServiceTicket::loadServiceTicket(960);
     // $test = ServiceTicket::searchKnowledgebase('invoice', 'All', '2000-01-01');
     // $test = ServiceTicket::searchKnowledgebaseCount('invoice', 'All', '2000-01-01');
@@ -75,7 +101,7 @@ try
         'BudgetHours' => '3.0', 'SkipCallback' => false, 'Approved' => false, 'ClosedFlag' => false, 'Summary' => 'This is a test (updated x2).',
         'Status' => 'N'
     ));
-    */
+    */  
     /*
     $test = ServiceTicket::updateTicketNote(array(
         'Id' => 1406, 'NoteType' => 'Comment', 'NoteText' => 'shoes is for shoes', 'IsFlagged' => false, 'PortalIsInternalNote' => false,
@@ -99,11 +125,11 @@ try
      */
 
     // $test = Reporting::getPortalReports(); // Need to test with credentials that have sufficient privs 
-    // $test = Reporting::getReports(false);
-    // $test = Reporting::getReportFields('IVCategory');
+    // $test = Reporting::getReports(true);
+    // $test = Reporting::getReportFields('IVCategory'); // 'IVCategory'
     // $test = Reporting::runPortalReport('report-name', 10, 0); // Need to test with a valid portal report name
     // $test = Reporting::runReportCount('IVCategory');
-    // $test = Reporting::runReportQuery('IVCategory');
+    // $test = Reporting::runReportQuery('sd6fs5d4f6s5df');
     
     // ------------------------------------------------------------------------------------
 
@@ -139,7 +165,7 @@ try
     ));
     */
     
-    $test = Contact::getContact(123248);
+    // $test = Contact::getContact(123248);
     // $test = Contact::getAvatarImage(2);
     // $test = Contact::getAllContactNotes(248);
     // $test = Contact::findCompanies(5, 0, 'Id');
