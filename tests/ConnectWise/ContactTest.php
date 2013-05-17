@@ -2,6 +2,7 @@
 
 /**
  * Tests for \ConnectWiseApi\Contact
+ * @todo Add tests for addContactToGroup, getAvatarImage, removeContactFromGroup
  *
  * @covers ConnectWiseApi\Contact
  */
@@ -28,26 +29,6 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     public function testCurrentApiNameExists()
     {
         $this->assertObjectHasAttribute('currentApi', $this->fixture);
-    }
-
-    /**
-     * @covers ConnectWiseApi\Contact::addContactToGroup
-     */
-    /*
-    public function testAddContactToGroupReturnsArrayOnSuccess()
-    {
-        $this->assertTrue(is_array($this->fixture->addContactToGroup(2, 20, 'testing')));
-    }
-    */
-
-    /**
-     * @covers ConnectWiseApi\Contact::addContactToGroup
-     *
-     * @expectedException ConnectWiseApi\ApiException
-     */
-    public function testAddContactToGroupThrowsExceptionOnFail()
-    {
-        $this->fixture->addContactToGroup(2, 200, 'sdfsd');
     }
 
     /**
@@ -247,26 +228,6 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     public function testGetAllContactNotesThrowsExceptionOnInvalidParam()
     {
         $this->fixture->getAllContactNotes('supposed_to_be_an_integer');
-    }
-
-    /**
-     * @covers ConnectWiseApi\Contact::getAvatarImage
-     *
-     * @expectedException ConnectWiseApi\ApiException
-     **/
-    public function testGetAvatarImageThrowsExceptionWhenNoImageFound()
-    {
-        $this->fixture->getAvatarImage('k2h398fhsdfjhxcv');
-    }
-
-    /**
-     * @covers ConnectWiseApi\Contact::getAvatarImage
-     *
-     * @expectedException ConnectWiseApi\ApiException
-     */
-    public function testGetAvatarImageThrowsExceptionOnInvalidParam()
-    {
-        $this->fixture->getAvatarImage(649846);
     }
 
     /**
@@ -490,26 +451,6 @@ class ContactTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(is_array($loadContact));
         $this->assertGreaterThan(1, count($loadContact));
-    }
-
-    /**
-     * @covers ConnectWiseApi\Contact::removeContactFromGroup
-     */
-    /*
-    public function testRemoveContactFromGroupReturnsArrayOnSuccess()
-    {
-        $this->assertTrue(is_array($this->fixture->removeContactFromGroup(2, 20, 'testing')));
-    }
-    */
-
-    /**
-     * @covers ConnectWiseApi\Contact::removeContactFromGroup
-     *
-     * @expectedException ConnectWiseApi\ApiException
-     */
-    public function testRemoveContactFromGroupThrowsExceptionOnFail()
-    {
-        $this->fixture->removeContactFromGroup(2, 200, 'sdfsd');
     }
 
     /**
