@@ -9,7 +9,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "ConnectWiseApi": "ConnectWiseApi/",
+            "ConnectWiseApi": "ConnectWiseApi/"
         }
     },
     "minimum-stability": "dev"
