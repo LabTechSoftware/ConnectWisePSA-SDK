@@ -1,5 +1,5 @@
 {
-    "name": "LabTechSoftware/connectwise-psa-sdk",
+    "name": "labtechsoftware/connectwise-psa-sdk",
     "description": "LabTech's PHP SDK for the ConnectWise PSA",
     "authors": [
         {
@@ -9,7 +9,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "ConnectWiseApi": "ConnectWiseApi/"
+            "ConnectWiseApi": ["src"]
         }
     },
     "minimum-stability": "dev"

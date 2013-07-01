@@ -25,10 +25,12 @@ ini_set('soap.wsdl_cache_ttl', '0');
 
 /**
  * Simple PSR-0 autoloader
+ * Uncomment lines 33-59 this to use if not using composer.json for package management
  *
  * @see https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
- * @return mixed
+ * @return void
  **/
+/*
 function apiAutoloader($className)
 {
     $className = ltrim($className, '\\');
@@ -54,6 +56,7 @@ function apiAutoloader($className)
 
 // Register autoload function
 spl_autoload_register('apiAutoloader');
+*/
 
 // Set config directory path in the API Config class
 ConnectWiseApi\ApiConfig::setConfigDirPath(dirname(__FILE__).'/config');
