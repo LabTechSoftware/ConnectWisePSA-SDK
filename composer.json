@@ -1,0 +1,16 @@
+{
+    "name": "labtech/connectwise-psa-sdk",
+    "description": "LabTech's PHP SDK for the ConnectWise PSA",
+    "authors": [
+        {
+            "name": "Andre Zavala",
+            "email": "azavala@labtechsoftware.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "ConnectWiseApi": "ConnectWiseApi/",
+        }
+    },
+    "minimum-stability": "dev"
+}

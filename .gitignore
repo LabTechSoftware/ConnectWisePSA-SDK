@@ -1,3 +1,48 @@
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
 .DS_Store
+Thumbs.db
+.cache
 .project
+.settings
+.tmproj
+*.esproj
+nbproject
+
+# Dreamweaver added files
+_notes
+dwsync.xml
+
+# Komodo
+*.komodoproject
+.komodotools
+
+# etc
+.hg
+.svn
+.CVS
+intermediate
+publish
+.idea
+sftp-config.json
+/app/config/app.php
+/app/config/workbench.php
+/app/config/database.php
+/bootstrap/compiled.php
+/vendor
+/workbench
+composer.phar
+composer.lock
 test.php
+/config/credentials.php
