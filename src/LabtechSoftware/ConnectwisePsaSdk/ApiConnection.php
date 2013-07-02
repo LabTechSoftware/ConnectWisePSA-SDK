@@ -1,12 +1,17 @@
-<?php namespace ConnectWiseApi;
+<?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
 use SoapClient,
-    ConnectWiseApi\ApiException;
+    LabtechSoftware\ConnectwisePsaSdk\ApiException;
+
+// SOAP Runtime settings: Turn off cache (0)
+// See: http://www.php.net/manual/en/soap.configuration.php
+ini_set('soap.wsdl_cache_enabled', '0');
+ini_set('soap.wsdl_cache_ttl', '0');
 
 /**
  * API (SOAP) Connection
  *
- * @package API
+ * @package ConnectwisePsaSdk
  */
 class ApiConnection
 {

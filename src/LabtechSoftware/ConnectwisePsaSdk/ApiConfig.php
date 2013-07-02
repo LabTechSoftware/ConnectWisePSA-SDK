@@ -1,11 +1,11 @@
-<?php namespace ConnectWiseApi;
+<?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
-use ConnectWiseApi\ApiException;
+use LabtechSoftware\ConnectwisePsaSdk\ApiException;
 
 /**
  * API Config
  *
- * @package API
+ * @package ConnectwisePsaSdk
  */
 class ApiConfig
 {

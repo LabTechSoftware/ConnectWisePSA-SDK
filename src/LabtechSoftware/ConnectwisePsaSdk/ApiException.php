@@ -1,9 +1,9 @@
-<?php namespace ConnectWiseApi;
+<?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
 /**
  * API Exception
  *
- * @package API
+ * @package ConnectwisePsaSdk
  */
 class ApiException extends \Exception
 {

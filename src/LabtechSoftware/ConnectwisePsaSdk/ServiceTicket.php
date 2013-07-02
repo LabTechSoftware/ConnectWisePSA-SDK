@@ -1,11 +1,18 @@
-<?php namespace ConnectWiseApi;
+<?php namespace LabtechSoftware\ConnectwisePsaSdk;
+
+require 'boot.php';
 
 use SoapFault,
-    ConnectWiseApi\ApiResource,
-    ConnectWiseApi\ApiRequestParams,
-    ConnectWiseApi\ApiResult,
-    ConnectWiseApi\ApiException;
+    LabtechSoftware\ConnectwisePsaSdk\ApiResource,
+    LabtechSoftware\ConnectwisePsaSdk\ApiRequestParams,
+    LabtechSoftware\ConnectwisePsaSdk\ApiResult,
+    LabtechSoftware\ConnectwisePsaSdk\ApiException;
 
+/**
+ * ConnectWise Service Ticket API
+ *
+ * @package ConnectwisePsaSdk
+ */
 class ServiceTicket
 {
     /**

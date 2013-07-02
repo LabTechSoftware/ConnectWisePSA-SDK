@@ -1,11 +1,18 @@
-<?php namespace ConnectWiseApi;
+<?php namespace LabtechSoftware\ConnectwisePsaSdk;
+
+require 'boot.php';
 
 use SoapFault,
-    ConnectWiseApi\ApiResource,
-    ConnectWiseApi\ApiRequestParams,
-    ConnectWiseApi\ApiResult,
-    ConnectWiseApi\ApiException;
+    LabtechSoftware\ConnectwisePsaSdk\ApiResult,
+    LabtechSoftware\ConnectwisePsaSdk\ApiResource,
+    LabtechSoftware\ConnectwisePsaSdk\ApiException,
+    LabtechSoftware\ConnectwisePsaSdk\ApiRequestParams;
 
+/**
+ * ConnectWise Configuration API
+ * 
+ * @package ConnectwisePsaSdk
+ */
 class Configuration
 {
     /**

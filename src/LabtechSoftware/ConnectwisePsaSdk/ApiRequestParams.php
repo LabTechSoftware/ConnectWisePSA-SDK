@@ -1,11 +1,11 @@
-<?php namespace ConnectWiseApi;
+<?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
 use stdClass;
 
 /**
  * (simple) API Request Params Container
  *
- * @package API
+ * @package ConnectwisePsaSdk
  */
 class ApiRequestParams
 {

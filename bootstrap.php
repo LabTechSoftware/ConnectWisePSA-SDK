@@ -59,20 +59,20 @@ spl_autoload_register('apiAutoloader');
 */
 
 // Set config directory path in the API Config class
-ConnectWiseApi\ApiConfig::setConfigDirPath(dirname(__FILE__).'/config');
+LabtechSoftware\ConnectwisePsaSdk\ApiConfig::setConfigDirPath(dirname(__FILE__).'/config');
 
 // Set API creds
-ConnectWiseApi\ApiResource::setResource('api_creds', new ConnectWiseApi\ApiCreds);
-ConnectWiseApi\ApiResource::run('api_creds', 'setUsername', ConnectWiseApi\ApiConfig::get('credentials', 'cwusername'));
-ConnectWiseApi\ApiResource::run('api_creds', 'setPass', ConnectWiseApi\ApiConfig::get('credentials', 'cwpass'));
-ConnectWiseApi\ApiResource::run('api_creds', 'setCompany', ConnectWiseApi\ApiConfig::get('credentials', 'company'));
-ConnectWiseApi\ApiResource::run('api_creds', 'setDomain', ConnectWiseApi\ApiConfig::get('credentials', 'domain'));
+LabtechSoftware\ConnectwisePsaSdk\ApiResource::setResource('api_creds', new LabtechSoftware\ConnectwisePsaSdk\ApiCreds);
+LabtechSoftware\ConnectwisePsaSdk\ApiResource::run('api_creds', 'setUsername', LabtechSoftware\ConnectwisePsaSdk\ApiConfig::get('credentials', 'cwusername'));
+LabtechSoftware\ConnectwisePsaSdk\ApiResource::run('api_creds', 'setPass', LabtechSoftware\ConnectwisePsaSdk\ApiConfig::get('credentials', 'cwpass'));
+LabtechSoftware\ConnectwisePsaSdk\ApiResource::run('api_creds', 'setCompany', LabtechSoftware\ConnectwisePsaSdk\ApiConfig::get('credentials', 'company'));
+LabtechSoftware\ConnectwisePsaSdk\ApiResource::run('api_creds', 'setDomain', LabtechSoftware\ConnectwisePsaSdk\ApiConfig::get('credentials', 'domain'));
 
 // Setup API Connection
-ConnectWiseApi\ApiResource::setResource('api_connection', new ConnectWiseApi\ApiConnection);
-ConnectWiseApi\ApiResource::run('api_connection', 'setAddress', ConnectWiseApi\ApiConfig::get('urls', 'cw_api_main'));
-ConnectWiseApi\ApiResource::run('api_connection', 'setDomain', ConnectWiseApi\ApiConfig::get('credentials', 'domain'));
-ConnectWiseApi\ApiResource::run('api_connection', 'setOptions', ConnectWiseApi\ApiConfig::get('soap'));
+LabtechSoftware\ConnectwisePsaSdk\ApiResource::setResource('api_connection', new LabtechSoftware\ConnectwisePsaSdk\ApiConnection);
+LabtechSoftware\ConnectwisePsaSdk\ApiResource::run('api_connection', 'setAddress', LabtechSoftware\ConnectwisePsaSdk\ApiConfig::get('urls', 'cw_api_main'));
+LabtechSoftware\ConnectwisePsaSdk\ApiResource::run('api_connection', 'setDomain', LabtechSoftware\ConnectwisePsaSdk\ApiConfig::get('credentials', 'domain'));
+LabtechSoftware\ConnectwisePsaSdk\ApiResource::run('api_connection', 'setOptions', LabtechSoftware\ConnectwisePsaSdk\ApiConfig::get('soap'));
 
 // Add API creds to connection params
-ConnectWiseApi\ApiRequestParams::set('credentials', ConnectWiseApi\ApiResource::run('api_creds', 'getCredsArray'));
+LabtechSoftware\ConnectwisePsaSdk\ApiRequestParams::set('credentials', LabtechSoftware\ConnectwisePsaSdk\ApiResource::run('api_creds', 'getCredsArray'));
