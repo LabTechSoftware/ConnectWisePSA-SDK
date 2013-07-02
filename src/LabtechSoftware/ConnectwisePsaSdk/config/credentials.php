@@ -1,15 +1,15 @@
 <?php return array(
 
     // ConnectWise API Domain
-    'domain' => 'test.connectwise.com',
+    'domain' => '',
 
     // ConnectWise Company
-    'company' => 'LabTech',
+    'company' => '',
 
     // ConnectWise Integrator Username
-    'cwusername' => 'webdev',
+    'cwusername' => '',
 
     // ConnectWise Integrator Password
-    'cwpass' => 'webdev',
+    'cwpass' => '',
 
 );
