@@ -130,22 +130,22 @@ class Configuration
      * Finds configuration types
      *
      * @throws ApiException
-     * @param integer $limit
-     * @param integer $skip
+     * @param numeric $limit
+     * @param numeric $skip
      * @param mixed string $conditions
      * @param string $orderBy
      * @return array
      */
     public static function findConfigurationTypes($limit = 0, $skip = 0, $conditions = '', $orderBy = '')
     {
-        if (is_int($limit) === false)
+        if (is_numeric($limit) === false)
         {
-            throw new ApiException('Limit value must be an integer.');
+            throw new ApiException('Limit value must be numeric.');
         }
 
-        if (is_int($skip) === false)
+        if (is_numeric($skip) === false)
         {
-            throw new ApiException('Skip value must be an integer.');
+            throw new ApiException('Skip value must be numeric.');
         }
 
         if (is_string($conditions) === false)
@@ -182,22 +182,22 @@ class Configuration
      * Find configurations
      *
      * @throws ApiException
-     * @param integer $limit
-     * @param integer $skip
+     * @param numeric $limit
+     * @param numeric $skip
      * @param mixed string $conditions
      * @param string $orderBy
      * @return array
      */
     public static function findConfigurations($limit = 0, $skip = 0, $conditions = '', $orderBy = '')
     {
-        if (is_int($limit) === false)
+        if (is_numeric($limit) === false)
         {
-            throw new ApiException('Limit value must be an integer.');
+            throw new ApiException('Limit value must be numeric.');
         }
 
-        if (is_int($skip) === false)
+        if (is_numeric($skip) === false)
         {
-            throw new ApiException('Skip value must be an integer.');
+            throw new ApiException('Skip value must be numeric.');
         }
 
         if (is_string($conditions) === false)
@@ -273,14 +273,14 @@ class Configuration
      * If no configuration exists with the given id, an empty array is returned
      *
      * @throws ApiException
-     * @param integer $id
+     * @param numeric $id
      * @return array
      */
     public static function getConfiguration($id)
     {
-        if (is_int($id) === false)
+        if (is_numeric($id) === false)
         {
-            throw new ApiException('Configuration ID must be an integer.');
+            throw new ApiException('Configuration ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $id);
@@ -305,14 +305,14 @@ class Configuration
      * If no configuration exists with the given id, an empty array is returned
      *
      * @throws ApiException
-     * @param integer $id
+     * @param numeric $id
      * @return array
      */
     public static function getConfigurationType($id)
     {
-        if (is_int($id) === false)
+        if (is_numeric($id) === false)
         {
-            throw new ApiException('ConfigurationType ID must be an integer.');
+            throw new ApiException('ConfigurationType ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $id);
@@ -337,14 +337,14 @@ class Configuration
      * If no configuration exists with the given id, an exception (SoapFault) is thrown
      *
      * @throws ApiException
-     * @param integer $id
+     * @param numeric $id
      * @return array
      */
     public static function loadConfiguration($id)
     {
-        if (is_int($id) === false)
+        if (is_numeric($id) === false)
         {
-            throw new ApiException('Configuration ID must be an integer.');
+            throw new ApiException('Configuration ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $id);
@@ -369,14 +369,14 @@ class Configuration
      * If no configuration exists with the given id, an exception (SoapFault) is thrown
      *
      * @throws ApiException
-     * @param integer $id
+     * @param numeric $id
      * @return array
      */
     public static function loadConfigurationType($id)
     {
-        if (is_int($id) === false)
+        if (is_numeric($id) === false)
         {
-            throw new ApiException('ConfigurationType ID must be an integer.');
+            throw new ApiException('ConfigurationType ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $id);
@@ -452,14 +452,14 @@ class Configuration
      * Delete an existing configuration
      *
      * @throws ApiException
-     * @param integer $id
+     * @param numeric $id
      * @return array
      */
     public static function deleteConfiguration($id)
     {
-        if (is_int($id) === false)
+        if (is_numeric($id) === false)
         {
-            throw new ApiException('Configuration ID must be an integer.');
+            throw new ApiException('Configuration ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $id);
@@ -483,14 +483,14 @@ class Configuration
      * Deletes an existing configuration type
      *
      * @throws ApiException
-     * @param integer $id
+     * @param numeric $id
      * @return array
      */
     public static function deleteConfigurationType($id)
     {
-        if (is_int($id) === false)
+        if (is_numeric($id) === false)
         {
-            throw new ApiException('ConfigurationType ID must be an integer.');
+            throw new ApiException('ConfigurationType ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $id);
@@ -514,14 +514,14 @@ class Configuration
      * Deletes a question from an existing configuration type
      *
      * @throws ApiException
-     * @param integer $id
+     * @param numeric $id
      * @return array
      */
     public static function deleteConfigurationTypeQuestion($id)
     {
-        if (is_int($id) === false)
+        if (is_numeric($id) === false)
         {
-            throw new ApiException('ConfigurationTypeQuestion ID must be an integer.');
+            throw new ApiException('ConfigurationTypeQuestion ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $id);
@@ -545,14 +545,14 @@ class Configuration
      * Deletes a possible response from an existing configuration type question
      *
      * @throws ApiException
-     * @param integer $id
+     * @param numeric $id
      * @return array
      */
     public static function deletePossibleResponse($id)
     {
-        if (is_int($id) === false)
+        if (is_numeric($id) === false)
         {
-            throw new ApiException('PossibleResponse ID must be an integer.');
+            throw new ApiException('PossibleResponse ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $id);
