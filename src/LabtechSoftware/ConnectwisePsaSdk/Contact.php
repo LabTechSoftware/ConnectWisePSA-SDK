@@ -28,21 +28,21 @@ class Contact
      * @todo Need a valid group id to finish testing this
      *
      * @throws ApiException
-     * @param integer $contactId
-     * @param integer $groupId
+     * @param numeric $contactId
+     * @param numeric $groupId
      * @param string $note
      * @return array
      */
     public static function addContactToGroup($contactId, $groupId, $note = '')
     {
-        if (is_int($contactId) === false)
+        if (is_numeric($contactId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
-        if (is_int($groupId) === false)
+        if (is_numeric($groupId) === false)
         {
-            throw new ApiException('Group ID must be an integer.');
+            throw new ApiException('Group ID must be numeric.');
         }
 
         if (is_string($note) === false)
@@ -102,15 +102,15 @@ class Contact
      * If non-zero, the existing communicationItem with that Id is updated.
      *
      * @throws ApiException
-     * @param integer $contactId
+     * @param numeric $contactId
      * @param array $method
      * @return array
      */
     public static function addOrUpdateContactCommunicationItem($contactId, array $commItemData)
     {
-        if (is_int($contactId) === false)
+        if (is_numeric($contactId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
         ApiRequestParams::set('contactId', $contactId);
@@ -137,15 +137,15 @@ class Contact
      * If non-zero, the existing note with that Id is updated.
      *
      * @throws ApiException
-     * @param integer $contactId
+     * @param numeric $contactId
      * @param array $note
      * @return array
      */
     public static function addOrUpdateContactNote($contactId, array $note)
     {
-        if (is_int($contactId) === false)
+        if (is_numeric($contactId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
         ApiRequestParams::set('contactId', $contactId);
@@ -198,22 +198,22 @@ class Contact
      * Finds contact information by a set of conditions
      * 
      * @throws ApiException
-     * @param integer $limit
-     * @param integer $skip
+     * @param numeric $limit
+     * @param numeric $skip
      * @param string $orderBy
      * @param string $conditions
      * @return array
      */
     public static function findCompanies($limit = 0, $skip = 0, $orderBy = '', $conditions = '')
     {
-        if (is_int($limit) === false)
+        if (is_numeric($limit) === false)
         {
-            throw new ApiException('Limit value must be an integer.');
+            throw new ApiException('Limit value must be numeric.');
         }
 
-        if (is_int($skip) === false)
+        if (is_numeric($skip) === false)
         {
-            throw new ApiException('Skip value must be an integer.');
+            throw new ApiException('Skip value must be numeric.');
         }
 
         if (is_string($orderBy) === false)
@@ -250,20 +250,20 @@ class Contact
      * Finds contact information by a set of conditions
      *
      * @throws ApiException
-     * @param integer $limit
-     * @param integer $skip
+     * @param numeric $limit
+     * @param numeric $skip
      * @param string $orderBy
      * @param string $conditions
      * @return array
      */
     public static function findContacts($limit = 0, $skip = 0, $orderBy = '', $conditions = '')
     {
-        if (is_int($limit) === false)
+        if (is_numeric($limit) === false)
         {
             throw new ApiException('Limit value must be an integer.');
         }
 
-        if (is_int($skip) === false)
+        if (is_numeric($skip) === false)
         {
             throw new ApiException('Skip value must be an integer.');
         }
@@ -357,14 +357,14 @@ class Contact
      * If no contact exists with the given id, an empty array is returned
      *
      * @throws ApiException
-     * @param integer $contactId
+     * @param numeric $contactId
      * @return array
      */
     public static function getAllContactCommunicationItems($contactId)
     {
-        if (is_int($contactId) === false)
+        if (is_numeric($contactId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
         ApiRequestParams::set('contactId', $contactId);
@@ -389,14 +389,14 @@ class Contact
      * If no contact exists with the given id, an exception is thrown in CW
      *
      * @throws ApiException
-     * @param integer $contactId
+     * @param numeric $contactId
      * @return array
      */
     public static function getAllContactNotes($contactRecId)
     {
-        if (is_int($contactRecId) === false)
+        if (is_numeric($contactRecId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
         ApiRequestParams::set('contactId', $contactRecId);
@@ -453,14 +453,14 @@ class Contact
      * If no contact exists with the given id, an exception is thrown in cw
      *
      * @throws ApiException
-     * @param integer $id
+     * @param numeric $id
      * @return array
      */
     public static function getContact($id)
     {
-        if (is_int($id) === false)
+        if (is_numeric($id) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $id);
@@ -485,16 +485,16 @@ class Contact
      * If no contact exists with the given id, an exception is thrown in CW
      *
      * @throws ApiException
-     * @param integer $contactId
+     * @param numeric $contactId
      * @param string $type
      * @param string $description
      * @return array
      */
     public static function getContactCommunicationItem($contactId, $type, $description = '')
     {
-        if (is_int($contactId) === false)
+        if (is_numeric($contactId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
         if (is_string($type) === false)
@@ -531,20 +531,20 @@ class Contact
      * If no contact or contact note exists with the given ids, an exception is thrown in CW
      *
      * @throws ApiException
-     * @param integer $contactId
-     * @param integer $noteId
+     * @param numeric $contactId
+     * @param numeric $noteId
      * @return array
      */
     public static function getContactNote($contactId, $noteId)
     {
-        if (is_int($contactId) === false)
+        if (is_numeric($contactId) === false)
         {
-            throw new ApiException('Contact id must be an integer.');
+            throw new ApiException('Contact id must be numeric.');
         }
 
-        if (is_int($noteId) === false)
+        if (is_numeric($noteId) === false)
         {
-            throw new ApiException('Note ID must be an integer.');
+            throw new ApiException('Note ID must be numeric.');
         }
 
         ApiRequestParams::set('contactId', $contactId);
@@ -634,15 +634,15 @@ class Contact
      * This will always return an array of portal security settings regardless of what you send it
      *
      * @throws ApiException
-     * @param integer $portalContId
+     * @param numeric $portalContId
      * @param string $portalCompName
      * @return array
      */
     public static function getPortalSecurity($portalContId, $portalCompName = '')
     {
-        if (is_int($portalContId) === false)
+        if (is_numeric($portalContId) === false)
         {
-            throw new ApiException('Portal ContId must be an integer.');
+            throw new ApiException('Portal ContId must be numeric.');
         }
 
         if (is_string($portalCompName) === false)
@@ -673,14 +673,14 @@ class Contact
      * If no contact exists with the given id, an exception (SoapFault) is thrown
      *
      * @throws ApiException
-     * @param integer $contactId
+     * @param numeric $contactId
      * @return array
      */
     public static function loadContact($contactId)
     {
-        if (is_int($contactId) === false)
+        if (is_numeric($contactId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $contactId);
@@ -706,21 +706,21 @@ class Contact
      * @todo Need a valid group id to finish testing this
      *
      * @throws ApiException
-     * @param integer $contactId
-     * @param integer $groupId
+     * @param numeric $contactId
+     * @param numeric $groupId
      * @param string $note
-     * @return array 
+     * @return array
      */
     public static function removeContactFromGroup($contactId, $groupId, $note = '')
     {
-        if (is_int($contactId) === false)
+        if (is_numeric($contactId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
-        if (is_int($groupId) === false)
+        if (is_numeric($groupId) === false)
         {
-            throw new ApiException('Group ID must be an integer.');
+            throw new ApiException('Group ID must be numeric.');
         }
 
         if (is_string($note) === false)
@@ -782,16 +782,16 @@ class Contact
      * Sets the default communication type for contactId, communcation type, and communication description
      *
      * @throws ApiException
-     * @param integer $contactId
+     * @param numeric $contactId
      * @param string $communicationType
      * @param string $communicationDescription
      * @return array
      */
     public static function setDefaultContactCommunicationItem($contactId, $communicationType, $communicationDescription)
     {
-        if (is_int($contactId) === false)
+        if (is_numeric($contactId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
         if (is_string($communicationType) === false)
@@ -827,14 +827,14 @@ class Contact
      * Deletes a contact by database record id
      *
      * @throws ApiException
-     * @param integer $id
+     * @param numeric $id
      * @return array
      */
     public static function deleteContact($id)
     {
-        if (is_int($id) === false)
+        if (is_numeric($id) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $id);
@@ -858,16 +858,16 @@ class Contact
      * Deletes a communication by database record for contactId, communcationType, and communicationDescription
      *
      * @throws ApiException 
-     * @param integer $contactId
+     * @param numeric $contactId
      * @param string $type
      * @param string $description
      * @return array
      */
     public static function deleteContactCommunicationItem($contactId, $type, $description = '')
     {
-        if (is_int($contactId) === false)
+        if (is_numeric($contactId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
         if (is_string($type) === false)
@@ -903,20 +903,20 @@ class Contact
      * Deletes a note by database record id. Returns an empty array on success
      *
      * @throws ApiException
-     * @param integer $noteId
-     * @param integer $contactId
+     * @param numeric $noteId
+     * @param numeric $contactId
      * @return array
      */
     public static function deleteNote($noteId, $contactId)
     {
-        if (is_int($contactId) === false)
+        if (is_numeric($contactId) === false)
         {
-            throw new ApiException('Contact ID must be an integer.');
+            throw new ApiException('Contact ID must be numeric.');
         }
 
-        if (is_int($noteId) === false)
+        if (is_numeric($noteId) === false)
         {
-            throw new ApiException('Note ID must be an integer.');
+            throw new ApiException('Note ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $noteId);
