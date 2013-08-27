@@ -260,12 +260,12 @@ class Contact
     {
         if (is_numeric($limit) === false)
         {
-            throw new ApiException('Limit value must be an numeric.');
+            throw new ApiException('Limit value must be numeric.');
         }
 
         if (is_numeric($skip) === false)
         {
-            throw new ApiException('Skip value must be an numeric.');
+            throw new ApiException('Skip value must be numeric.');
         }
 
         if (is_string($orderBy) === false)
