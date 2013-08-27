@@ -113,8 +113,8 @@ class Reporting
      * @todo Unable to test, need a valid portal report name to finish
      *
      * @throws ApiException
-     * @param integer $limit
-     * @param integer $skip
+     * @param numeric $limit
+     * @param numeric $skip
      * @param string $reportName
      * @param string $conditions
      * @param string $orderBy
@@ -122,14 +122,14 @@ class Reporting
      */
     public static function runPortalReport($limit = 100, $skip = 0, $reportName = '', $conditions = '', $orderBy = '')
     {
-        if (is_int($limit) === false)
+        if (is_numeric($limit) === false)
         {
-            throw new ApiException('Limit value must be an integer.');
+            throw new ApiException('Limit value must be an numeric.');
         }
 
-        if (is_int($skip) === false)
+        if (is_numeric($skip) === false)
         {
-            throw new ApiException('Skip value must be an integer.');
+            throw new ApiException('Skip value must be an numeric.');
         }
 
         ApiRequestParams::set('reportName', $reportName);
@@ -154,7 +154,7 @@ class Reporting
     }
 
     /**
-     * Runs a particular report with a given set of conditions. Returnss the # of records that would be returned.
+     * Runs a particular report with a given set of conditions. Returns the # of records that would be returned.
      *
      * @param string $reportName
      * @param string $conditions
@@ -173,6 +173,7 @@ class Reporting
         }
 
         ApiRequestParams::set('reportName', $reportName);
+        ApiRequestParams::set('conditions', $conditions);
 
         try
         {
@@ -194,22 +195,22 @@ class Reporting
      *
      * @throws ApiException
      * @param string $reportName
-     * @param integer $limit
-     * @param integer $skip
+     * @param numeric $limit
+     * @param numeric $skip
      * @param string $conditions
      * @param string $orderBy
      * @return array
      */
     public static function runReportQuery($reportName, $limit = 100, $skip = 0, $conditions = '', $orderBy = '')
     {
-        if (is_int($limit) === false)
+        if (is_numeric($limit) === false)
         {
-            throw new ApiException('Limit value must be an integer.');
+            throw new ApiException('Limit value must be an numeric.');
         }
 
-        if (is_int($skip) === false)
+        if (is_numeric($skip) === false)
         {
-            throw new ApiException('Skip value must be an integer.');
+            throw new ApiException('Skip value must be an numeric.');
         }
 
         if (is_string($reportName) === false)

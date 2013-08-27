@@ -211,22 +211,22 @@ class ServiceTicket
      * Finds service ticket information by a set of conditions
      *
      * @throws ApiException
-     * @param integer $limit
-     * @param integer $skip
+     * @param numeric $limit
+     * @param numeric $skip
      * @param string $conditions
      * @param string $orderBy
      * @return array
      */
     public static function findServiceTickets($limit = 100, $skip = 0, $conditions = '', $orderBy = '')
     {
-        if (is_int($limit) === false) 
+        if (is_numeric($limit) === false) 
         {
-            throw new ApiException('Limit value must be an integer.');
+            throw new ApiException('Limit value must be an numeric.');
         }
 
-        if (is_int($skip) === false)
+        if (is_numeric($skip) === false)
         {
-            throw new ApiException('Skip value must be an integer.');
+            throw new ApiException('Skip value must be an numeric.');
         }
 
         if (is_string($conditions) === false)
@@ -263,14 +263,14 @@ class ServiceTicket
      * Gets the list of statuses available to the specified ticket
      *
      * @throws ApiException
-     * @param integer $ticketId
+     * @param numeric $ticketId
      * @return array
      **/
     public static function getServiceStatuses($ticketId)
     {
-        if (is_int($ticketId) === false)
+        if (is_numeric($ticketId) === false)
         {
-            throw new ApiException('Ticket ID must be an integer.');
+            throw new ApiException('Ticket ID must be numeric.');
         }
 
         ApiRequestParams::set('ticketNumber', $ticketId);
@@ -295,14 +295,14 @@ class ServiceTicket
      * If no service ticket exists with the given ticket number, an empty array is returned
      *
      * @throws ApiException
-     * @param integer $ticketId
+     * @param numeric $ticketId
      * @return array
      **/
     public static function getServiceTicket($ticketId)
     {
-        if (is_int($ticketId) === false)
+        if (is_numeric($ticketId) === false)
         {
-            throw new ApiException('Ticket ID must be an integer.');
+            throw new ApiException('Ticket ID must be numeric.');
         }
 
         ApiRequestParams::set('ticketNumber', $ticketId);
@@ -364,14 +364,14 @@ class ServiceTicket
      * If no service ticket exists with the given #, an error (exception) is thrown
      *
      * @throws ApiException
-     * @param integer $ticketId
+     * @param numeric $ticketId
      * @return array
      **/
     public static function loadServiceTicket($ticketId)
     {
-        if (is_int($ticketId) === false)
+        if (is_numeric($ticketId) === false)
         {
-            throw new ApiException('Ticket ID must be an integer.');
+            throw new ApiException('Ticket ID must be numeric.');
         }
 
         ApiRequestParams::set('ticketNumber', $ticketId);
@@ -395,14 +395,14 @@ class ServiceTicket
      * Get a list of products for the specified ticket
      *
      * @throws ApiException
-     * @param integer $ticketNumber
+     * @param numeric $ticketNumber
      * @return array
      **/
     public static function getTicketProductList($ticketNumber)
     {
-        if (is_int($ticketNumber) === false)
+        if (is_numeric($ticketNumber) === false)
         {
-            throw new ApiException('Ticket number must be an integer.');
+            throw new ApiException('Ticket number must be numeric.');
         }
 
         ApiRequestParams::set('ticketNumber', $ticketNumber);
@@ -429,21 +429,21 @@ class ServiceTicket
      * @param string $terms
      * @param string $type
      * @param string $start
-     * @param integer $companyRecId
-     * @param integer $limit
-     * @param integer $skip
+     * @param numeric $companyRecId
+     * @param numeric $limit
+     * @param numeric $skip
      * @return array
      **/
     public static function searchKnowledgebase($terms, $type, $start, $companyRecId = '', $limit = 100, $skip = 0)
     {
-        if (is_int($limit) === false) 
+        if (is_numeric($limit) === false) 
         {
-            throw new ApiException('Limit value must be an integer.');
+            throw new ApiException('Limit value must be numeric.');
         }
 
-        if (is_int($skip) === false)
+        if (is_numeric($skip) === false)
         {
-            throw new ApiException('Skip value must be an integer.');
+            throw new ApiException('Skip value must be numeric.');
         }
 
         if (is_string($terms) === false)
@@ -495,7 +495,7 @@ class ServiceTicket
      * @param string $terms
      * @param string $type
      * @param string $start
-     * @param integer $companyRecId
+     * @param numeric $companyRecId
      * @return array
      **/
     public static function searchKnowledgebaseCount($terms, $type, $start, $companyRecId = '')
@@ -544,14 +544,14 @@ class ServiceTicket
      * Get the documents attached to the specified ticket
      *
      * @throws ApiException
-     * @param integer $ticketNumber
+     * @param numeric $ticketNumber
      * @return array
      **/
     public static function getTicketDocuments($ticketNumber)
     {
-        if (is_int($ticketNumber) === false)
+        if (is_numeric($ticketNumber) === false)
         {
-            throw new ApiException('Ticket number must be an integer.');
+            throw new ApiException('Ticket number must be numeric.');
         }
 
         ApiRequestParams::set('ticketNumber', $ticketNumber);
@@ -641,14 +641,14 @@ class ServiceTicket
      *
      * @throws ApiException
      * @param array $ticket
-     * @param integer $serviceRecId
+     * @param numeric $serviceRecId
      * @return array
      **/
     public static function updateTicketNote(array $note, $serviceRecId)
     {
-        if (is_int($serviceRecId) === false)
+        if (is_numeric($serviceRecId) === false)
         {
-            throw new ApiException('Service Rec ID must be an integer.');
+            throw new ApiException('Service Rec ID must be numeric.');
         }
 
         ApiRequestParams::set('note', $note);
@@ -697,14 +697,14 @@ class ServiceTicket
     /**
      * Deletes a service ticket by the ticket number
      *
-     * @param integer $ticketId
+     * @param numeric $ticketId
      * @return array
      **/
     public static function deleteServiceTicket($ticketId)
     {
-        if (is_int($ticketId) === false)
+        if (is_numeric($ticketId) === false)
         {
-            throw new ApiException('Ticket ID must be an integer.');
+            throw new ApiException('Ticket ID must be numeric.');
         }
 
         ApiRequestParams::set('ticketNumber', $ticketId);
@@ -728,20 +728,20 @@ class ServiceTicket
      * Removes the document from the ticket
      *
      * @throws ApiException
-     * @param integer $docId
-     * @param integer $ticketId
+     * @param numeric $docId
+     * @param numeric $ticketId
      * @return array
      **/
     public static function deleteTicketDocument($docId, $ticketId)
     {
-        if (is_int($docId) === false)
+        if (is_numeric($docId) === false)
         {
-            throw new ApiException('Document ID must be an integer.');
+            throw new ApiException('Document ID must be numeric.');
         }
 
-        if (is_int($ticketId) === false)
+        if (is_numeric($ticketId) === false)
         {
-            throw new ApiException('Ticket ID must be an integer.');
+            throw new ApiException('Ticket ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $docId);
@@ -766,20 +766,20 @@ class ServiceTicket
      * Delete product from a ticket
      *
      * @throws ApiException
-     * @param integer $productId
-     * @param integer $ticketId
+     * @param numeric $productId
+     * @param numeric $ticketId
      * @return array
      **/
     public static function deleteTicketProduct($productId, $ticketId)
     {
-        if (is_int($productId) === false)
+        if (is_numeric($productId) === false)
         {
-            throw new ApiException('Product ID must be an integer.');
+            throw new ApiException('Product ID must be numeric.');
         }
 
-        if (is_int($ticketId) === false)
+        if (is_numeric($ticketId) === false)
         {
-            throw new ApiException('Ticket ID must be an integer.');
+            throw new ApiException('Ticket ID must be numeric.');
         }
 
         ApiRequestParams::set('id', $productId);
