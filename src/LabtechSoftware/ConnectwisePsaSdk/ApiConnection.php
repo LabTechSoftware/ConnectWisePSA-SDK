@@ -30,22 +30,14 @@ class ApiConnection
      **/
     public function setName($apiName)
     {
+        // Strings only
         if (is_string($apiName) === false)
         {
             throw new ApiException('Connection name must be a string.');
         }
 
-        if (is_null($this->apiName) === true)
-        {
-            $this->apiName = $apiName;
-        }
-        else
-        {
-            if ($this->apiName != $apiName)
-            {
-                $this->apiName == $apiName;
-            }
-        }
+        // Set the API name
+        $this->apiName = $apiName;
     }
 
     /**
@@ -56,6 +48,7 @@ class ApiConnection
      */
     public function getName()
     {
+        // Check if an API name has been set
         if (is_null($this->apiName) === true OR strlen($this->apiName) < 1)
         {
             throw new ApiException('An API name has not been set.');
