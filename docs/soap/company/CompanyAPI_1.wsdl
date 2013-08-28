@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://connectwise.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://connectwise.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>ConnectWise Company API</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://connectwise.com">
+      <s:element name="GetCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ApiCredentials">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="IntegratorLoginId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="IntegratorPassword" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCompanyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCompanyResult" type="tns:Company"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Company">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DefaultAddress" type="tns:CompanyAddress"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Addresses" type="tns:ArrayOfCompanyAddress"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyID" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FaxNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="WebSite" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Territory" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Market" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AccountNbr" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CompanyAddress">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Address">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+              <s:element minOccurs="1" maxOccurs="1" name="DefaultFlag" type="s:boolean"/>
+              <s:element minOccurs="1" maxOccurs="1" name="CompanyRecid" type="s:int"/>
+              <s:element minOccurs="0" maxOccurs="1" name="SiteName" type="s:string"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Address">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StreetLines" type="tns:ArrayOfString"/>
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCompanyAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CompanyAddress" nillable="true" type="tns:CompanyAddress"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoadCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadCompanyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadCompanyResult" type="tns:Company"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="company" type="tns:Company"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddCompanyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddCompanyResult" type="tns:Company"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="company" type="tns:Company"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCompanyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateCompanyResult" type="tns:Company"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="company" type="tns:Company"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrUpdateCompanyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddOrUpdateCompanyResult" type="tns:Company"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteCompanyResponse">
+        <s:complexType/>
+      </s:element>
+      <s:element name="FindCompanies">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="orderBy" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="limit" nillable="true" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="skip" nillable="true" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindCompaniesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindCompaniesResult" type="tns:ArrayOfCompanyFindResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCompanyFindResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CompanyFindResult" nillable="true" type="tns:CompanyFindResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CompanyFindResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyRecID" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyID" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine1" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Territory" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Website" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Market" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SetPartnerCompanyDefaultContact">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="0" maxOccurs="1" name="company" type="tns:Company"/>
+            <s:element minOccurs="1" maxOccurs="1" name="contactId" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPartnerCompanyDefaultContactResponse">
+        <s:complexType/>
+      </s:element>
+      <s:element name="GetPartnerCompanyProfile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="companyRecId" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPartnerCompanyProfileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPartnerCompanyProfileResult" type="tns:CompanyProfile"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CompanyProfile">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SicCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="SicDescription" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="RevenueYear" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="AnnualRevenue" nillable="true" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfEmployees" nillable="true" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ParentCompanyRecID" nillable="true" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="OwnershipType" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="TimeZone" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="LeadSource" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="IsLead" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="IsUnsubscribedFromEmail" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserField1" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserField2" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserField3" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserField4" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserField5" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserField6" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserField7" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserField8" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserField9" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserField10" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdatePartnerCompanyProfile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="companyRecId" type="s:int"/>
+            <s:element minOccurs="0" maxOccurs="1" name="companyProfile" type="tns:CompanyProfile"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePartnerCompanyProfileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdatePartnerCompanyProfileResult" type="tns:CompanyProfile"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllPartnerCompanyNotes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="companyRecId" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllPartnerCompanyNotesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllPartnerCompanyNotesResult" type="tns:ArrayOfCompanyNote"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCompanyNote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CompanyNote" nillable="true" type="tns:CompanyNote"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CompanyNote">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="NoteType" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="NoteText" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="IsFlagged" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="EnteredBy" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="LastUpdatedBy" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdatedOn" nillable="true" type="s:dateTime"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPartnerCompanyNote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="companyRecId" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="noteId" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPartnerCompanyNoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPartnerCompanyNoteResult" type="tns:CompanyNote"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePartnerCompanyNote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="companyRecId" type="s:int"/>
+            <s:element minOccurs="0" maxOccurs="1" name="note" type="tns:CompanyNote"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePartnerCompanyNoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdatePartnerCompanyNoteResult" type="tns:CompanyNote"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePartnerCompanyNote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="credentials" type="tns:ApiCredentials"/>
+            <s:element minOccurs="1" maxOccurs="1" name="companyRecId" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="noteId" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePartnerCompanyNoteResponse">
+        <s:complexType/>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:GetCompany"/>
+  </wsdl:message>
+  <wsdl:message name="GetCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:GetCompanyResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LoadCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:LoadCompany"/>
+  </wsdl:message>
+  <wsdl:message name="LoadCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:LoadCompanyResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:AddCompany"/>
+  </wsdl:message>
+  <wsdl:message name="AddCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:AddCompanyResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCompany"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCompanyResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateCompany"/>
+  </wsdl:message>
+  <wsdl:message name="AddOrUpdateCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateCompanyResponse"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteCompany"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteCompanyResponse"/>
+  </wsdl:message>
+  <wsdl:message name="FindCompaniesSoapIn">
+    <wsdl:part name="parameters" element="tns:FindCompanies"/>
+  </wsdl:message>
+  <wsdl:message name="FindCompaniesSoapOut">
+    <wsdl:part name="parameters" element="tns:FindCompaniesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SetPartnerCompanyDefaultContactSoapIn">
+    <wsdl:part name="parameters" element="tns:SetPartnerCompanyDefaultContact"/>
+  </wsdl:message>
+  <wsdl:message name="SetPartnerCompanyDefaultContactSoapOut">
+    <wsdl:part name="parameters" element="tns:SetPartnerCompanyDefaultContactResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetPartnerCompanyProfileSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPartnerCompanyProfile"/>
+  </wsdl:message>
+  <wsdl:message name="GetPartnerCompanyProfileSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPartnerCompanyProfileResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UpdatePartnerCompanyProfileSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePartnerCompanyProfile"/>
+  </wsdl:message>
+  <wsdl:message name="UpdatePartnerCompanyProfileSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePartnerCompanyProfileResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllPartnerCompanyNotesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllPartnerCompanyNotes"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllPartnerCompanyNotesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllPartnerCompanyNotesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetPartnerCompanyNoteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPartnerCompanyNote"/>
+  </wsdl:message>
+  <wsdl:message name="GetPartnerCompanyNoteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPartnerCompanyNoteResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UpdatePartnerCompanyNoteSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePartnerCompanyNote"/>
+  </wsdl:message>
+  <wsdl:message name="UpdatePartnerCompanyNoteSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePartnerCompanyNoteResponse"/>
+  </wsdl:message>
+  <wsdl:message name="DeletePartnerCompanyNoteSoapIn">
+    <wsdl:part name="parameters" element="tns:DeletePartnerCompanyNote"/>
+  </wsdl:message>
+  <wsdl:message name="DeletePartnerCompanyNoteSoapOut">
+    <wsdl:part name="parameters" element="tns:DeletePartnerCompanyNoteResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="CompanyApiSoap">
+    <wsdl:operation name="GetCompany">
+      <wsdl:documentation>Gets a company by database record id. If no company exists with the given id, null is returned.</wsdl:documentation>
+      <wsdl:input message="tns:GetCompanySoapIn"/>
+      <wsdl:output message="tns:GetCompanySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LoadCompany">
+      <wsdl:documentation>Gets a company by database record id. If no company exists with the given id, an error is returned.</wsdl:documentation>
+      <wsdl:input message="tns:LoadCompanySoapIn"/>
+      <wsdl:output message="tns:LoadCompanySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddCompany">
+      <wsdl:documentation>Adds a new company.</wsdl:documentation>
+      <wsdl:input message="tns:AddCompanySoapIn"/>
+      <wsdl:output message="tns:AddCompanySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompany">
+      <wsdl:documentation>Updates an existing company.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateCompanySoapIn"/>
+      <wsdl:output message="tns:UpdateCompanySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateCompany">
+      <wsdl:documentation>Adds or updates a company. If the company Id is 0, the company is added. If non-zero, the existing company with that Id is updated.</wsdl:documentation>
+      <wsdl:input message="tns:AddOrUpdateCompanySoapIn"/>
+      <wsdl:output message="tns:AddOrUpdateCompanySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCompany">
+      <wsdl:documentation>Deletes a company by database record id.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteCompanySoapIn"/>
+      <wsdl:output message="tns:DeleteCompanySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="FindCompanies">
+      <wsdl:documentation>Finds company information by a set of conditions.</wsdl:documentation>
+      <wsdl:input message="tns:FindCompaniesSoapIn"/>
+      <wsdl:output message="tns:FindCompaniesSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="SetPartnerCompanyDefaultContact">
+      <wsdl:documentation>Sets an existing contact as the default contact for a company.</wsdl:documentation>
+      <wsdl:input message="tns:SetPartnerCompanyDefaultContactSoapIn"/>
+      <wsdl:output message="tns:SetPartnerCompanyDefaultContactSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetPartnerCompanyProfile">
+      <wsdl:documentation>Gets the company profile for a given company.</wsdl:documentation>
+      <wsdl:input message="tns:GetPartnerCompanyProfileSoapIn"/>
+      <wsdl:output message="tns:GetPartnerCompanyProfileSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePartnerCompanyProfile">
+      <wsdl:documentation>Updates the company profile for a given company.</wsdl:documentation>
+      <wsdl:input message="tns:UpdatePartnerCompanyProfileSoapIn"/>
+      <wsdl:output message="tns:UpdatePartnerCompanyProfileSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPartnerCompanyNotes">
+      <wsdl:documentation>Obtains all Notes written against a given company.</wsdl:documentation>
+      <wsdl:input message="tns:GetAllPartnerCompanyNotesSoapIn"/>
+      <wsdl:output message="tns:GetAllPartnerCompanyNotesSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetPartnerCompanyNote">
+      <wsdl:documentation>Obtains a specific Note written against a given company.</wsdl:documentation>
+      <wsdl:input message="tns:GetPartnerCompanyNoteSoapIn"/>
+      <wsdl:output message="tns:GetPartnerCompanyNoteSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePartnerCompanyNote">
+      <wsdl:documentation>Updates a specific Note written against a given company. If the Note Id is 0, the note is added. If non-zero, the existing note with that Id is updated.</wsdl:documentation>
+      <wsdl:input message="tns:UpdatePartnerCompanyNoteSoapIn"/>
+      <wsdl:output message="tns:UpdatePartnerCompanyNoteSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePartnerCompanyNote">
+      <wsdl:documentation>Deletes a specific Note written against a given company.</wsdl:documentation>
+      <wsdl:input message="tns:DeletePartnerCompanyNoteSoapIn"/>
+      <wsdl:output message="tns:DeletePartnerCompanyNoteSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CompanyApiSoap" type="tns:CompanyApiSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetCompany">
+      <soap:operation soapAction="http://connectwise.com/GetCompany" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadCompany">
+      <soap:operation soapAction="http://connectwise.com/LoadCompany" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCompany">
+      <soap:operation soapAction="http://connectwise.com/AddCompany" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompany">
+      <soap:operation soapAction="http://connectwise.com/UpdateCompany" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateCompany">
+      <soap:operation soapAction="http://connectwise.com/AddOrUpdateCompany" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCompany">
+      <soap:operation soapAction="http://connectwise.com/DeleteCompany" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindCompanies">
+      <soap:operation soapAction="http://connectwise.com/FindCompanies" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPartnerCompanyDefaultContact">
+      <soap:operation soapAction="http://connectwise.com/SetPartnerCompanyDefaultContact" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPartnerCompanyProfile">
+      <soap:operation soapAction="http://connectwise.com/GetPartnerCompanyProfile" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePartnerCompanyProfile">
+      <soap:operation soapAction="http://connectwise.com/UpdatePartnerCompanyProfile" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPartnerCompanyNotes">
+      <soap:operation soapAction="http://connectwise.com/GetAllPartnerCompanyNotes" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPartnerCompanyNote">
+      <soap:operation soapAction="http://connectwise.com/GetPartnerCompanyNote" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePartnerCompanyNote">
+      <soap:operation soapAction="http://connectwise.com/UpdatePartnerCompanyNote" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePartnerCompanyNote">
+      <soap:operation soapAction="http://connectwise.com/DeletePartnerCompanyNote" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CompanyApiSoap12" type="tns:CompanyApiSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetCompany">
+      <soap12:operation soapAction="http://connectwise.com/GetCompany" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadCompany">
+      <soap12:operation soapAction="http://connectwise.com/LoadCompany" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCompany">
+      <soap12:operation soapAction="http://connectwise.com/AddCompany" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCompany">
+      <soap12:operation soapAction="http://connectwise.com/UpdateCompany" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateCompany">
+      <soap12:operation soapAction="http://connectwise.com/AddOrUpdateCompany" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCompany">
+      <soap12:operation soapAction="http://connectwise.com/DeleteCompany" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindCompanies">
+      <soap12:operation soapAction="http://connectwise.com/FindCompanies" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPartnerCompanyDefaultContact">
+      <soap12:operation soapAction="http://connectwise.com/SetPartnerCompanyDefaultContact" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPartnerCompanyProfile">
+      <soap12:operation soapAction="http://connectwise.com/GetPartnerCompanyProfile" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePartnerCompanyProfile">
+      <soap12:operation soapAction="http://connectwise.com/UpdatePartnerCompanyProfile" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPartnerCompanyNotes">
+      <soap12:operation soapAction="http://connectwise.com/GetAllPartnerCompanyNotes" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPartnerCompanyNote">
+      <soap12:operation soapAction="http://connectwise.com/GetPartnerCompanyNote" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePartnerCompanyNote">
+      <soap12:operation soapAction="http://connectwise.com/UpdatePartnerCompanyNote" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePartnerCompanyNote">
+      <soap12:operation soapAction="http://connectwise.com/DeletePartnerCompanyNote" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CompanyApi">
+    <wsdl:documentation>ConnectWise Company API</wsdl:documentation>
+    <wsdl:port name="CompanyApiSoap" binding="tns:CompanyApiSoap">
+      <soap:address location="http://cw.connectwise.net/v4_6_release/apis/1.5/CompanyAPI.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="CompanyApiSoap12" binding="tns:CompanyApiSoap12">
+      <soap12:address location="http://cw.connectwise.net/v4_6_release/apis/1.5/CompanyAPI.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
