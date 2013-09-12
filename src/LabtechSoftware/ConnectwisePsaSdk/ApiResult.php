@@ -15,20 +15,23 @@ class ApiResult
     /**
      * Add a result
      *
+     * TODO: need to find a way to use maxOccurs to determine if something should be an array or not since 
+     * SoapClient doesnt
+     * 
      * @param mixed $result
      * @return void
      */
     public static function addResult($result)
     {
         // Force all result data into an array
-        if (is_array($result) === true OR is_object($result) === true)
-        {
-            $result = static::forceArray($result);
-        }
-        else
-        {
-            $result = array($result);
-        }
+        // if (is_array($result) === true OR is_object($result) === true)
+        // {
+        //     $result = static::forceArray($result);
+        // }
+        // else
+        // {
+        //     $result = array($result);
+        // }
 
         static::$data = $result;
     }
