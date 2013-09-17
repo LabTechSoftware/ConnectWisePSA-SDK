@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Tests for \ConnectWiseApi\Contact
+ * Tests for \ConnectwisePsaSdk\Contact
  * @todo Add tests for addContactToGroup, getAvatarImage, removeContactFromGroup
  *
- * @covers ConnectWiseApi\Contact
+ * @covers ConnectwisePsaSdk\Contact
  */
 class ContactTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,14 +17,14 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         // Set class instance
-        $this->fixture = new ConnectWiseApi\Contact;
+        $this->fixture = new ConnectwisePsaSdk\Contact;
 
         // Set a random string to use in tests
         $this->randomString = 'Test Entry num' . rand(10, 1000);
     }
 
     /**
-     * @covers ConnectWiseApi\Contact
+     * @covers ConnectwisePsaSdk\Contact
      */
     public function testCurrentApiNameExists()
     {
@@ -32,7 +32,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::addOrUpdateContact
+     * @covers ConnectwisePsaSdk\Contact::addOrUpdateContact
      */
     public function testAddOrUpdateContactReturnsArrayOnSuccess()
     {
@@ -47,9 +47,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::addOrUpdateContact
+     * @covers ConnectwisePsaSdk\Contact::addOrUpdateContact
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateContactThrowsExceptionWhenMissingRequiredInput()
     {
@@ -59,7 +59,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers ConnectWiseApi\Contact::addOrUpdateContactCommunicationItem
+     * @covers ConnectwisePsaSdk\Contact::addOrUpdateContactCommunicationItem
      */
     public function testAddOrUpdateContactCommunicationItemReturnsArrayOnSuccess()
     {
@@ -69,9 +69,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::addOrUpdateContactCommunicationItem
+     * @covers ConnectwisePsaSdk\Contact::addOrUpdateContactCommunicationItem
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateContactCommunicationItemThrowsExceptionOnFail()
     {
@@ -81,7 +81,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::addOrUpdateContactNote
+     * @covers ConnectwisePsaSdk\Contact::addOrUpdateContactNote
      */
     public function testAddOrUpdateContactNoteReturnsArrayOnSuccess()
     {
@@ -91,9 +91,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::addOrUpdateContactNote
+     * @covers ConnectwisePsaSdk\Contact::addOrUpdateContactNote
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateContactNoteThrowsExceptionOnFail()
     {
@@ -103,7 +103,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::findCompanies
+     * @covers ConnectwisePsaSdk\Contact::findCompanies
      **/
     public function testFindCompaniesReturnsArrayOnSuccess()
     {
@@ -111,9 +111,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::findCompanies
+     * @covers ConnectwisePsaSdk\Contact::findCompanies
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testFindCompaniesBadParamsThrowsException()
     {
@@ -127,7 +127,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::findContacts
+     * @covers ConnectwisePsaSdk\Contact::findContacts
      **/
     public function testFindContactsReturnsArrayOnSuccess()
     {
@@ -135,9 +135,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::findContacts
+     * @covers ConnectwisePsaSdk\Contact::findContacts
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testFindContactsBadParamsThrowsException()
     {
@@ -151,7 +151,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::findContactsCount
+     * @covers ConnectwisePsaSdk\Contact::findContactsCount
      **/
     public function testFindContactsCountReturnsArrayOnSuccess()
     {
@@ -159,9 +159,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::findContactsCount
+     * @covers ConnectwisePsaSdk\Contact::findContactsCount
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testFindContactsCountThrowsExceptionOnFail()
     {
@@ -169,7 +169,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getAllCommunicationTypesAndDescriptions
+     * @covers ConnectwisePsaSdk\Contact::getAllCommunicationTypesAndDescriptions
      **/
     public function testGetAllCommunicationTypesAndDescriptionsCountReturnsArrayOnSuccess()
     {
@@ -177,7 +177,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getAllContactCommunicationItems
+     * @covers ConnectwisePsaSdk\Contact::getAllContactCommunicationItems
      **/
     public function testGetAllContactCommunicationItemsReturnsPopulatedArrayOnSuccess()
     {
@@ -185,7 +185,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getAllContactCommunicationItems
+     * @covers ConnectwisePsaSdk\Contact::getAllContactCommunicationItems
      **/
     public function testGetAllContactCommunicationItemsReturnsEmptyArrayForNonExistentContact()
     {
@@ -193,9 +193,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getAllContactCommunicationItems
+     * @covers ConnectwisePsaSdk\Contact::getAllContactCommunicationItems
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetAllContactCommunicationItemsThrowsExceptionOnInvalidParam()
     {
@@ -203,7 +203,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getAllContactNotes
+     * @covers ConnectwisePsaSdk\Contact::getAllContactNotes
      **/
     public function testGetAllContactNotesReturnsPopulatedArrayOnSuccess()
     {
@@ -211,9 +211,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getAllContactNotes
+     * @covers ConnectwisePsaSdk\Contact::getAllContactNotes
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testGetAllContactNotesThrowsExceptionForNonExistentContact()
     {
@@ -221,9 +221,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getAllContactNotes
+     * @covers ConnectwisePsaSdk\Contact::getAllContactNotes
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetAllContactNotesThrowsExceptionOnInvalidParam()
     {
@@ -231,7 +231,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getContact
+     * @covers ConnectwisePsaSdk\Contact::getContact
      **/
     public function testGetContactReturnsPopulatedArrayOnSuccess()
     {
@@ -242,9 +242,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getContact
+     * @covers ConnectwisePsaSdk\Contact::getContact
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetContactThrowsExceptionWhenContactNotFound()
     {
@@ -252,9 +252,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getContact
+     * @covers ConnectwisePsaSdk\Contact::getContact
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetContactThrowsExceptionOnOverflow()
     {
@@ -262,9 +262,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getContact
+     * @covers ConnectwisePsaSdk\Contact::getContact
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetContactThrowsExceptionOnInvalidParam()
     {
@@ -272,9 +272,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getContactCommunicationItem
+     * @covers ConnectwisePsaSdk\Contact::getContactCommunicationItem
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetContactCommunicationItemThrowsExceptionOnInvalidParam()
     {
@@ -282,9 +282,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getContactCommunicationItem
+     * @covers ConnectwisePsaSdk\Contact::getContactCommunicationItem
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetContactCommunicationItemThrowsExceptionIfNotFound()
     {
@@ -292,7 +292,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getContactCommunicationItem
+     * @covers ConnectwisePsaSdk\Contact::getContactCommunicationItem
      **/
     public function testGetContactCommunicationItemReturnsPopulatedArrayOnSuccess()
     {
@@ -303,9 +303,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getContactNote
+     * @covers ConnectwisePsaSdk\Contact::getContactNote
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetContactNoteThrowsExceptionOnInvalidParam()
     {
@@ -313,9 +313,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getContactNote
+     * @covers ConnectwisePsaSdk\Contact::getContactNote
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetContactNoteThrowsExceptionIfNotFound()
     {
@@ -323,7 +323,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getContactNote
+     * @covers ConnectwisePsaSdk\Contact::getContactNote
      **/
     public function testGetContactNoteReturnsPopulatedArrayOnSuccess()
     {
@@ -334,9 +334,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getPortalConfigSettings
+     * @covers ConnectwisePsaSdk\Contact::getPortalConfigSettings
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalConfigSettingsThrowsExceptionOnInvalidParam()
     {
@@ -344,9 +344,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getPortalConfigSettings
+     * @covers ConnectwisePsaSdk\Contact::getPortalConfigSettings
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalConfigSettingsThrowsExceptionIfNotFound()
     {
@@ -354,7 +354,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getPortalConfigSettings
+     * @covers ConnectwisePsaSdk\Contact::getPortalConfigSettings
      **/
     public function testGetPortalConfigSettingsReturnsPopulatedArrayOnSuccess()
     {
@@ -365,9 +365,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getPortalLoginCustomizations
+     * @covers ConnectwisePsaSdk\Contact::getPortalLoginCustomizations
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalLoginCustomizationsThrowsExceptionOnInvalidParam()
     {
@@ -375,7 +375,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getPortalLoginCustomizations
+     * @covers ConnectwisePsaSdk\Contact::getPortalLoginCustomizations
      */
     public function testGetPortalLoginCustomizationsReturnsEmptyArrayIfNotFound()
     {
@@ -386,7 +386,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getPortalLoginCustomizations
+     * @covers ConnectwisePsaSdk\Contact::getPortalLoginCustomizations
      **/
     public function testGetPortalLoginCustomizationsReturnsArrayOnSuccess()
     {
@@ -394,9 +394,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getPortalSecurity
+     * @covers ConnectwisePsaSdk\Contact::getPortalSecurity
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalSecurityThrowsExceptionOnInvalidParam()
     {
@@ -404,7 +404,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getPortalSecurity
+     * @covers ConnectwisePsaSdk\Contact::getPortalSecurity
      */
     public function testGetPortalSecurityReturnsPopulatedArrayIfNotFound()
     {
@@ -412,7 +412,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::getPortalSecurity
+     * @covers ConnectwisePsaSdk\Contact::getPortalSecurity
      **/
     public function testGetPortalSecurityReturnsPopulatedArrayOnSuccess()
     {
@@ -423,9 +423,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::loadContact
+     * @covers ConnectwisePsaSdk\Contact::loadContact
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testLoadContactThrowsExceptionOnNonIntegerParam()
     {
@@ -433,9 +433,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::loadContact
+     * @covers ConnectwisePsaSdk\Contact::loadContact
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testLoadContactThrowsExceptionIfContactNotFound()
     {
@@ -443,7 +443,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::loadContact
+     * @covers ConnectwisePsaSdk\Contact::loadContact
      */
     public function testLoadContactReturnsPopulatedArrayOnSuccess()
     {
@@ -454,9 +454,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::requestPassword
+     * @covers ConnectwisePsaSdk\Contact::requestPassword
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testRequestPasswordThrowsExceptionOnNonStringParam()
     {
@@ -464,9 +464,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::requestPassword
+     * @covers ConnectwisePsaSdk\Contact::requestPassword
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testRequestPasswordThrowsExceptionOnNonExistentEmail()
     {
@@ -474,7 +474,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::requestPassword
+     * @covers ConnectwisePsaSdk\Contact::requestPassword
      */
     public function testRequestPasswordReturnsEmptyArrayOnSuccess()
     {
@@ -485,9 +485,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::setDefaultContactCommunicationItem
+     * @covers ConnectwisePsaSdk\Contact::setDefaultContactCommunicationItem
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testSetDefaultContactCommunicationItemThrowsExceptionOnWrongParamValueTypes()
     {
@@ -495,9 +495,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::setDefaultContactCommunicationItem
+     * @covers ConnectwisePsaSdk\Contact::setDefaultContactCommunicationItem
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testSetDefaultContactCommunicationItemThrowsExceptionOnParamNonExist()
     {
@@ -505,7 +505,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::setDefaultContactCommunicationItem
+     * @covers ConnectwisePsaSdk\Contact::setDefaultContactCommunicationItem
      */
     public function testSetDefaultContactCommunicationItemReturnsPopulatedArrayOnSuccess()
     {
@@ -516,7 +516,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::deleteContact
+     * @covers ConnectwisePsaSdk\Contact::deleteContact
      */
     public function testDeleteContactReturnsEmptyArrayOnSuccess()
     {
@@ -527,9 +527,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::deleteContact
+     * @covers ConnectwisePsaSdk\Contact::deleteContact
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactThrowsExceptionOnNonIntegerParam()
     {
@@ -537,9 +537,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::deleteContact
+     * @covers ConnectwisePsaSdk\Contact::deleteContact
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactThrowsExceptionOnContactNonExists()
     {
@@ -547,7 +547,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::deleteContactCommunicationItem
+     * @covers ConnectwisePsaSdk\Contact::deleteContactCommunicationItem
      */
     public function testDeleteContactCommunicationItemReturnsEmptyArrayOnSuccess()
     {
@@ -558,9 +558,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::deleteContactCommunicationItem
+     * @covers ConnectwisePsaSdk\Contact::deleteContactCommunicationItem
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactCommunicationItemThrowsExceptionOnInvalidParams()
     {
@@ -568,9 +568,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::deleteContactCommunicationItem
+     * @covers ConnectwisePsaSdk\Contact::deleteContactCommunicationItem
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactCommunicationItemThrowsExceptionOnParamNonExists()
     {
@@ -578,7 +578,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::deleteNote
+     * @covers ConnectwisePsaSdk\Contact::deleteNote
      */
     public function testDeleteNoteReturnsEmptyArrayOnSuccess()
     {
@@ -589,9 +589,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::deleteNote
+     * @covers ConnectwisePsaSdk\Contact::deleteNote
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testDeleteNoteThrowsExceptionOnInvalidParams()
     {
@@ -599,9 +599,9 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Contact::deleteNote
+     * @covers ConnectwisePsaSdk\Contact::deleteNote
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testDeleteNoteThrowsExceptionOnParamNonExists()
     {

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Tests for \ConnectWiseApi\Configuration
+ * Tests for \ConnectwisePsaSdk\Configuration
  *
- * @covers ConnectWiseApi\Configuration
+ * @covers ConnectwisePsaSdk\Configuration
  */
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
@@ -56,14 +56,14 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         // Set the config class instance
-        $this->fixture = new ConnectWiseApi\Configuration;
+        $this->fixture = new ConnectwisePsaSdk\Configuration;
 
         // Set a random string to use in tests
         $this->randomString = 'Test Entry num' . rand(10, 1000);
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration
+     * @covers ConnectwisePsaSdk\Configuration
      */
     public function testCurrentApiNameExists()
     {
@@ -71,7 +71,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::addConfiguration
+     * @covers ConnectwisePsaSdk\Configuration::addConfiguration
      */
     public function testAddConfigurationReturnsArrayOnSuccess()
     {
@@ -82,9 +82,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::addConfiguration
+     * @covers ConnectwisePsaSdk\Configuration::addConfiguration
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testAddConfigurationThrowsExceptionOnFail()
     {
@@ -92,7 +92,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::addConfigurationType
+     * @covers ConnectwisePsaSdk\Configuration::addConfigurationType
      */
     public function testAddConfigurationTypeReturnsArrayOnSuccess()
     {
@@ -103,9 +103,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::addConfigurationType
+     * @covers ConnectwisePsaSdk\Configuration::addConfigurationType
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testAddConfigurationTypeThrowsExceptionOnFail()
     {
@@ -113,7 +113,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::addOrUpdateConfiguration
+     * @covers ConnectwisePsaSdk\Configuration::addOrUpdateConfiguration
      */
     public function testAddOrUpdateConfigurationReturnsArrayOnSuccess()
     {
@@ -128,9 +128,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::addOrUpdateConfiguration
+     * @covers ConnectwisePsaSdk\Configuration::addOrUpdateConfiguration
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateConfigurationThrowsExceptionOnFail()
     {
@@ -138,7 +138,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::addOrUpdateConfigurationType
+     * @covers ConnectwisePsaSdk\Configuration::addOrUpdateConfigurationType
      */
     public function testAddOrUpdateConfigurationTypeReturnsArrayOnSuccess()
     {
@@ -153,9 +153,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::addOrUpdateConfigurationType
+     * @covers ConnectwisePsaSdk\Configuration::addOrUpdateConfigurationType
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateConfigurationTypeThrowsExceptionOnFail()
     {
@@ -163,9 +163,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::findConfigurationTypes
+     * @covers ConnectwisePsaSdk\Configuration::findConfigurationTypes
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testFindConfigurationTypesBadParamThrowsException()
     {
@@ -179,9 +179,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::findConfigurations
+     * @covers ConnectwisePsaSdk\Configuration::findConfigurations
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testFindConfigurationsBadParamThrowsException()
     {
@@ -195,9 +195,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::findConfigurationsCount
+     * @covers ConnectwisePsaSdk\Configuration::findConfigurationsCount
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testFindConfigurationsCountBadParamThrowsException()
     {
@@ -208,7 +208,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::getConfiguration
+     * @covers ConnectwisePsaSdk\Configuration::getConfiguration
      **/
     public function testGetConfigurationWithInvalidIdReturnsEmptyArray()
     {
@@ -216,9 +216,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::getConfiguration
+     * @covers ConnectwisePsaSdk\Configuration::getConfiguration
      * 
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testGetConfigurationWithBadParamThrowsException()
     {
@@ -226,7 +226,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::getConfigurationType
+     * @covers ConnectwisePsaSdk\Configuration::getConfigurationType
      **/
     public function testGetConfigurationTypeWithInvalidIdReturnsEmptyArray()
     {
@@ -234,9 +234,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::getConfigurationType
+     * @covers ConnectwisePsaSdk\Configuration::getConfigurationType
      * 
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testGetConfigurationTypeWithBadParamThrowsException()
     {
@@ -244,9 +244,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::loadConfiguration
+     * @covers ConnectwisePsaSdk\Configuration::loadConfiguration
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testLoadConfigurationWithBadParamThrowsException()
     {
@@ -254,9 +254,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::loadConfigurationType
+     * @covers ConnectwisePsaSdk\Configuration::loadConfigurationType
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testLoadConfigurationTypeWithBadParamThrowsException()
     {
@@ -264,9 +264,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::updateConfiguration
+     * @covers ConnectwisePsaSdk\Configuration::updateConfiguration
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testUpdateConfigurationWithInvalidArrayThrowsException()
     {
@@ -274,7 +274,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::updateConfiguration
+     * @covers ConnectwisePsaSdk\Configuration::updateConfiguration
      **/
     public function testUpdateConfigurationSuccess()
     {
@@ -282,9 +282,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::updateConfigurationType
+     * @covers ConnectwisePsaSdk\Configuration::updateConfigurationType
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testUpdateConfigurationTypeWithInvalidArrayThrowsException()
     {
@@ -292,7 +292,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::updateConfigurationType
+     * @covers ConnectwisePsaSdk\Configuration::updateConfigurationType
      **/
     public function testUpdateConfigurationTypeSuccess()
     {
@@ -300,9 +300,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::deleteConfiguration
+     * @covers ConnectwisePsaSdk\Configuration::deleteConfiguration
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testDeleteConfigurationInvalidIdThrowsException()
     {
@@ -311,7 +311,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::deleteConfiguration
+     * @covers ConnectwisePsaSdk\Configuration::deleteConfiguration
      **/
     public function testDeleteConfigurationNotFoundReturnsEmptyArray()
     {
@@ -319,9 +319,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::deleteConfigurationType
+     * @covers ConnectwisePsaSdk\Configuration::deleteConfigurationType
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testDeleteConfigurationTypeInvalidIdThrowsException()
     {
@@ -329,7 +329,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::deleteConfigurationType
+     * @covers ConnectwisePsaSdk\Configuration::deleteConfigurationType
      **/
     public function testDeleteConfigurationTypeNotFoundReturnsEmptyArray()
     {
@@ -337,9 +337,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::deleteConfigurationTypeQuestion
+     * @covers ConnectwisePsaSdk\Configuration::deleteConfigurationTypeQuestion
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testDeleteConfigurationTypeQuestionInvalidIdThrowsException()
     {
@@ -348,9 +348,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Configuration::deletePossibleResponse
+     * @covers ConnectwisePsaSdk\Configuration::deletePossibleResponse
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      **/
     public function testDeletePossibleResponseInvalidIdThrowsException()
     {

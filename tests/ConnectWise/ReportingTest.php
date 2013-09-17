@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Tests for \ConnectWiseApi\Reporting
+ * Tests for \ConnectwisePsaSdk\Reporting
  * @todo Add tests for getPortalReports, runPortalReport -- Need sufficient privs to test
  *
- * @covers ConnectWiseApi\Reporting
+ * @covers ConnectwisePsaSdk\Reporting
  */
 class ReportingTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,11 +19,11 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         // Set class instance
-        $this->fixture = new ConnectWiseApi\Reporting;
+        $this->fixture = new ConnectwisePsaSdk\Reporting;
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting
+     * @covers ConnectwisePsaSdk\Reporting
      */
     public function testCurrentApiNameExists()
     {
@@ -31,9 +31,9 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::getReportFields
+     * @covers ConnectwisePsaSdk\Reporting::getReportFields
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetReportFieldsThrowsExceptionOnNonStringParam()
     {
@@ -41,7 +41,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::getReportFields
+     * @covers ConnectwisePsaSdk\Reporting::getReportFields
      */
     public function testGetReportFieldsReturnsEmptyArrayWhenNoArgumentsPassed()
     {
@@ -52,7 +52,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::getReportFields
+     * @covers ConnectwisePsaSdk\Reporting::getReportFields
      */
     public function testGetReportFieldsReturnsEmptyArrayWhenReportNotFound()
     {
@@ -63,7 +63,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::getReportFields
+     * @covers ConnectwisePsaSdk\Reporting::getReportFields
      */
     public function testGetReportFieldsReturnsPopulatedArrayOnSuccess()
     {
@@ -74,7 +74,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::getReports
+     * @covers ConnectwisePsaSdk\Reporting::getReports
      */
     public function testGetReportsReturnsPopulatedArrayWhenNoArgumentsPassed()
     {
@@ -85,9 +85,9 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::getReports
+     * @covers ConnectwisePsaSdk\Reporting::getReports
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testGetReportsThrowsExceptionOnNonBooleanParam()
     {
@@ -95,9 +95,9 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::runReportCount
+     * @covers ConnectwisePsaSdk\Reporting::runReportCount
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testRunReportCountThrowsExceptionOnNonStringParams()
     {
@@ -105,9 +105,9 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::runReportCount
+     * @covers ConnectwisePsaSdk\Reporting::runReportCount
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testRunReportCountThrowsExceptionOnNonExistentReport()
     {
@@ -115,7 +115,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::runReportCount
+     * @covers ConnectwisePsaSdk\Reporting::runReportCount
      */
     public function testRunReportCountReturnsArrayWhenValidCategoryPassed()
     {
@@ -123,7 +123,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::runReportQuery
+     * @covers ConnectwisePsaSdk\Reporting::runReportQuery
      */
     public function testRunReportQueryReturnsArrayWhenValidCategoryPassed()
     {
@@ -131,9 +131,9 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::runReportQuery
+     * @covers ConnectwisePsaSdk\Reporting::runReportQuery
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testRunReportQueryThrowsExceptionOnAnyWrongParamValueType()
     {
@@ -141,9 +141,9 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ConnectWiseApi\Reporting::runReportQuery
+     * @covers ConnectwisePsaSdk\Reporting::runReportQuery
      *
-     * @expectedException ConnectWiseApi\ApiException
+     * @expectedException ConnectwisePsaSdk\ApiException
      */
     public function testRunReportQueryThrowsExceptionOnNonExistentReportName()
     {
