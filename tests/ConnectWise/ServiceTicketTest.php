@@ -1,5 +1,7 @@
 <?php
 
+use LabtechSoftware\ConnectwisePsaSdk\ServiceTicket;
+
 /**
  * Tests for \ConnectwisePsaSdk\ServiceTicket
  * @todo Add tests for addOrUpdateServiceTicketViaManagedId, addServiceTicketViaManagedId, updateServiceTicketViaManagedId 
@@ -8,8 +10,18 @@
  */
 class ServiceTicketTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * ServiceTicket instance goes here
+     *
+     * @var LabtechSoftware\ConnectwisePsaSdk\ServiceTicket
+     */
     protected $fixture;
 
+    /**
+     * Valid ticket data 
+     *
+     * @var array
+     */
     protected $validTicketDataArray = array(
         'TicketNumber' =>  99, 'SendingSrServiceRecid' => 99, 'DateReq' => '2013-02-02', 'SubBillingMethodId' => 'None',
         'SubBillingAmount' => '100.00', 'SubDateAccepted' => '2013-01-02', 'SubDateAcceptedUtc' => '2013-01-01', 
@@ -17,6 +29,11 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
         'Status' => 'N'
     );
 
+    /**
+     * Valid ticket product data
+     *
+     * @var array
+     */
     protected $validTicketProductArray = array(
         'Dropship' => false, 'SpecialOrder' => false, 'ForecastDetailId' => 0, 'TicketId' => 99, 'ProjectId' => 0, 
         'InvoiceId' => 0, 'SalesOrderId' => 0, 'Price' => 5.0, 'Cost' => 0.0, 'Quantity' => 3.00, 'ItemId' => 743, 
@@ -25,12 +42,11 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     );
 
     /**
-     * New instance for fixture
+     * Set a new ServiceTicket instance for the fixture
      */
     protected function setUp()
     {
-        // Set class instance
-        $this->fixture = new ConnectwisePsaSdk\ServiceTicket;
+        $this->fixture = new ServiceTicket;
     }
 
     /**
@@ -44,7 +60,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::addOrUpdateServiceTicketViaCompanyId
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateServiceTicketViaCompanyIdThrowsExceptionOnNonStringCompanyId()
     {
@@ -54,7 +70,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::addOrUpdateServiceTicketViaCompanyId
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateServiceTicketViaCompanyIdThrowsExceptionOnEmptyParams()
     {
@@ -64,7 +80,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::addOrUpdateServiceTicketViaCompanyId
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateServiceTicketViaCompanyIdThrowsExceptionOnMissingTicketNumber()
     {
@@ -89,7 +105,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::addOrUpdateTicketProduct
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateTicketProductThrowsExceptionOnMissingProductArrayItem()
     {
@@ -114,7 +130,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::addServiceTicketViaCompanyId
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddServiceTicketViaCompanyIdThrowsExceptionOnBadCompanyIdParam()
     {
@@ -124,7 +140,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::addServiceTicketViaCompanyId
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddServiceTicketViaCompanyIdThrowsExceptionOnIncompleteTicketArray()
     {
@@ -150,7 +166,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::addTicketProduct
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddTicketProductThrowsExceptionOnIncompleteProductArray()
     {
@@ -163,7 +179,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::addTicketProduct
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddTicketProductThrowsExceptionOnInvalidTicketId()
     {
@@ -187,7 +203,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::findServiceTickets
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testFindServiceTicketsThrowsExceptionOnUnrecognizedCondition()
     {
@@ -197,7 +213,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::findServiceTickets
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testFindServiceTicketsThrowsExceptionOnUnknownSortByParam()
     {
@@ -207,7 +223,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::findServiceTickets
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testFindServiceTicketsThrowsExceptionOnWrongParamValueType()
     {
@@ -239,7 +255,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::getServiceStatuses
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetServiceStatusesThrowsExceptionOnNonIntegerParam()
     {
@@ -293,7 +309,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::getServiceTicket
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetServiceTicketThrowsExceptionWhenParamIsNotInteger()
     {
@@ -303,7 +319,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::getTicketCount
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetTicketCountThrowsExceptionOnInvalidConditions()
     {
@@ -313,7 +329,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::getTicketCount
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetTicketCountThrowsExceptionOnNonBooleanFirstParam()
     {
@@ -334,7 +350,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::loadServiceTicket
      * 
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testLoadServiceTicketThrowsExceptionWhenTicketNotFound()
     {
@@ -344,7 +360,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::loadServiceTicket
      * 
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testLoadServiceTicketThrowsExceptionOnNonIntegerParam()
     {
@@ -365,7 +381,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::getTicketProductList
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetTicketProductListThrowsExceptionOnNonIntegerParam()
     {
@@ -397,7 +413,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::searchKnowledgebase
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testSearchKnowledgebaseThrowsExceptionOnBadParamValueType()
     {
@@ -407,7 +423,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::searchKnowledgebase
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testSearchKnowledgebaseThrowsExceptionOnInvalidType()
     {
@@ -439,7 +455,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::searchKnowledgebaseCount
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testSearchKnowledgebaseCountThrowsExceptionOnInvalidType()
     {
@@ -449,7 +465,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::searchKnowledgebaseCount
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testSearchKnowledgebaseCountThrowsExceptionOnBadParamValueType()
     {
@@ -483,7 +499,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::getTicketDocuments
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetTicketDocumentsThrowsExceptionWhenTicketNotFound()
     {
@@ -493,7 +509,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::getTicketDocuments
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetTicketDocumentsThrowsExceptionNonIntegerParam()
     {
@@ -527,7 +543,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
    /**
      * @covers ConnectwisePsaSdk\ServiceTicket::updateServiceTicketViaCompanyId
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testUpdateServiceTicketViaCompanyIdThrowsExceptionOnBadCompanyIdParam()
     {
@@ -537,7 +553,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::updateServiceTicketViaCompanyId
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testUpdateServiceTicketViaCompanyIdThrowsExceptionOnIncompleteTicketArray()
     {
@@ -562,7 +578,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::updateTicketNote
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testUpdateTicketNoteThrowsExceptionWhenMissingNoteArrayItem()
     {
@@ -572,7 +588,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::updateTicketNote
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testUpdateTicketNoteThrowsExceptionOnRecIdNotFound()
     {
@@ -601,7 +617,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::updateTicketProduct
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testUpdateTicketProductThrowsExceptionForIncompleteDataArray()
     {
@@ -616,7 +632,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::updateTicketProduct
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testUpdateTicketProductThrowsExceptionForInvalidArrayItem()
     {
@@ -646,7 +662,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::deleteTicketDocument
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteTicketDocumentThrowsExceptionOnNonIntegerParams()
     {
@@ -656,7 +672,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::deleteTicketDocument
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteTicketDocumentThrowsExceptionOnRecordNotFound()
     {
@@ -679,7 +695,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::deleteTicketProduct
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteTicketProductThrowsExceptionIfParamsNonIntegers()
     {
@@ -711,7 +727,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::deleteServiceTicket
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteServiceTicketThrowsExceptionIfParamNonInteger()
     {
@@ -721,7 +737,7 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\ServiceTicket::deleteServiceTicket
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteServiceTicketReturnsEmptyArrayIfNotFound()
     {

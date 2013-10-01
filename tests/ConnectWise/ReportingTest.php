@@ -1,5 +1,7 @@
 <?php
 
+use LabtechSoftware\ConnectwisePsaSdk\Reporting;
+
 /**
  * Tests for \ConnectwisePsaSdk\Reporting
  * @todo Add tests for getPortalReports, runPortalReport -- Need sufficient privs to test
@@ -8,18 +10,33 @@
  */
 class ReportingTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Reporting instance goes here
+     *
+     * @var LabtechSoftware\ConnectwisePsaSdk\Reporting
+     */
     protected $fixture;
 
+    /**
+     * Valid report name
+     *
+     * @var string
+     */
     protected $validReportName = 'IVCategory';
+
+    /**
+     * Invalid report name
+     *
+     * @var string
+     */
     protected $invalidReportName = 'this_report_does_not_exist_1289jsdlfk092';
 
     /**
-     * New instance for fixture
+     * Set a new instance of Reporting as the fixture
      */
     protected function setUp()
     {
-        // Set class instance
-        $this->fixture = new ConnectwisePsaSdk\Reporting;
+        $this->fixture = new Reporting;
     }
 
     /**
@@ -33,7 +50,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Reporting::getReportFields
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetReportFieldsThrowsExceptionOnNonStringParam()
     {
@@ -87,7 +104,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Reporting::getReports
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetReportsThrowsExceptionOnNonBooleanParam()
     {
@@ -97,7 +114,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Reporting::runReportCount
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testRunReportCountThrowsExceptionOnNonStringParams()
     {
@@ -107,7 +124,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Reporting::runReportCount
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testRunReportCountThrowsExceptionOnNonExistentReport()
     {
@@ -133,7 +150,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Reporting::runReportQuery
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testRunReportQueryThrowsExceptionOnAnyWrongParamValueType()
     {
@@ -143,7 +160,7 @@ class ReportingTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Reporting::runReportQuery
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testRunReportQueryThrowsExceptionOnNonExistentReportName()
     {

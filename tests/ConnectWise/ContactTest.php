@@ -1,5 +1,7 @@
 <?php
 
+use LabtechSoftware\ConnectwisePsaSdk\Contact;
+
 /**
  * Tests for \ConnectwisePsaSdk\Contact
  * @todo Add tests for addContactToGroup, getAvatarImage, removeContactFromGroup
@@ -8,16 +10,28 @@
  */
 class ContactTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Contact instance goes here
+     *
+     * @var LabtechSoftware\ConnectwisePsaSdk\Contact
+     */
     protected $fixture;
+
+    /**
+     * Store a random string to use in test data
+     *
+     * @var string
+     */
     protected $randomString;
 
     /**
      * New Contact instance for fixture
+     * Also set a random string to use in tests
      */
     protected function setUp()
     {
         // Set class instance
-        $this->fixture = new ConnectwisePsaSdk\Contact;
+        $this->fixture = new Contact;
 
         // Set a random string to use in tests
         $this->randomString = 'Test Entry num' . rand(10, 1000);
@@ -36,20 +50,24 @@ class ContactTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddOrUpdateContactReturnsArrayOnSuccess()
     {
-        $this->assertTrue(is_array($this->fixture->addOrUpdateContact(array(
+        // Add/update contact
+        $addUpdateContact = $this->fixture->addOrUpdateContact(array(
             'FirstName' => 'LTWebDevGuy', 'LastName' => 'Testerino', 'ContactRecID' => 0, 'Id' => 0,
             'BirthDay' => '0001-01-01T00:00:00', 'Married' => false, 'CompanyId' => 'ConnectWise',
             'Children' => false, 'Anniversary' => '0001-01-01T00:00:00', 'PortalSecurityLevel' => 6,
             'DisablePortalLogin' => false, 'Inactive' => false,
             'UnsubscribeFlag' => false, 'LastUpdate' => '2011-06-30T09:35:27.113', 'PersonalAddressFlag' => false,
             'Gender' => 'Male',
-        ))));
+        ));
+
+        // Test...
+        $this->assertTrue(is_array($addUpdateContact));
     }
 
     /**
      * @covers ConnectwisePsaSdk\Contact::addOrUpdateContact
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateContactThrowsExceptionWhenMissingRequiredInput()
     {
@@ -63,15 +81,19 @@ class ContactTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddOrUpdateContactCommunicationItemReturnsArrayOnSuccess()
     {
-        $this->assertTrue(is_array($this->fixture->addOrUpdateContactCommunicationItem(2, array(
+        // Add/update communication item
+        $addUpdateCommItem = $this->fixture->addOrUpdateContactCommunicationItem(2, array(
             'Id' => 0, 'Type' => 'PhoneNumber', 'CommunicationTypeId' => 0, 'Description' => 'Direct'
-        ))));
+        ));
+
+        // Test...
+        $this->assertTrue(is_array($addUpdateCommItem));
     }
 
     /**
      * @covers ConnectwisePsaSdk\Contact::addOrUpdateContactCommunicationItem
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateContactCommunicationItemThrowsExceptionOnFail()
     {
@@ -93,7 +115,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::addOrUpdateContactNote
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddOrUpdateContactNoteThrowsExceptionOnFail()
     {
@@ -113,7 +135,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::findCompanies
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      **/
     public function testFindCompaniesBadParamsThrowsException()
     {
@@ -137,7 +159,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::findContacts
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      **/
     public function testFindContactsBadParamsThrowsException()
     {
@@ -161,7 +183,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::findContactsCount
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testFindContactsCountThrowsExceptionOnFail()
     {
@@ -195,7 +217,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getAllContactCommunicationItems
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetAllContactCommunicationItemsThrowsExceptionOnInvalidParam()
     {
@@ -213,7 +235,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getAllContactNotes
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      **/
     public function testGetAllContactNotesThrowsExceptionForNonExistentContact()
     {
@@ -223,7 +245,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getAllContactNotes
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetAllContactNotesThrowsExceptionOnInvalidParam()
     {
@@ -244,7 +266,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getContact
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactThrowsExceptionWhenContactNotFound()
     {
@@ -254,7 +276,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getContact
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactThrowsExceptionOnOverflow()
     {
@@ -264,7 +286,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getContact
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactThrowsExceptionOnInvalidParam()
     {
@@ -274,7 +296,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getContactCommunicationItem
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactCommunicationItemThrowsExceptionOnInvalidParam()
     {
@@ -284,7 +306,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getContactCommunicationItem
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactCommunicationItemThrowsExceptionIfNotFound()
     {
@@ -305,7 +327,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getContactNote
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactNoteThrowsExceptionOnInvalidParam()
     {
@@ -315,7 +337,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getContactNote
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactNoteThrowsExceptionIfNotFound()
     {
@@ -336,7 +358,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getPortalConfigSettings
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalConfigSettingsThrowsExceptionOnInvalidParam()
     {
@@ -346,7 +368,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getPortalConfigSettings
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalConfigSettingsThrowsExceptionIfNotFound()
     {
@@ -367,7 +389,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getPortalLoginCustomizations
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalLoginCustomizationsThrowsExceptionOnInvalidParam()
     {
@@ -396,7 +418,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::getPortalSecurity
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalSecurityThrowsExceptionOnInvalidParam()
     {
@@ -425,7 +447,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::loadContact
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testLoadContactThrowsExceptionOnNonIntegerParam()
     {
@@ -435,7 +457,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::loadContact
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testLoadContactThrowsExceptionIfContactNotFound()
     {
@@ -456,7 +478,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::requestPassword
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testRequestPasswordThrowsExceptionOnNonStringParam()
     {
@@ -466,7 +488,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::requestPassword
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testRequestPasswordThrowsExceptionOnNonExistentEmail()
     {
@@ -487,7 +509,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::setDefaultContactCommunicationItem
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testSetDefaultContactCommunicationItemThrowsExceptionOnWrongParamValueTypes()
     {
@@ -497,7 +519,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::setDefaultContactCommunicationItem
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testSetDefaultContactCommunicationItemThrowsExceptionOnParamNonExist()
     {
@@ -529,7 +551,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::deleteContact
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactThrowsExceptionOnNonIntegerParam()
     {
@@ -539,7 +561,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::deleteContact
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactThrowsExceptionOnContactNonExists()
     {
@@ -560,7 +582,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::deleteContactCommunicationItem
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactCommunicationItemThrowsExceptionOnInvalidParams()
     {
@@ -570,7 +592,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::deleteContactCommunicationItem
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactCommunicationItemThrowsExceptionOnParamNonExists()
     {
@@ -591,7 +613,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::deleteNote
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteNoteThrowsExceptionOnInvalidParams()
     {
@@ -601,7 +623,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ConnectwisePsaSdk\Contact::deleteNote
      *
-     * @expectedException ConnectwisePsaSdk\ApiException
+     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteNoteThrowsExceptionOnParamNonExists()
     {
