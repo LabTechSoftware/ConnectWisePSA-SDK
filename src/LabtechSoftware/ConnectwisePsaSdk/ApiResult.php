@@ -11,6 +11,7 @@ use LabtechSoftware\ConnectwisePsaSdk\ApiException;
 class ApiResult
 {
     public static $data = array();
+    public static $forceToArray = true;
 
     /**
      * Add a result
@@ -22,7 +23,7 @@ class ApiResult
      * @param boolean $forceToArray
      * @return void
      */
-    public static function addResult($result, $forceToArray = true)
+    public static function addResult($result)
     {
         // NOTE: Leaving this code block here for now
         // Force all result data into an array
@@ -36,7 +37,7 @@ class ApiResult
         // }
 
         // Force data to array?
-        if ($forceToArray === true)
+        if (static::$forceToArray === true)
         {
             // Convert to array
             self::$data = static::forceArray($result);
