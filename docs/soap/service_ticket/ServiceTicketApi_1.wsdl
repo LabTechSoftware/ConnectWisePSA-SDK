@@ -39,6 +39,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="StateId" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="Resolution" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="RemoteInternalCompanyName" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="ProblemDescription" type="s:string"/>
@@ -121,6 +122,7 @@
       </s:complexType>
       <s:complexType name="TicketNote">
         <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerUpdatedFlag" type="s:boolean"/>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
           <s:element minOccurs="0" maxOccurs="1" name="NoteText" type="s:string"/>
           <s:element minOccurs="1" maxOccurs="1" name="PortalIsInternalNote" type="s:boolean"/>
@@ -133,6 +135,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="DateCreated" type="s:dateTime"/>
           <s:element minOccurs="0" maxOccurs="1" name="CreatedBy" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="MemberFullName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DateCreatedUtc" type="s:dateTime"/>
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfDocumentInfo">
@@ -304,29 +307,28 @@
           <s:element minOccurs="1" maxOccurs="1" name="SRServiceRecID" type="s:int"/>
           <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string"/>
           <s:element minOccurs="1" maxOccurs="1" name="CompanyRecId" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ContactRecId" type="s:int"/>
           <s:element minOccurs="0" maxOccurs="1" name="ContactName" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="AddressLine1" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ContactRecId" type="s:int"/>
           <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="StateId" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Board" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="BoardName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Board" type="s:string"/>
           <s:element minOccurs="1" maxOccurs="1" name="BoardID" nillable="true" type="s:int"/>
           <s:element minOccurs="0" maxOccurs="1" name="TicketStatus" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="StatusName" type="s:string"/>
           <s:element minOccurs="1" maxOccurs="1" name="ClosedFlag" type="s:boolean"/>
           <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="ServiceType" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="Priority" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="Source" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="Summary" type="s:string"/>
           <s:element minOccurs="1" maxOccurs="1" name="EnteredDate" nillable="true" type="s:dateTime"/>
           <s:element minOccurs="1" maxOccurs="1" name="LastUpdateDate" nillable="true" type="s:dateTime"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Resources" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UpdatedBy" type="s:string"/>
           <s:element minOccurs="1" maxOccurs="1" name="RequiredDate" nillable="true" type="s:dateTime"/>
           <s:element minOccurs="1" maxOccurs="1" name="ClosedDate" nillable="true" type="s:dateTime"/>
           <s:element minOccurs="0" maxOccurs="1" name="SiteName" type="s:string"/>
@@ -334,10 +336,12 @@
           <s:element minOccurs="1" maxOccurs="1" name="ActualHours" nillable="true" type="s:decimal"/>
           <s:element minOccurs="1" maxOccurs="1" name="Approved" type="s:boolean"/>
           <s:element minOccurs="0" maxOccurs="1" name="ClosedBy" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="RecordType" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceType" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Resources" type="s:string"/>
           <s:element minOccurs="1" maxOccurs="1" name="ResolveMins" nillable="true" type="s:int"/>
           <s:element minOccurs="1" maxOccurs="1" name="ResPlanMins" nillable="true" type="s:int"/>
           <s:element minOccurs="1" maxOccurs="1" name="RespondMins" nillable="true" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="UpdatedBy" type="s:string"/>
         </s:sequence>
       </s:complexType>
       <s:element name="GetTicketCount">
@@ -526,6 +530,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="QuoteName" type="s:string"/>
           <s:element minOccurs="1" maxOccurs="1" name="OwnerLevelRecid" type="s:int"/>
           <s:element minOccurs="1" maxOccurs="1" name="BillingUnitRecid" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SequenceNumber" type="s:decimal"/>
           <s:element minOccurs="0" maxOccurs="1" name="BundleComponents" type="tns:ArrayOfComponent"/>
         </s:sequence>
       </s:complexType>
@@ -535,26 +540,17 @@
         </s:sequence>
       </s:complexType>
       <s:complexType name="Component">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Product">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="SequenceNumber" type="s:int"/>
-              <s:element minOccurs="1" maxOccurs="1" name="ParentrecID" type="s:int"/>
-              <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int"/>
-              <s:element minOccurs="1" maxOccurs="1" name="ProductRecID" type="s:int"/>
-              <s:element minOccurs="1" maxOccurs="1" name="HidePrice" type="s:boolean"/>
-              <s:element minOccurs="1" maxOccurs="1" name="HideItemID" type="s:boolean"/>
-              <s:element minOccurs="1" maxOccurs="1" name="HideDescription" type="s:boolean"/>
-              <s:element minOccurs="1" maxOccurs="1" name="HideQuantity" type="s:boolean"/>
-              <s:element minOccurs="0" maxOccurs="1" name="Warehouse" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="Bin" type="s:string"/>
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="Product">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="BundleComponents" type="tns:ArrayOfComponent"/>
+          <s:element minOccurs="1" maxOccurs="1" name="SequenceNumber" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ParentrecID" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ProductRecID" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="HidePrice" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="HideItemID" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="HideDescription" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="HideQuantity" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Warehouse" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Bin" type="s:string"/>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
           <s:element minOccurs="0" maxOccurs="1" name="ItemId" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string"/>
@@ -572,7 +568,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="Vendor" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="VendorSku" type="s:string"/>
           <s:element minOccurs="0" maxOccurs="1" name="Class" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="IsPhaseProduct" type="s:boolean"/>
           <s:element minOccurs="0" maxOccurs="1" name="ManufacturerPartNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PriceAttribute" type="s:string"/>
         </s:sequence>
       </s:complexType>
       <s:element name="AddTicketProduct">
@@ -1314,10 +1312,10 @@
   <wsdl:service name="ServiceTicketApi">
     <wsdl:documentation>ConnectWise Service Ticket API</wsdl:documentation>
     <wsdl:port name="ServiceTicketApiSoap" binding="tns:ServiceTicketApiSoap">
-      <soap:address location="https://test.connectwise.com/v4_6_release/apis/1.5/ServiceTicketApi.asmx"/>
+      <soap:address location="http://cw.connectwise.net/v4_6_release/apis/1.5/ServiceTicketApi.asmx"/>
     </wsdl:port>
     <wsdl:port name="ServiceTicketApiSoap12" binding="tns:ServiceTicketApiSoap12">
-      <soap12:address location="https://test.connectwise.com/v4_6_release/apis/1.5/ServiceTicketApi.asmx"/>
+      <soap12:address location="http://cw.connectwise.net/v4_6_release/apis/1.5/ServiceTicketApi.asmx"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
