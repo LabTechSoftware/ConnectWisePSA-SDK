@@ -1,24 +1,20 @@
 <?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
+use LabtechSoftware\ConnectwisePsaSdk\Support\ApiException,
+    LabtechSoftware\ConnectwisePsaSdk\Support\ConnectWiseBase;
+
 /**
  * ConnectWise Company API
  *
  * @package ConnectwisePsaSdk
+ * @see LabtechSoftware\ConnectwisePsaSdk\Support\ConnectWiseBase
  */
-class Company
+class Company extends ConnectWiseBase
 {
-    private $client;
-
-    public function __construct(ConnectWiseApi $client)
-    {
-        $this->client = $client;
-    }
-
-
     /**
      * Add or update a company to/in CW
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param array $company
      * @return array
      */
@@ -29,18 +25,18 @@ class Company
             throw new ApiException('No data found in company array.');
         }
 
-        $params = array(
-            'company' => $company
+        $params = array('company' => $company);
+
+        return parent::getConnection()->makeRequest(
+            'AddOrUpdateCompany',
+            $params
         );
-
-        return $this->client->makeRequest('AddOrUpdateCompany', $params);
     }
-
 
     /**
      * Get a company by ID from CW
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $companyId
      * @return array
      */
@@ -51,19 +47,17 @@ class Company
             throw new ApiException('Invalid company ID value.');
         }
 
-        $params = array(
-            'id' => $companyId
-        );
+        $params = array('id' => $companyId);
 
-        return $this->client->makeRequest('GetCompany', $params);
+        return parent::getConnection()->makeRequest('GetCompany', $params);
     }
 
     /**
      * Delete a company by ID fom CW
      *
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $companyId
      * @return array
-     * @throws ApiException
      */
     public function deleteCompany($companyId)
     {
@@ -71,25 +65,27 @@ class Company
             throw new ApiException('Invalid company ID value.');
         }
 
-        $params = array(
-            'id' => $companyId
-        );
+        $params = array('id' => $companyId);
 
-        return $this->client->makeRequest('DeleteCompany', $params);
+        return parent::getConnection()->makeRequest('DeleteCompany', $params);
     }
-
 
     /**
      * Finds contact information by a set of conditions
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $limit
      * @param int $skip
      * @param string $orderBy
      * @param string $conditions
      * @return array
      */
-    public function findCompanies($limit = 0, $skip = 0, $orderBy = '', $conditions = '')
+    public function findCompanies(
+        $limit = 0,
+        $skip = 0,
+        $orderBy = '',
+        $conditions = ''
+    )
     {
         if (is_numeric($limit) === false) {
             throw new ApiException('Limit value must be numeric.');
@@ -108,16 +104,16 @@ class Company
         }
 
         $params = array(
-            'skip' => $skip,
+            'skip'       => $skip,
             'conditions' => $conditions,
-            'orderBy' => $orderBy
+            'orderBy'    => $orderBy
         );
 
-        // only set limit if there is a limit, limit 0 will return no results
+        // Only set limit if there is a limit, limit 0 will return no results
         if ($limit > 0) {
             $params['limit'] = $limit;
         }
 
-        return $this->client->makeRequest('FindCompanies', $params);
+        return parent::getConnection()->makeRequest('FindCompanies', $params);
     }
 }

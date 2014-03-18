@@ -1,25 +1,22 @@
 <?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
+use LabtechSoftware\ConnectwisePsaSdk\Support\ApiException,
+    LabtechSoftware\ConnectwisePsaSdk\Support\ConnectWiseBase;
+
 /**
  * ConnectWise Contact API
  *
  * @package ConnectwisePsaSdk
+ * @see LabtechSoftware\ConnectwisePsaSdk\Support\ConnectWiseBase
  */
-class Contact
+class Contact extends ConnectWiseBase
 {
-    private $client;
-
-    public function __construct(ConnectWiseApi $client)
-    {
-        $this->client = $client;
-    }
-    
     /**
      * Adds a contact to a specified group
      *
      * @todo Need a valid group id to finish testing this
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $contactId
      * @param int $groupId
      * @param string $note
@@ -40,29 +37,28 @@ class Contact
         }
 
         $params = array(
-            'contactID' => $contactId,
-            'groupID' => $groupId,
+            'contactID'       => $contactId,
+            'groupID'         => $groupId,
             'transactionNote' => $note
         );
 
-        return $this->client->makeRequest('AddContactToGroup', $params);
+        return parent::getConnection()->makeRequest('AddContactToGroup', $params);
     }
     
     /**
      * Adds or updates a contact
-     * Set RecId & Id to 0 to add new contact. If non-zero, the existing contact with that Id is updated.
+     * Set RecId & Id to 0 to add new contact. 
+     * If non-zero, the existing contact with that Id is updated.
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param array $contactData
      * @return array
      */
     public function addOrUpdateContact(array $contactData)
     {
-        $params = array(
-            'contact' => $contactData
-        );
+        $params = array('contact' => $contactData);
 
-        return $this->client->makeRequest('AddOrUpdateContact', $params);
+        return parent::getConnection()->makeRequest('AddOrUpdateContact', $params);
     }
     
     /**
@@ -70,7 +66,7 @@ class Contact
      * If the communicationItem id (inside of $commItemData) is 0, the communication item is added. 
      * If non-zero, the existing communicationItem with that Id is updated.
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $contactId
      * @param array $commItemData
      * @return array
@@ -82,11 +78,14 @@ class Contact
         }
 
         $params = array(
-            'contactId' => $contactId,
+            'contactId'     => $contactId,
             'ContactMethod' => $commItemData
         );
 
-        return $this->client->makeRequest('AddOrUpdateContactCommunicationItem', $params);
+        return parent::getConnection()->makeRequest(
+            'AddOrUpdateContactCommunicationItem',
+            $params
+        );
     }
     
     /**
@@ -94,7 +93,7 @@ class Contact
      * If the note Id is 0, and the contactId is set; the note is added. 
      * If non-zero, the existing note with that Id is updated.
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $contactId
      * @param array $note
      * @return array
@@ -110,17 +109,21 @@ class Contact
             'note' => $note
         );
 
-        return $this->client->makeRequest('AddOrUpdateContactNote', $params);
+        return parent::getConnection()->makeRequest(
+            'AddOrUpdateContactNote',
+            $params
+        );
     }
 
 
     /**
-     * @todo Disabled until CW fixes authentication issues -- DO NOT USE THIS METHOD!
-     * @throws ApiException
+     * @todo DO NOT USE THIS METHOD!
+     * @todo Disabled until CW fixes authentication issues
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      *
      * f/ Marc: 
      * This is a very dangerous method right now. You should not use this unless you know what it does.
-     * I recommend if your trying to authenticate via portal password you use the FindContacts method
+     * I recommend if your trying to authenticate via portal password (FindContacts method)
      * @param array $params
      */
     public static function authenticate(array $params)
@@ -147,14 +150,19 @@ class Contact
     /**
      * Finds contact information by a set of conditions
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $limit
      * @param int $skip
      * @param string $orderBy
      * @param string $conditions
      * @return array
      */
-    public function findContacts($limit = 0, $skip = 0, $orderBy = '', $conditions = '')
+    public function findContacts(
+        $limit = 0,
+        $skip = 0,
+        $orderBy = '',
+        $conditions = ''
+    )
     {
         if (is_numeric($limit) === false) {
             throw new ApiException('Limit value must be numeric.');
@@ -183,13 +191,13 @@ class Contact
             $params['limit'] = $limit;
         }
 
-        return $this->client->makeRequest('FindContacts', $params);
+        return parent::getConnection()->makeRequest('FindContacts', $params);
     }
 
     /**
      * Finds a count of available contacts by a set of conditions
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $conditions
      * @return array
      */
@@ -199,29 +207,30 @@ class Contact
             throw new ApiException('Conditions must be a string.');
         }
 
-        $params = array(
-            'conditions' => $conditions
-        );
+        $params = array('conditions' => $conditions);
 
-        return $this->client->makeRequest('FindContactsCount', $params);
+        return parent::getConnection()->makeRequest('FindContactsCount', $params);
     }
     
     /**
      * Gets all communication types and descriptions
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @return array
      */
     public function getAllCommunicationTypesAndDescriptions()
     {
-        return $this->client->makeRequest('GetAllCommunicationTypesAndDescription', array());
+        return parent::getConnection()->makeRequest(
+            'GetAllCommunicationTypesAndDescription',
+            array()
+        );
     }
     
     /**
      * Gets all communication items for contact by database record id
      * If no contact exists with the given id, an empty array is returned
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $contactId
      * @return array
      */
@@ -235,14 +244,17 @@ class Contact
             'contactId' => $contactId
         );
 
-        return $this->client->makeRequest('GetAllContactCommunicationItems', $params);
+        return parent::getConnection()->makeRequest(
+            'GetAllContactCommunicationItems',
+            $params
+        );
     }
     
     /**
      * Gets all notes for contact by database record id. 
      * If no contact exists with the given id, an exception is thrown in CW
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $contactRecId
      * @return array
      */
@@ -252,11 +264,9 @@ class Contact
             throw new ApiException('Contact ID must be numeric.');
         }
 
-        $params = array(
-            'contactId' => $contactRecId
-        );
+        $params = array('contactId' => $contactRecId);
 
-        return $this->client->makeRequest('GetAllContactNotes', $params);
+        return parent::getConnection()->makeRequest('GetAllContactNotes', $params);
     }
 
 
@@ -264,7 +274,7 @@ class Contact
      * Gets a contact by database id
      * If no contact exists with the given id, an exception is thrown in cw
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $id
      * @return array
      */
@@ -274,18 +284,16 @@ class Contact
             throw new ApiException('Contact ID must be numeric.');
         }
 
-        $params = array(
-            'id' => $id
-        );
+        $params = array('id' => $id);
 
-        return $this->client->makeRequest('GetContact', $params);
+        return parent::getConnection()->makeRequest('GetContact', $params);
     }
     
     /**
      * Gets a communication item for contact by database record contactId
      * If no contact exists with the given id, an exception is thrown in CW
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $contactId
      * @param string $type
      * @param string $description
@@ -311,14 +319,17 @@ class Contact
             'communicationDescription' => $description
         );
 
-        return $this->client->makeRequest('GetContactCommunicationItem', $params);
+        return parent::getConnection()->makeRequest(
+            'GetContactCommunicationItem',
+            $params
+        );
     }
 
     /**
      * Gets a note for contact by database record id
      * If no contact or contact note exists with the given ids, an exception is thrown in CW
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $contactId
      * @param int $noteId
      * @return array
@@ -335,17 +346,17 @@ class Contact
 
         $params = array(
             'contactId' => $contactId,
-            'noteId' => $noteId
+            'noteId'    => $noteId
         );
 
-        return $this->client->makeRequest('GetContactNote', $params);
+        return parent::getConnection()->makeRequest('GetContactNote', $params);
     }
     
     /**
      * Return the configuration settings for the specified portal
      * An exception is thrown in CW if the portal is not found / doesn't exist
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $portalName
      * @return array
      */
@@ -355,18 +366,19 @@ class Contact
             throw new ApiException('Portal name must be a string.');
         }
 
-        $params = array(
-            'portalName' => $portalName
-        );
+        $params = array('portalName' => $portalName);
 
-        return $this->client->makeRequest('GetPortalConfigSettings', $params);
+        return parent::getConnection()->makeRequest(
+            'GetPortalConfigSettings',
+            $params
+        );
     }
     
     /**
      * Get the login page customizations for the specified portal
      * Returns an empty array if portal is not found / doesn't exist
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $portalName
      * @return array
      */
@@ -376,18 +388,19 @@ class Contact
             throw new ApiException('Portal name must be a string.');
         }
 
-        $params = array(
-            'portalName' => $portalName
-        );
+        $params = array('portalName' => $portalName);
 
-        return $this->client->makeRequest('GetPortalLoginCustomizations', $params);
+        return parent::getConnection()->makeRequest(
+            'GetPortalLoginCustomizations',
+            $params
+        );
     }
     
     /**
      * Return the security settings for the contact logged into the portal
      * This will always return an array of portal security settings regardless of what you send it
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $portalContId
      * @param string $portalCompName
      * @return array
@@ -407,7 +420,7 @@ class Contact
             'portalCompName' => $portalCompName
         );
 
-        return $this->client->makeRequest('GetPortalSecurity', $params);
+        return parent::getConnection()->makeRequest('GetPortalSecurity', $params);
     }
 
     
@@ -416,7 +429,7 @@ class Contact
      *
      * @todo Need a valid group id to finish testing this
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $contactId
      * @param int $groupId
      * @param string $note
@@ -442,13 +455,13 @@ class Contact
             'transactionNote' => $note
         );
 
-        return $this->client->makeRequest('RemoveContactFromGroup', $params);
+        return parent::getConnection()->makeRequest('RemoveContactFromGroup', $params);
     }
     
     /**
      * Runs the "Forgot Password" process on the server
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $emailAddress
      * @return array
      */
@@ -458,23 +471,26 @@ class Contact
             throw new ApiException('Email address must be a string.');
         }
 
-        $params = array(
-            'emailAddress' => $emailAddress
-        );
+        $params = array('emailAddress' => $emailAddress);
 
-        return $this->client->makeRequest('RequestPassword', $params);
+        return parent::getConnection()->makeRequest('RequestPassword', $params);
     }
     
     /**
-     * Sets the default communication type for contactId, communcation type, and communication description
+     * Sets the default communication item 
+     * Sets for: contactId, communcation type, and communication description
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $contactId
      * @param string $communicationType
      * @param string $communicationDescription
      * @return array
      */
-    public function setDefaultContactCommunicationItem($contactId, $communicationType, $communicationDescription)
+    public function setDefaultContactCommunicationItem(
+        $contactId,
+        $communicationType,
+        $communicationDescription
+    )
     {
         if (is_numeric($contactId) === false) {
             throw new ApiException('Contact ID must be numeric.');
@@ -494,13 +510,16 @@ class Contact
             'communicationDescription' => $communicationDescription
         );
 
-        return $this->client->makeRequest('SetDefaultContactCommunicationItem', $params);
+        return parent::getConnection()->makeRequest(
+            'SetDefaultContactCommunicationItem',
+            $params
+        );
     }
 
     /**
      * Deletes a contact by database record id
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $id
      * @return array
      */
@@ -510,23 +529,26 @@ class Contact
             throw new ApiException('Contact ID must be numeric.');
         }
 
-        $params = array(
-            'id' => $id
-        );
+        $params = array('id' => $id);
 
-        return $this->client->makeRequest('DeleteContact', $params);
+        return parent::getConnection()->makeRequest('DeleteContact', $params);
     }
     
     /**
-     * Deletes a communication by database record for contactId, communcationType, and communicationDescription
+     * Deletes a communication by database record 
+     * Deletes for contactId, communcationType, and communicationDescription
      *
-     * @throws ApiException 
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException 
      * @param int $contactId
      * @param string $type
      * @param string $description
      * @return array
      */
-    public function deleteContactCommunicationItem($contactId, $type, $description = '')
+    public function deleteContactCommunicationItem(
+        $contactId,
+        $type,
+        $description = ''
+    )
     {
         if (is_numeric($contactId) === false) {
             throw new ApiException('Contact ID must be numeric.');
@@ -546,13 +568,16 @@ class Contact
             'communicationDescription' => $description
         );
 
-        return $this->client->makeRequest('DeleteContactCommunicationItem', $params);
+        return parent::getConnection()->makeRequest(
+            'DeleteContactCommunicationItem',
+            $params
+        );
     }
     
     /**
      * Deletes a note by database record id. Returns an empty array on success
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $noteId
      * @param int $contactId
      * @return array
@@ -572,6 +597,6 @@ class Contact
             'contactId' => $contactId
         );
 
-        return $this->client->makeRequest('DeleteNote', $params);
+        return parent::getConnection()->makeRequest('DeleteNote', $params);
     }
 }

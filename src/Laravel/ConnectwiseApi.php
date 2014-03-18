@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class ConnectwiseFactory extends Facade
+class ConnectwiseApi extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'LabtechSoftware\ConnectwisePsaSdk\ConnectwiseApiFactory';
+        return 'LabtechSoftware\ConnectwisePsaSdk\ConnectwiseApi';
     }
 }

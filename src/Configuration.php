@@ -1,62 +1,64 @@
 <?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
+use LabtechSoftware\ConnectwisePsaSdk\Support\ApiException,
+    LabtechSoftware\ConnectwisePsaSdk\Support\ConnectWiseBase;
+
 /**
  * ConnectWise Configuration API
- * 
+ *
  * @package ConnectwisePsaSdk
+ * @see LabtechSoftware\ConnectwisePsaSdk\Support\ConnectWiseBase
  */
-class Configuration
+class Configuration extends ConnectWiseBase
 {
-    private $client;
-
-    public function __construct(ConnectWiseApi $client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Adds or updates a configuration
      *
-     * @throws ApiException
      * @param array $config
      * @return array
      */
     public function addOrUpdateConfiguration(array $config)
     {
-        $params = array(
-            'configuration' => $config
-        );
+        $params = array('configuration' => $config);
 
-        return $this->client->makeRequest('AddOrUpdateConfiguration', $params);
+        return parent::getConnection()->makeRequest(
+            'AddOrUpdateConfiguration',
+            $params
+        );
     }
 
     /**
      * Adds or updates a configuration type
      *
-     * @throws ApiException
      * @param array $configType
      * @return array
      */
     public function addOrUpdateConfigurationType(array $configType)
     {
-        $params = array(
-            'configurationType' => $configType
-        );
+        $params = array('configurationType' => $configType);
 
-        return $this->client->makeRequest('AddOrUpdateConfigurationType', $params);
+        return parent::getConnection()->makeRequest(
+            'AddOrUpdateConfigurationType',
+            $params
+        );
     }
 
     /**
      * Finds configuration types
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $limit
      * @param int $skip
-     * @param mixed string $conditions
+     * @param string $conditions
      * @param string $orderBy
      * @return array
      */
-    public function findConfigurationTypes($limit = 0, $skip = 0, $conditions = '', $orderBy = '')
+    public function findConfigurationTypes(
+        $limit = 0,
+        $skip = 0,
+        $conditions = '',
+        $orderBy = ''
+    )
     {
         if (is_numeric($limit) === false) {
             throw new ApiException('Limit value must be numeric.');
@@ -75,30 +77,38 @@ class Configuration
         }
 
         $params = array(
-            'skip' => $skip,
+            'skip'       => $skip,
             'conditions' => $conditions,
-            'orderBy' => $orderBy
+            'orderBy'    => $orderBy
         );
 
-        // only set limit if there is a limit, limit 0 will return no results
+        // Only set limit if there is a limit, limit 0 will return no results
         if ($limit > 0) {
             $params['limit'] = $limit;
         }
 
-        return $this->client->makeRequest('FindConfigurationTypes', $params);
+        return parent::getConnection()->makeRequest(
+            'FindConfigurationTypes',
+            $params
+        );
     }
 
     /**
      * Find configurations
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $limit
      * @param int $skip
      * @param mixed string $conditions
      * @param string $orderBy
      * @return array
      */
-    public function findConfigurations($limit = 0, $skip = 0, $conditions = '', $orderBy = '')
+    public function findConfigurations(
+        $limit = 0,
+        $skip = 0,
+        $conditions = '',
+        $orderBy = ''
+    )
     {
         if (is_numeric($limit) === false) {
             throw new ApiException('Limit value must be numeric.');
@@ -117,9 +127,9 @@ class Configuration
         }
 
         $params = array(
-            'skip' => $skip,
+            'skip'       => $skip,
             'conditions' => $conditions,
-            'orderBy' => $orderBy
+            'orderBy'    => $orderBy
         );
 
         // only set limit if there is a limit, limit 0 will return no results
@@ -127,13 +137,17 @@ class Configuration
             $params['limit'] = $limit;
         }
 
-        return $this->client->makeRequest('FindConfigurations', $params);
+        return parent::getConnection()->makeRequest(
+            'FindConfigurations',
+            $params
+        );
     }
 
     /**
-     * Gets a count of available configurations. Optionally filters by the supplied conditions.
+     * Gets a count of available configurations. 
+     * Optionally filters by the supplied conditions.
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param boolean $isOpen
      * @param string $conditions
      * @return array
@@ -153,14 +167,17 @@ class Configuration
             'isOpen' => $isOpen
         );
 
-        return $this->client->makeRequest('FindConfigurationsCount', $params);
+        return parent::getConnection()->makeRequest(
+            'FindConfigurationsCount',
+            $params
+        );
     }
 
     /**
      * Gets a configuration by database record id. 
      * If no configuration exists with the given id, an empty array is returned
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $id
      * @return array
      */
@@ -170,18 +187,16 @@ class Configuration
             throw new ApiException('Configuration ID must be numeric.');
         }
 
-        $params = array(
-            'id' => $id
-        );
+        $params = array('id' => $id);
 
-        return $this->client->makeRequest('GetConfiguration', $params);
+        return parent::getConnection()->makeRequest('GetConfiguration', $params);
     }
 
     /**
      * Gets a configuration type by database record id. 
      * If no configuration exists with the given id, an empty array is returned
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $id
      * @return array
      */
@@ -191,17 +206,15 @@ class Configuration
             throw new ApiException('ConfigurationType ID must be numeric.');
         }
 
-        $params = array(
-            'id' => $id
-        );
+        $params = array('id' => $id);
 
-        return $this->client->makeRequest('GetConfigurationType', $params);
+        return parent::getConnection()->makeRequest('GetConfigurationType', $params);
     }
 
     /**
      * Delete an existing configuration
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $id
      * @return array
      */
@@ -215,13 +228,13 @@ class Configuration
             'id' => $id
         );
 
-        return $this->client->makeRequest('DeleteConfiguration', $params);
+        return parent::getConnection()->makeRequest('DeleteConfiguration', $params);
     }
 
     /**
      * Deletes an existing configuration type
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $id
      * @return array
      */
@@ -235,13 +248,16 @@ class Configuration
             'id' => $id
         );
 
-        return $this->client->makeRequest('DeleteConfigurationType', $params);
+        return parent::getConnection()->makeRequest(
+            'DeleteConfigurationType',
+            $params
+        );
     }
 
     /**
      * Deletes a question from an existing configuration type
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $id
      * @return array
      */
@@ -255,13 +271,15 @@ class Configuration
             'id' => $id
         );
 
-        return $this->client->makeRequest('DeleteConfigurationTypeQuestion', $params);
+        return parent::getConnection()->makeRequest(
+            'DeleteConfigurationTypeQuestion', $params
+        );
     }
 
     /**
      * Deletes a possible response from an existing configuration type question
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $id
      * @return array
      */
@@ -275,6 +293,9 @@ class Configuration
             'id' => $id
         );
 
-        return $this->client->makeRequest('DeletePossibleResponse', $params);
+        return parent::getConnection()->makeRequest(
+            'DeletePossibleResponse',
+            $params
+        );
     }
 }

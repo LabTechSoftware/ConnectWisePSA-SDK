@@ -1,27 +1,22 @@
 <?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
+use LabtechSoftware\ConnectwisePsaSdk\Support\ApiException,
+    LabtechSoftware\ConnectwisePsaSdk\Support\ConnectWiseBase;
 
-use LabtechSoftware\ConnectwisePsaSdk\ApiException;
 /**
  * ConnectWise Service Ticket API
  *
  * @package ConnectwisePsaSdk
+ * @see LabtechSoftware\ConnectwisePsaSdk\Support\ConnectWiseBase
  */
-class ServiceTicket
+class ServiceTicket extends ConnectWiseBase
 {
-    private $client;
-
-    public function __construct(ConnectWiseApi $client)
-    {
-        $this->client = $client;
-    }
-    
     /**
      * Adds or updates a service ticket for a company identified by the text-based company id. 
      * If the service ticket number is 0, the service ticket is added. 
      * If non-zero, the existing service ticket with that ticket number is updated.
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $companyId
      * @param array $serviceTicket
      * @return array
@@ -37,7 +32,10 @@ class ServiceTicket
             'serviceTicket' => $serviceTicket
         );
 
-        return $this->client->makeRequest('AddOrUpdateServiceTicketViaCompanyId', $params);
+        return parent::getConnection()->makeRequest(
+            'AddOrUpdateServiceTicketViaCompanyId',
+            $params
+        );
     }
 
     /**
@@ -46,7 +44,7 @@ class ServiceTicket
      * If non-zero, the existing service ticket with that ticket number is updated.
      * @todo This is untested: need a valid managed id to test this method
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $managedId
      * @param array $serviceTicket
      * @return array
@@ -62,7 +60,10 @@ class ServiceTicket
             'serviceTicket' => $serviceTicket
         );
 
-        return $this->client->makeRequest('AddOrUpdateServiceTicketViaManagedId', $params);
+        return parent::getConnection()->makeRequest(
+            'AddOrUpdateServiceTicketViaManagedId',
+            $params
+        );
     }
 
     /**
@@ -77,20 +78,25 @@ class ServiceTicket
             'ticketProduct' => $ticketProduct
         );
 
-        return $this->client->makeRequest('AddOrUpdateTicketProduct', $params);
+        return parent::getConnection()->makeRequest('AddOrUpdateTicketProduct', $params);
     }
 
     /**
      * Finds service ticket information by a set of conditions
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $limit
      * @param int $skip
      * @param string $conditions
      * @param string $orderBy
      * @return array
      */
-    public function findServiceTickets($limit = 100, $skip = 0, $conditions = '', $orderBy = '')
+    public function findServiceTickets(
+        $limit = 100,
+        $skip = 0,
+        $conditions = '',
+        $orderBy = ''
+    )
     {
         if (is_numeric($limit) === false) {
             throw new ApiException('Limit value must be numeric.');
@@ -119,13 +125,13 @@ class ServiceTicket
             $params['limit'] = $limit;
         }
 
-        return $this->client->makeRequest('FindServiceTickets', $params);
+        return parent::getConnection()->makeRequest('FindServiceTickets', $params);
     }
 
     /**
      * Gets the list of statuses available to the specified ticket
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $ticketId
      * @return array
      **/
@@ -139,14 +145,14 @@ class ServiceTicket
             'ticketNumber' => $ticketId
         );
 
-        return $this->client->makeRequest('GetServiceStatuses', $params);
+        return parent::getConnection()->makeRequest('GetServiceStatuses', $params);
     }
 
     /**
      * Gets a service ticket by the ticket number (id)
      * If no service ticket exists with the given ticket number, an empty array is returned
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $ticketId
      * @return array
      **/
@@ -160,13 +166,13 @@ class ServiceTicket
             'ticketNumber' => $ticketId
         );
 
-        return $this->client->makeRequest('GetServiceTicket', $params);
+        return parent::getConnection()->makeRequest('GetServiceTicket', $params);
     }
 
     /**
      * Gets the count of service tickets that meet the specified conditions
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $conditions
      * @param boolean $isOpen
      * @return array
@@ -186,13 +192,13 @@ class ServiceTicket
             'isOpen' => $isOpen
         );
 
-        return $this->client->makeRequest('GetTicketCount', $params);
+        return parent::getConnection()->makeRequest('GetTicketCount', $params);
     }
 
     /**
      * Get a list of products for the specified ticket
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $ticketNumber
      * @return array
      **/
@@ -206,13 +212,13 @@ class ServiceTicket
             'ticketNumber' => $ticketNumber
         );
 
-        return $this->client->makeRequest('GetTicketProductList', $params);
+        return parent::getConnection()->makeRequest('GetTicketProductList', $params);
     }
 
     /**
      * Performs a Knowledgebase search using the specified parameters
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $terms
      * @param string $type
      * @param string $start
@@ -221,7 +227,14 @@ class ServiceTicket
      * @param int $skip
      * @return array
      **/
-    public function searchKnowledgebase($terms, $type, $start, $companyRecId = 0, $limit = 100, $skip = 0)
+    public function searchKnowledgebase(
+        $terms,
+        $type,
+        $start,
+        $companyRecId = 0,
+        $limit = 100,
+        $skip = 0
+    )
     {
         if (is_string($terms) === false) {
             throw new ApiException('Terms value must be a string.');
@@ -264,13 +277,13 @@ class ServiceTicket
             $params['limit'] = $limit;
         }
 
-        return $this->client->makeRequest('SearchKnowledgebase', $params);
+        return parent::getConnection()->makeRequest('SearchKnowledgebase', $params);
     }
 
     /**
      * Counts the Knowledgebase records that will be returned by performing the associated search
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $terms
      * @param string $type
      * @param string $start
@@ -307,13 +320,16 @@ class ServiceTicket
             'companyRecID' => $companyRecId
         );
 
-        return $this->client->makeRequest('searchKnowledgebaseCount', $params);
+        return parent::getConnection()->makeRequest(
+            'searchKnowledgebaseCount',
+            $params
+        );
     }
 
     /**
      * Get the documents attached to the specified ticket
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $ticketNumber
      * @return array
      **/
@@ -327,13 +343,13 @@ class ServiceTicket
             'ticketNumber' => $ticketNumber
         );
 
-        return $this->client->makeRequest('GetTicketDocuments', $params);
+        return parent::getConnection()->makeRequest('GetTicketDocuments', $params);
     }
 
     /**
      * Add a new ticket note or update an existing ticket note by service ticket rec id
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param array $note
      * @param int $serviceRecId
      * @return array
@@ -349,13 +365,13 @@ class ServiceTicket
             'srServiceRecid' => $serviceRecId
         );
 
-        return $this->client->makeRequest('UpdateTicketNote', $params);
+        return parent::getConnection()->makeRequest('UpdateTicketNote', $params);
     }
 
     /**
      * Deletes a service ticket by the ticket number
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $ticketId
      * @return array
      **/
@@ -369,13 +385,13 @@ class ServiceTicket
             'ticketNumber' => $ticketId
         );
 
-        return $this->client->makeRequest('DeleteServiceTicket', $params);
+        return parent::getConnection()->makeRequest('DeleteServiceTicket', $params);
     }
 
     /**
      * Removes the document from the ticket
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $docId
      * @param int $ticketId
      * @return array
@@ -395,13 +411,13 @@ class ServiceTicket
             'ticketNumber' => $ticketId
         );
 
-        return $this->client->makeRequest('DeleteTicketDocument', $params);
+        return parent::getConnection()->makeRequest('DeleteTicketDocument', $params);
     }
 
     /**
      * Delete product from a ticket
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param int $productId
      * @param int $ticketId
      * @return array
@@ -421,6 +437,9 @@ class ServiceTicket
             'ticketNumber' => $ticketId
         );
 
-        return $this->client->makeRequest('DeleteTicketProduct', $params);
+        return parent::getConnection()->makeRequest(
+            'DeleteTicketProduct',
+            $params
+        );
     }
 }

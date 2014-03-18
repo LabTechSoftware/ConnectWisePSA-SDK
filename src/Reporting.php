@@ -1,23 +1,20 @@
 <?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
+use LabtechSoftware\ConnectwisePsaSdk\Support\ApiException,
+    LabtechSoftware\ConnectwisePsaSdk\Support\ConnectWiseBase;
+
 /**
  * ConnectWise Reporting API
  *
  * @package ConnectwisePsaSdk
+ * @see LabtechSoftware\ConnectwisePsaSdk\Support\ConnectWiseBase
  */
-class Reporting
+class Reporting extends ConnectWiseBase
 {
-    private $client;
-
-    public function __construct(ConnectWiseApi $client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Gets the list of fields for a particular report
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $reportName
      * @return array
      */
@@ -27,17 +24,15 @@ class Reporting
             throw new ApiException('Report name must be a string.');
         }
 
-        $params = array(
-            'reportName' => $reportName
-        );
+        $params = array('reportName' => $reportName);
 
-        return $this->client->makeRequest('GetReportFields', $params);
+        return parent::getConnection()->makeRequest('GetReportFields', $params);
     }
 
     /**
      * Gets the list of available reports
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param boolean $includeFields
      * @return array
      */
@@ -48,17 +43,16 @@ class Reporting
             throw new ApiException('Include fields parameter must be boolean.');
         }
 
-        $params = array(
-            'includeFields' => $includeFields
-        );
+        $params = array('includeFields' => $includeFields);
 
-        return $this->client->makeRequest('GetReports', $params);
+        return parent::getConnection()->makeRequest('GetReports', $params);
     }
 
     /**
-     * Runs a particular report with a given set of conditions. Returns the # of records that would be returned.
+     * Runs a particular report with a given set of conditions. 
+     * Returns the # of records that would be returned.
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $reportName
      * @param string $conditions
      * @return array
@@ -78,13 +72,13 @@ class Reporting
             'conditions' => $conditions
         );
 
-        return $this->client->makeRequest('RunReportCount', $params);
+        return parent::getConnection()->makeRequest('RunReportCount', $params);
     }
     
     /**
      * Runs a particular report with a given set of conditions
      *
-     * @throws ApiException
+     * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @param string $reportName
      * @param int $limit
      * @param int $skip
@@ -92,7 +86,13 @@ class Reporting
      * @param string $orderBy
      * @return array
      */
-    public function runReportQuery($reportName, $limit = 100, $skip = 0, $conditions = '', $orderBy = '')
+    public function runReportQuery(
+        $reportName,
+        $limit = 100,
+        $skip = 0,
+        $conditions = '',
+        $orderBy = ''
+    )
     {
         if (is_string($reportName) === false) {
             throw new ApiException('Report name must be a string.');
@@ -117,16 +117,16 @@ class Reporting
         $params = array(
             'reportName' => $reportName,
             'conditions' => $conditions,
-            'orderBy' => $orderBy,
-            'skip' => $skip
+            'orderBy'    => $orderBy,
+            'skip'       => $skip
         );
 
-        // only set limit if there is a limit, limit 0 will return no results
+        // Only set limit if there is a limit, limit 0 will return no results
         if ($limit > 0) {
             $params['limit'] = $limit;
         }
 
-        return $this->client->makeRequest('RunReportQuery', $params);
+        return parent::getConnection()->makeRequest('RunReportQuery', $params);
     }
 
     /**
@@ -141,7 +141,14 @@ class Reporting
      * @param array $fieldFilters
      * @return array
      */
-    public function runReportQueryWithFilters($reportName, $limit = 100, $skip = 0, $conditions = '', $orderBy = '', $fieldFilters = array())
+    public function runReportQueryWithFilters(
+        $reportName,
+        $limit = 100,
+        $skip = 0,
+        $conditions = '',
+        $orderBy = '',
+        $fieldFilters = array()
+    )
     {
         if (is_string($reportName) === false) {
             throw new ApiException('Report name must be a string.');
@@ -180,6 +187,9 @@ class Reporting
             $params['limit'] = $limit;
         }
 
-        return $this->client->makeRequest('RunReportQueryWithFilters', $params);
+        return parent::getConnection()->makeRequest(
+            'RunReportQueryWithFilters',
+            $params
+        );
     }
 }
