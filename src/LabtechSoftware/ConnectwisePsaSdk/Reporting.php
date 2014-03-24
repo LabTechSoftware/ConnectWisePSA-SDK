@@ -126,7 +126,7 @@ class Reporting
             $params['limit'] = $limit;
         }
 
-        return $this->client->makeRequest('RunReportQuery', $params);
+        return $this->prepareReport($this->client->makeRequest('RunReportQuery', $params));
     }
 
     /**
@@ -181,5 +181,39 @@ class Reporting
         }
 
         return $this->client->makeRequest('RunReportQueryWithFilters', $params);
+    }
+
+    /*
+     * Helper method, manipulates data structure given from ConnectWise, into a structure that is easier to work with
+     */
+    private function prepareReport($report)
+    {
+        if (isset($report->RunReportQueryResult->ResultRow)) {
+            //we have a result from the api
+            $report = $report->RunReportQueryResult->ResultRow;
+
+            if (is_object($report)) {
+                $report = array($report);
+            }
+
+            if (!is_array($report)) {
+                return false;
+            }
+
+            $items = array();
+            foreach ($report as $item) {
+
+                $tmpItems = new \stdClass();
+                foreach ($item->Value as $v) {
+                    $tmpItems->{$v->Name} = $v->_;
+                }
+                $items[] = $tmpItems;
+            }
+
+            return $items;
+        } else {
+            // we have no result from the api
+            return false;
+        }
     }
 }
