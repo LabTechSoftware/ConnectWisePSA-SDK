@@ -17,15 +17,25 @@ class Config
     private $config = array();
 
     /**
-     * Set the path and load config file (just call load and pass in path)
+     * Sets up the config array
+     * Either a path or a multidimensional array can be passed in
      *
      * @return void
      **/
-    public function __construct($pathToConfigIni)
+    public function __construct($config)
     {
-        // Validate path and parse config ini to an array
-        // Throws exception on failure
-        $configArray = $this->isConfigValid($pathToConfigIni);
+        // Is this a path to a config?
+        if (is_string($config)) {
+            // Validate path and parse config ini to an array
+            // Throws exception on failure
+            $configArray = $this->isConfigValid($config);
+        } elseif (is_array($config)) {
+            // Since this is already the multidimensional array we just set $configArray to it
+            $configArray = $config;
+        } else {
+            // Throw an error because the variable passed is probably not the right thing anyways
+            throw new ApiException('Variable type passed to Config not supported');
+        }
 
         // Bind config array to property
         $this->set($configArray);
