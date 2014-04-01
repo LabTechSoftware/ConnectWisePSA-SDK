@@ -61,7 +61,7 @@ class ConnectwiseApi
             $api
         );
 
-        exit(var_dump($connectionApi));
+        //exit(var_dump($connectionApi));
 
         // Create new SoapClient instance w/ our config data
         $makeConnection = new SoapClient($connectionApi, $config['soap']);
