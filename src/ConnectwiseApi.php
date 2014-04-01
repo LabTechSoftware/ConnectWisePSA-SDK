@@ -26,8 +26,10 @@ class ConnectwiseApi
      * @throws LabtechSoftware\ConnectwisePsaSdk\Support\ApiException
      * @return void
      **/
-    public function __construct()
+    public function __construct($config=null)
     {
+        $config = $config ? $config : __DIR__.'/config/config.ini';
+
         // PHP 5.3+?
         if (strnatcmp(phpversion(),'5.3.0') <= 0) {
             throw new ApiException(
@@ -41,7 +43,7 @@ class ConnectwiseApi
         }
 
         // Create a new config instance, pass in path to config file
-        $this->config = new Config(__DIR__.'/config/config.ini');
+        $this->config = new Config($config);
     }
 
     /**
@@ -60,8 +62,6 @@ class ConnectwiseApi
             $config['credentials']['domain'],
             $api
         );
-
-        //exit(var_dump($connectionApi));
 
         // Create new SoapClient instance w/ our config data
         $makeConnection = new SoapClient($connectionApi, $config['soap']);
