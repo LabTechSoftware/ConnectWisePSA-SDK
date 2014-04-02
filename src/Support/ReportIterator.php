@@ -7,25 +7,31 @@ class ReportIterator implements \Iterator
 
     public function __construct($reportResult, $keyValueOnly = false)
     {
-
-        // Lets get a starting point. Thanks for the massive object XML :P
-        $reportResult = $reportResult->RunReportQueryResult->ResultRow;
-
-        // if its an object then it means there was one result. Lets make it an array for consistency
-        if (is_object($reportResult)) {
-            $reportResult = array($reportResult);
+        // Throw an error if we didnt get a valid result
+        if (!property_exists($reportResult, 'RunReportQueryResult')) {
+            throw new ApiException('Report result passed not valid');
         }
 
-        // Do we want a simplified result set with just the property name and value?
-        if ($keyValueOnly === true) {
-            $reportResult = $this->convertToKeyValue($reportResult);
+
+        // Only do all this if there are results
+        if (property_exists($reportResult->RunReportQueryResult, 'ResultRow')) {
+
+            // Lets get a starting point. Thanks for the massive object XML :P
+            $reportResult = $reportResult->RunReportQueryResult->ResultRow;
+
+            // if its an object then it means there was one result. Lets make it an array for consistency
+            if (is_object($reportResult)) {
+                $reportResult = array($reportResult);
+            }
+
+            // Do we want a simplified result set with just the property name and value?
+            if ($keyValueOnly === true) {
+                $reportResult = $this->convertToKeyValue($reportResult);
+            }
+
+            // Now we set the array to the results for later iteration
+            $this->array = $reportResult;
         }
-
-        // Now we set the array to the results for later iteration
-        $this->array = $reportResult;
-
-        // Set the start position to 0 for good measure.
-        $this->position = 0;
     }
 
     /**
