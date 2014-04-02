@@ -18,17 +18,7 @@ class ReportIterator implements \Iterator
 
         // Do we want a simplified result set with just the property name and value?
         if ($keyValueOnly === true) {
-            $items = array();
-            foreach ($reportResult as $item) {
-
-                $tmpItems = new \stdClass();
-                foreach ($item->Value as $v) {
-                    $tmpItems->{$v->Name} = $v->_;
-                }
-                $items[] = $tmpItems;
-            }
-            $reportResult = $items;
-
+            $reportResult = $this->convertToKeyValue($reportResult);
         }
 
         // Now we set the array to the results for later iteration
@@ -36,6 +26,26 @@ class ReportIterator implements \Iterator
 
         // Set the start position to 0 for good measure.
         $this->position = 0;
+    }
+
+    /**
+     * Converts the results array into a cleaner array of objects.
+     *
+     * @param array $reportResult
+     * @return array
+     */
+    private function convertToKeyValue($reportResult)
+    {
+        $items = array();
+        foreach ($reportResult as $item) {
+
+            $tmpItems = new \stdClass();
+            foreach ($item->Value as $v) {
+                $tmpItems->{$v->Name} = $v->_;
+            }
+            $items[] = $tmpItems;
+        }
+        return $items;
     }
 
     public function rewind()
