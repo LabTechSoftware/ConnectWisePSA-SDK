@@ -6,6 +6,19 @@ use SoapClient;
 
 class ConnectwiseApiFactory
 {
+    private $config = '';
+
+    public function __construct($customConfig = '')
+    {
+        if (is_array($customConfig) === false && strlen($customConfig) < 1) {
+            $this->config = __DIR__ . '/config/config.ini';
+        } else {
+            $this->config = $customConfig;
+        }
+
+
+    }
+
     public function makeContact()
     {
         return new Contact($this->wireDependencies('ContactAPI'));
@@ -35,36 +48,10 @@ class ConnectwiseApiFactory
     {
         $cl = new ConfigLoader();
 
-        $cl->loadConfig();
+        $cl->loadConfig($this->config);
 
         $soap = new SoapClient($cl->getSoapAddress($apiName), $cl->getSoapOptions());
 
         return new SoapApiRequester($soap, $cl);
     }
-
-
-/*    private $methodPrefix = 'make';
-    private $methodToCall = '';
-
-    public function __call($methodName, $args)
-    {
-        $this->setMethodName($methodName);
-
-        if (method_exists($this, $this->methodToCall) === false) {
-            throw new Exception('Unknown Method.');
-        }
-
-        return $this->runMethod($this->methodToCall, $args);
-    }
-
-    private function runMethod($class, $args)
-    {
-        return call_user_func_array(array($this, $class), $args);
-    }
-
-    private function setMethodName($method)
-    {
-        $this->methodToCall = $this->methodPrefix . ucfirst($method);
-    }*/
-
 }

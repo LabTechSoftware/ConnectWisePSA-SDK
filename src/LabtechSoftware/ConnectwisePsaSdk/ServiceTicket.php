@@ -168,22 +168,16 @@ class ServiceTicket
      *
      * @throws ApiException
      * @param string $conditions
-     * @param boolean $isOpen
      * @return array
      **/
-    public function getTicketCount($isOpen = true, $conditions = '')
+    public function getTicketCount($conditions = '')
     {
-        if (is_bool($isOpen) === false) {
-            throw new ApiException('isOpen parameter must be boolean.');
-        }
-
         if (is_string($conditions) === false) {
             throw new ApiException('Conditions value must be a string.');
         }
 
         $params = array(
             'conditions' => $conditions,
-            'isOpen' => $isOpen
         );
 
         return $this->client->makeRequest('GetTicketCount', $params);
