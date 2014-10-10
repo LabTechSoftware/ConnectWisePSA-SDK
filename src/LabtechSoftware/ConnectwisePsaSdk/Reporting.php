@@ -189,7 +189,7 @@ class Reporting
     private function prepareReport($report)
     {
         if (isset($report->RunReportQueryResult->ResultRow)) {
-            //we have a result from the api
+            //we have a result from the api (at least one record)
             $report = $report->RunReportQueryResult->ResultRow;
 
             if (is_object($report)) {
@@ -211,6 +211,9 @@ class Reporting
             }
 
             return $items;
+        } elseif (isset($report->RunReportQueryResult)) {
+            // empty result set
+            return array();
         } else {
             // we have no result from the api
             return false;
