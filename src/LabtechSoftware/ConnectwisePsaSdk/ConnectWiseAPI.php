@@ -2,7 +2,7 @@
 
 namespace LabtechSoftware\ConnectwisePsaSdk;
 
-interface ConnectWiseAPI
+interface ConnectWiseApi
 {
     public function makeRequest($method, $params);
 }

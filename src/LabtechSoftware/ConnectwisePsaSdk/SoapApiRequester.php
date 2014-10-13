@@ -6,7 +6,7 @@ use SoapClient,
     SoapFault,
     LabtechSoftware\ConnectwisePsaSdk\ApiException;
 
-class SoapApiRequester implements ConnectWiseAPI
+class SoapApiRequester implements ConnectWiseApi
 {
 
     private $soap;
