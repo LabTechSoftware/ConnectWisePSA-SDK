@@ -8,40 +8,50 @@ class ConnectwiseApiFactory
 {
     private $config = '';
 
-    public function __construct($customConfig = '')
+    public function __construct()
     {
-        if (is_array($customConfig) === false && strlen($customConfig) < 1) {
-            $this->config = __DIR__ . '/config/config.ini';
-        } else {
-            $this->config = $customConfig;
+        $this->config = __DIR__ . '/config/config.ini';
+    }
+
+    public function make($api, $config = '')
+    {
+        $this->setConfig($config);
+
+        switch ($api) {
+            case 'Contact':
+                return new Contact($this->wireDependencies('ContactAPI'));
+            case 'Company':
+                return new Company($this->wireDependencies('CompanyAPI'));
+            case 'Configuration':
+                return new Configuration($this->wireDependencies('ConfigurationAPI'));
+            case 'Document':
+                return new Document($this->wireDependencies('DocumentAPI'));
+            case 'Reporting':
+                return new Reporting($this->wireDependencies('ReportingAPI'));
+            case 'ServiceTicket':
+                return new ServiceTicket($this->wireDependencies('ServiceTicketAPI'));
+            default:
+                throw new ApiException('API not available in SDK');
         }
-
-
     }
 
-    public function makeContact()
+    private function setConfig($config)
     {
-        return new Contact($this->wireDependencies('ContactAPI'));
-    }
+        // if empty don't do anything
+        if ($config) {
 
-    public function makeCompany()
-    {
-        return new Company($this->wireDependencies('CompanyAPI'));
-    }
+            // config must be a string (path to file)
+            if (!is_string($config)) {
+                throw new ApiException('Config must be a string');
+            }
 
-    public function makeConfiguration()
-    {
-        return new Configuration($this->wireDependencies('ConfigurationAPI'));
-    }
+            // config file must exist
+            if (!file_exists($config)) {
+                throw new ApiException('Config does not exist');
+            }
 
-    public function makeReporting()
-    {
-        return new Reporting($this->wireDependencies('ReportingAPI'));
-    }
-
-    public function makeServiceTicket()
-    {
-        return new ServiceTicket($this->wireDependencies('ServiceTicketApi'));
+            $this->config = $config;
+        }
     }
 
     private function wireDependencies($apiName)
