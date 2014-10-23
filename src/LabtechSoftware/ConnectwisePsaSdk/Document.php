@@ -21,36 +21,34 @@ class Document
     }
 
     /**
-     * Add documents to ticket
+     * Add documents to a CW object, such as a ticket or contact
      *
-     * @todo File param is string?
-     * @todo Remove hard coded DocuementInfo array
-     *
-     * @param integer $objectId
-     * @param string $documentTableReference
-     * @param array $documentInfo
-     * @param string $file
-     * @return array
+     * @param string|int $objectId numeric value, recID of object to add document to
+     * @param string $documentTableReference type of object document is being added to
+     * @param array $documentInfo array of objects that represent a document
+     * @return array Array of one or more document objects
      */
-    public function addDocuments($objectId, $documentTableReference, $documentInfo, $file)
+    public function addDocuments($objectId, $documentTableReference, array $documentInfo)
     {
-        $file = base64_encode(file_get_contents(base_path() . '/phpunit.xml'));
+        // throw exception if $objectId is not numeric
+        if (!is_numeric($objectId)) {
+            throw new InvalidArgumentException(
+                'objectId must be a numeric value.'
+            );
+        }
+
+        // throw exception if $documentTableReference
+        // is not a string
+        if (!is_string($documentTableReference)) {
+            throw new InvalidArgumentException(
+                'documentTableReference must be a string value.'
+            );
+        }
 
         $params = [
             'objectId' => $objectId,
             'documentTableReference' => $documentTableReference,
-            'documentInfo' => [
-                'DocumentInfo' => [
-                    'Id' => 0,
-                    'Title' => 'YourMom',
-                    'FileName' => 'YourMom.xml',
-                    'LastUpdated' => '2014-10-10',
-                    'IsLink' => false,
-                    'IsImage' => false,
-                    'IsPublic' => false,
-                    'Content' => $file
-                ]
-            ]
+            'documentInfo' => $documentInfo
         ];
 
         // Fire off the request to the Document API and return the result array
@@ -62,8 +60,8 @@ class Document
      *
      * @throws \LabtechSoftware\ConnectwisePsaSdk\ApiException
      * @throws \InvalidArgumentException
-     * @param integer $documentId
-     * @return array
+     * @param string|int $documentId numeric, the id of the document to get
+     * @return array Representation of a document
      */
     public function getDocument($documentId)
     {
