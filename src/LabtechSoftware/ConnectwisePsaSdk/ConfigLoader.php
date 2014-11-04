@@ -33,7 +33,7 @@ class ConfigLoader
 
     public function load($path = '')
     {
-        $config = [];
+        $config = array();
         foreach (parse_ini_file($path, true) as $key => $val) {
             $config[$key] = $val;
         }
@@ -60,9 +60,6 @@ class ConfigLoader
 
         return true;
     }
-
-
-
 
     public function getSoapOptions()
     {
