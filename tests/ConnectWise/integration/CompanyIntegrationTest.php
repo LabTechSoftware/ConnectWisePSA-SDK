@@ -1,7 +1,7 @@
 <?php
 
-use LabtechSoftware\ConnectwisePsaSdk\SoapApiRequester;
-use LabtechSoftware\ConnectwisePsaSdk\Company;
+use LabtechSoftware\ConnectwisePsaSdk\ApiException;
+use LabtechSoftware\ConnectwisePsaSdk\ConnectwiseApiFactory;
 
 class CompanyIntegrationTests extends PHPUnit_Framework_TestCase
 {
@@ -10,31 +10,55 @@ class CompanyIntegrationTests extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $configLoader = $this->getMockBuilder('LabtechSoftware\ConnectwisePsaSdk\ConfigLoader')
-                             ->disableOriginalConstructor()
-                             ->getMock();
+        $configArray = include 'src/LabtechSoftware/ConnectwisePsaSdk/config/config.php';
 
-        $configLoader->expects($this->any())
-                     ->method('getSoapCredentials')
-                     ->will($this->returnValue(array(
-                        'CompanyId' => 'LabTech',
-                        'IntegratorLoginId' => 'webdev',
-                        'IntegratorPassword' => 'webdev'
-                     )));
+        if (getenv('SOAP_VERSION')) {
+            $configArray['soap']['soap_version'] = trim(getenv('SOAP_VERSION'));
+        }
 
-        $soap = new SoapClient(
-            'http://test.connectwise.com/v4_6_release/apis/1.5/CompanyApi.asmx?wsdl',
-            array(
-                'soap_version' => SOAP_1_1,
-                'exception' => true,
-                'trace' => 1,
-                'cache_wsdl' => WSDL_CACHE_NONE
-            )
-        );
+        if (getenv('EXCEPTIONS')) {
+            $configArray['soap']['exceptions'] = trim(getenv('EXCEPTIONS'));
+        }
 
-        $client = new SoapApiRequester($soap, $configLoader);
+        if (getenv('TRACE')) {
+            $configArray['soap']['trace'] = trim(getenv('TRACE'));
+        }
 
-        $this->fixture = new Company($client);
+        if (getenv('CACHE_WSDL')) {
+            $configArray['soap']['cache_wsdl'] = trim(getenv('CACHE_WSDL'));
+        }
+
+        if (getenv('CW_API_MAIN')) {
+            $configArray['url']['cw_api_main'] = trim(getenv('CW_API_MAIN'));
+        }
+
+        if (getenv('DOMAIN')) {
+            $configArray['credentials']['domain'] = trim(getenv('DOMAIN'));
+        } else {
+            throw new ApIException('DOMAIN must be set in environment');
+        }
+
+        if (getenv('COMPANYID')) {
+            $configArray['credentials']['CompanyId'] = trim(getenv('COMPANYID'));
+        } else {
+            throw new ApIException('COMPANYID must be set in environment');
+        }
+
+        if (getenv('INTEGRATORLOGINID')) {
+            $configArray['credentials']['IntegratorLoginId'] = trim(getenv('INTEGRATORLOGINID'));
+        } else {
+            throw new ApIException('INTEGRATORLOGINID must be set in environment');
+        }
+
+        if (getenv('INTEGRATORPASSWORD')) {
+            $configArray['credentials']['IntegratorPassword'] = trim(getenv('INTEGRATORPASSWORD'));
+        } else {
+            throw new ApIException('INTEGRATORPASSWORD must be set in environment');
+        }
+
+
+        $factory = new ConnectwiseApiFactory();
+        $this->fixture = $factory->make('Company', $configArray);
     }
 
 
