@@ -11,8 +11,8 @@
 #------------------------------------------------------------------
 # The export statements below are REQUIRED to run integration tests
 #------------------------------------------------------------------
-export DOMAIN=""
-export COMPANYID=""
-export INTEGRATORLOGINID=""
-export INTEGRATORPASSWORD=""
+# export DOMAIN=""
+# export COMPANYID=""
+# export INTEGRATORLOGINID=""
+# export INTEGRATORPASSWORD=""
 phpunit tests/ConnectWise/integration
