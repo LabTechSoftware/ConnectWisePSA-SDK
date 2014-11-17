@@ -2,9 +2,9 @@
 
 namespace LabtechSoftware\ConnectwisePsaSdk;
 
-use SoapClient,
-    SoapFault,
-    LabtechSoftware\ConnectwisePsaSdk\ApiException;
+use SoapClient;
+use SoapFault;
+use LabtechSoftware\ConnectwisePsaSdk\ApiException;
 
 class SoapApiRequester implements ConnectWiseApi
 {
@@ -12,7 +12,7 @@ class SoapApiRequester implements ConnectWiseApi
     private $soap;
     private $configLoader;
 
-    public function __construct(SoapClient $soap, $configLoader)
+    public function __construct(SoapClient $soap, ConfigLoader $configLoader)
     {
         $this->soap = $soap;
         $this->configLoader= $configLoader;
