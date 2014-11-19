@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
+         bootstrap="./vendor/autoload.php"
          colors="false"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -10,8 +11,14 @@
          syntaxCheck="false"
 >
     <testsuites>
-        <testsuite name="Package Test Suite">
-            <directory suffix=".php">./tests/</directory>
+        <testsuite name="Integration_Tests">
+            <directory suffix=".php">./tests/ConnectWise/integration</directory>
+        </testsuite>
+        <testsuite name="Unit_Tests">
+            <directory suffix=".php">./tests/ConnectWise/unit</directory>
+        </testsuite>
+        <testsuite name="Full_Package">
+            <directory suffix=".php">./tests/ConnectWise</directory>
         </testsuite>
     </testsuites>
 </phpunit>

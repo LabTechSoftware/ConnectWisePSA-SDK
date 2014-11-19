@@ -2,7 +2,7 @@
 
 use LabtechSoftware\ConnectwisePsaSdk\ApiException;
 
-class ApiExceptionTest extends PHPUnit_Framework_testCase
+class ApiExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testConstructorWithMessageNotPrefixedWithSoapError()
     {

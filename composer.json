@@ -10,10 +10,16 @@
     "require": {
         "php": ">=5.3.0"
     },
+    "require-dev": {
+        "mikey179/vfsStream": "1.*"
+    },
     "autoload": {
         "psr-0": {
             "LabtechSoftware\\ConnectwisePsaSdk": "src/"
-        }
+        },
+        "files": [
+            "tests/ConnectWise/integration/PsaTestCase.php"
+        ]
     },
     "minimum-stability": "dev"
 }

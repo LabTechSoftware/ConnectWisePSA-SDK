@@ -3,58 +3,13 @@
 use LabtechSoftware\ConnectwisePsaSdk\ApiException;
 use LabtechSoftware\ConnectwisePsaSdk\ConnectwiseApiFactory;
 
-class ConfigurationIntegrationTest extends PHPUnit_Framework_TestCase
+class ConfigurationIntegrationTest extends PsaTestCase
 {
     protected $fixture;
 
     protected function setUp()
     {
-        $configArray = include 'src/LabtechSoftware/ConnectwisePsaSdk/config/config.php';
-
-        if (getenv('SOAP_VERSION')) {
-            $configArray['soap']['soap_version'] = trim(getenv('SOAP_VERSION'));
-        }
-
-        if (getenv('EXCEPTIONS')) {
-            $configArray['soap']['exceptions'] = trim(getenv('EXCEPTIONS'));
-        }
-
-        if (getenv('TRACE')) {
-            $configArray['soap']['trace'] = trim(getenv('TRACE'));
-        }
-
-        if (getenv('CACHE_WSDL')) {
-            $configArray['soap']['cache_wsdl'] = trim(getenv('CACHE_WSDL'));
-        }
-
-        if (getenv('CW_API_MAIN')) {
-            $configArray['url']['cw_api_main'] = trim(getenv('CW_API_MAIN'));
-        }
-
-        if (getenv('DOMAIN')) {
-            $configArray['credentials']['domain'] = trim(getenv('DOMAIN'));
-        } else {
-            throw new ApIException('DOMAIN must be set in environment');
-        }
-
-        if (getenv('COMPANYID')) {
-            $configArray['credentials']['CompanyId'] = trim(getenv('COMPANYID'));
-        } else {
-            throw new ApIException('COMPANYID must be set in environment');
-        }
-
-        if (getenv('INTEGRATORLOGINID')) {
-            $configArray['credentials']['IntegratorLoginId'] = trim(getenv('INTEGRATORLOGINID'));
-        } else {
-            throw new ApIException('INTEGRATORLOGINID must be set in environment');
-        }
-
-        if (getenv('INTEGRATORPASSWORD')) {
-            $configArray['credentials']['IntegratorPassword'] = trim(getenv('INTEGRATORPASSWORD'));
-        } else {
-            throw new ApIException('INTEGRATORPASSWORD must be set in environment');
-        }
-
+        $configArray = parent::setUp();
 
         $factory = new ConnectwiseApiFactory();
         $this->fixture = $factory->make('Configuration', $configArray);
@@ -65,11 +20,12 @@ class ConfigurationIntegrationTest extends PHPUnit_Framework_TestCase
      */
     public function testAddOrUpdateConfigurationType()
     {
+        // uses time() to ensure that the Configuration Type is unique.
         $configurationTypeData = array(
             'Id' => 0,
             'InactiveFlag' => false,
             'SystemFlag' => false,
-            'Name' => 'MyConfigurationType000',
+            'Name' => 'MyConfigurationType' . time(),
             'ConfigurationTypeQuestions' => array(
                 'ConfigurationTypeQuestion' => array(
                     'Id' => 0,

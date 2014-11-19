@@ -106,18 +106,9 @@ class ServiceTicketTest extends \PHPUnit_Framework_TestCase
      * @covers LabtechSoftware\ConnectwisePsaSdk\ServiceTicket::getTicketCount
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
-    public function testGetTicketCountThrowsExceptionWhenIsOpenIsNotBoolean()
-    {
-        $this->fixture->getTicketCount('', '');
-    }
-
-    /**
-     * @covers LabtechSoftware\ConnectwisePsaSdk\ServiceTicket::getTicketCount
-     * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
-     */
     public function testGetTicketCountThrowsExceptionWhenConditionsIsNotAString()
     {
-        $this->fixture->getTicketCount(true, 3);
+        $this->fixture->getTicketCount(null);
     }
 
     /**

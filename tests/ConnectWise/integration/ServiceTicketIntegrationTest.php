@@ -3,117 +3,25 @@
 use LabtechSoftware\ConnectwisePsaSdk\ApiException;
 use LabtechSoftware\ConnectwisePsaSdk\ConnectwiseApiFactory;
 
-class ServiceTicketIntegrationTest extends PHPUnit_Framework_TestCase
+class ServiceTicketIntegrationTest extends PsaTestCase
 {
+    protected $configArray;
+    protected $factory;
     protected $fixture;
-
     protected static $companyID;
 
     protected function setUp()
     {
-        $configArray = include 'src/LabtechSoftware/ConnectwisePsaSdk/config/config.php';
+        $this->configArray = parent::setUp();
 
-        if (getenv('SOAP_VERSION')) {
-            $configArray['soap']['soap_version'] = trim(getenv('SOAP_VERSION'));
-        }
-
-        if (getenv('EXCEPTIONS')) {
-            $configArray['soap']['exceptions'] = trim(getenv('EXCEPTIONS'));
-        }
-
-        if (getenv('TRACE')) {
-            $configArray['soap']['trace'] = trim(getenv('TRACE'));
-        }
-
-        if (getenv('CACHE_WSDL')) {
-            $configArray['soap']['cache_wsdl'] = trim(getenv('CACHE_WSDL'));
-        }
-
-        if (getenv('CW_API_MAIN')) {
-            $configArray['url']['cw_api_main'] = trim(getenv('CW_API_MAIN'));
-        }
-
-        if (getenv('DOMAIN')) {
-            $configArray['credentials']['domain'] = trim(getenv('DOMAIN'));
-        } else {
-            throw new ApIException('DOMAIN must be set in environment');
-        }
-
-        if (getenv('COMPANYID')) {
-            $configArray['credentials']['CompanyId'] = trim(getenv('COMPANYID'));
-        } else {
-            throw new ApIException('COMPANYID must be set in environment');
-        }
-
-        if (getenv('INTEGRATORLOGINID')) {
-            $configArray['credentials']['IntegratorLoginId'] = trim(getenv('INTEGRATORLOGINID'));
-        } else {
-            throw new ApIException('INTEGRATORLOGINID must be set in environment');
-        }
-
-        if (getenv('INTEGRATORPASSWORD')) {
-            $configArray['credentials']['IntegratorPassword'] = trim(getenv('INTEGRATORPASSWORD'));
-        } else {
-            throw new ApIException('INTEGRATORPASSWORD must be set in environment');
-        }
-
-
-        $factory = new ConnectwiseApiFactory();
-        $this->fixture = $factory->make('ServiceTicket', $configArray);
+        $this->factory = new ConnectwiseApiFactory();
+        $this->fixture = $this->factory->make('ServiceTicket', $this->configArray);
     }
 
 
     public function getCompanyAPI()
     {
-        $configArray = include 'src/LabtechSoftware/ConnectwisePsaSdk/config/config.php';
-
-        if (getenv('SOAP_VERSION')) {
-            $configArray['soap']['soap_version'] = trim(getenv('SOAP_VERSION'));
-        }
-
-        if (getenv('EXCEPTIONS')) {
-            $configArray['soap']['exceptions'] = trim(getenv('EXCEPTIONS'));
-        }
-
-        if (getenv('TRACE')) {
-            $configArray['soap']['trace'] = trim(getenv('TRACE'));
-        }
-
-        if (getenv('CACHE_WSDL')) {
-            $configArray['soap']['cache_wsdl'] = trim(getenv('CACHE_WSDL'));
-        }
-
-        if (getenv('CW_API_MAIN')) {
-            $configArray['url']['cw_api_main'] = trim(getenv('CW_API_MAIN'));
-        }
-
-        if (getenv('DOMAIN')) {
-            $configArray['credentials']['domain'] = trim(getenv('DOMAIN'));
-        } else {
-            throw new ApIException('DOMAIN must be set in environment');
-        }
-
-        if (getenv('COMPANYID')) {
-            $configArray['credentials']['CompanyId'] = trim(getenv('COMPANYID'));
-        } else {
-            throw new ApIException('COMPANYID must be set in environment');
-        }
-
-        if (getenv('INTEGRATORLOGINID')) {
-            $configArray['credentials']['IntegratorLoginId'] = trim(getenv('INTEGRATORLOGINID'));
-        } else {
-            throw new ApIException('INTEGRATORLOGINID must be set in environment');
-        }
-
-        if (getenv('INTEGRATORPASSWORD')) {
-            $configArray['credentials']['IntegratorPassword'] = trim(getenv('INTEGRATORPASSWORD'));
-        } else {
-            throw new ApIException('INTEGRATORPASSWORD must be set in environment');
-        }
-
-
-        $factory = new ConnectwiseApiFactory();
-        return $factory->make('Company', $configArray);
+        return $this->factory->make('Company', $this->configArray);
     }
 
     // this method tests:
@@ -294,7 +202,7 @@ class ServiceTicketIntegrationTest extends PHPUnit_Framework_TestCase
      */
     public function testGetTicketCount($ticketNumber)
     {
-        $this->assertInternalType('object', $this->fixture->getTicketCount(true, 'SRServiceRecID = ' . $ticketNumber));
+        $this->assertInternalType('object', $this->fixture->getTicketCount('SRServiceRecID = ' . $ticketNumber));
     }
 
 
