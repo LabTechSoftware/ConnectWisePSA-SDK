@@ -31,6 +31,38 @@ class Configuration
     }
 
     /**
+     * Adds a configuration
+     *
+     * @throws ApiException
+     * @param array $config
+     * @return array
+     */
+    public function addConfiguration(array $config)
+    {
+        $params = array(
+            'configuration' => $config
+        );
+
+        return $this->client->makeRequest('AddConfiguration', $params);
+    }
+
+    /**
+     * Updates a configuration
+     *
+     * @throws ApiException
+     * @param array $config
+     * @return array
+     */
+    public function updateConfiguration(array $config)
+    {
+        $params = array(
+            'configuration' => $config
+        );
+
+        return $this->client->makeRequest('UpdateConfiguration', $params);
+    }
+
+    /**
      * Adds or updates a configuration type
      *
      * @throws ApiException
