@@ -2,7 +2,7 @@
 
 use LabtechSoftware\ConnectwisePsaSdk\Company;
 
-class CompanyTest extends PHPUnit_Framework_testCase
+class CompanyTest extends PHPUnit_Framework_TestCase
 {
     protected $fixture;
 

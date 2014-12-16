@@ -1,105 +1,188 @@
-<?php
+<?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
-use LabtechSoftware\ConnectwisePsaSdk\ApiException;
-use LabtechSoftware\ConnectwisePsaSdk\ConnectwiseApiFactory;
-
-class CompanyIntegrationTests extends PsaTestCase
+class CompanyIntegrationTest extends PsaTestCase
 {
-    protected $configArray;
+    protected $configuration;
     protected $factory;
     protected $fixture;
 
     protected function setUp()
     {
-        $this->configArray = parent::setUp();
+        $this->configuration = parent::setUp();
         $this->factory = new ConnectwiseApiFactory();
-        $this->fixture = $this->factory->make('Company', $this->configArray);
+        $this->fixture = $this->factory->make(
+            'Company',
+            $this->configuration
+        );
     }
 
+    /**
+     * @return array
+     */
     public function testAddCompany()
     {
-        // when we delete a company from the PSA, the record is still stored
-        // in the DB and when we rerun our tests, we will get an error stating
-        // that the company ID is not unique, use time() to make sure each time
-        // we run tests we have a unique company ID.
-        $params = [
+        $data = [
             'DefaultAddress' => [
                 'Id' => 0,
                 'DefaultFlag' => true,
+                'InactiveFlag' => false,
                 'CompanyRecid' => 0,
-                'SiteName' => 'American Headquarters'
+                'SiteName' => 'US Headquarters'
             ],
-            'CompanyName' => 'Pandora IncInc.',
-            'CompanyID' => 'Pandora' . time(),
+            'CompanyName' => 'Integration Test Co.',
+            'CompanyID' => 'Integrate' . time(),
             'PhoneNumber' => '8135555555',
             'FaxNumber' => '8135551111',
             'WebSite' => 'http://pandora.com',
             'Id' => 0
         ];
 
-        $company = $this->fixture->addOrUpdateCompany($params);
+        $results = $this->fixture->addOrUpdateCompany($data);
+        $this->assertInternalType('object', $results);
+        $results = $results->AddOrUpdateCompanyResult;
+        $this->assertCompanyStructure($data, $results);
 
-        $this->assertInternalType('object', $company);
-
-        $compData = [
-            'Id' => $company->AddOrUpdateCompanyResult->Id,
-            'CompanyId' => $params['CompanyID']
+        return [
+            'ID' => $results->Id,
+            'CompanyID' => $data['CompanyID']
         ];
-
-        return $compData;
     }
 
     /**
      * @depends testAddCompany
+     * @param $res
+     * @return mixed
      */
-    public function testUpdateCompany($compData)
+    public function testUpdateCompany($res)
     {
-        $params = [
+        $data = [
             'DefaultAddress' => [
                 'Id' => 0,
                 'DefaultFlag' => true,
+                'InactiveFlag' => false,
                 'CompanyRecid' => 0,
-                'SiteName' => 'American Headquarters'
+                'SiteName' => 'US Headquarters'
             ],
-            'CompanyName' => 'Pandora IncSUP.',
-            'CompanyID' => $compData['CompanyId'],
-            'PhoneNumber' => '8131111111',
-            'FaxNumber' => '8135551111',
-            'WebSite' => 'http://pandora.com',
-            'Id' => $compData['Id']
+            'CompanyName' => 'Integration Test Co.',
+            'CompanyID' => $res['CompanyID'],
+            'PhoneNumber' => rand(1000000000, 9999999999),
+            'FaxNumber' => rand(1000000000, 9999999999),
+            'WebSite' => 'http://integrationtest.co',
+            'Id' => $res['ID']
         ];
 
-        $company = $this->fixture->addOrUpdateCompany($params);
+        $results = $this->fixture->addOrUpdateCompany($data);
+        $this->assertInternalType('object', $results);
+        $results = $results->AddOrUpdateCompanyResult;
+        $this->assertCompanyStructure($data, $results);
 
-        $this->assertInternalType('object', $company);
+        $res['Data'] = $data;
+        return $res;
+    }
+
+    /**
+     * @depends testUpdateCompany
+     * @param $res
+     */
+    public function testGetCompany($res)
+    {
+        $results = $this->fixture->getCompany($res['ID']);
+        $this->assertInternalType('object', $results);
+        $results = $results->GetCompanyResult;
+        $this->assertCompanyStructure($res['Data'], $results);
     }
 
     /**
      * @depends testAddCompany
+     * @param $res
      */
-    public function testGetCompany($compData)
+    public function testDeleteCompany($res)
     {
-        $company = $this->fixture->getCompany($compData['Id']);
-        $this->assertInternalType('object', $company);
-        return $company->GetCompanyResult->Id;
+        $results = $this->fixture->deleteCompany($res['ID']);
+        $this->assertInternalType('object', $results);
+        $this->assertTrue(empty((array)$results));
     }
 
     /**
-     * @depends testAddCompany
+     * @dataProvider limitDataProvider
+     * @param $limit
      */
-    public function testFindCompany($compData)
+    public function testFindCompanies($limit)
     {
-        $this->assertInternalType(
-            'object',
-            $this->fixture->findCompanies(1, 0, '', "CompanyRecid = {$compData['Id']}")
-        );
+        $results = $this->fixture->findCompanies($limit, 0, '', '');
+        $this->assertInternalType('object', $results);
+        $this->assertInternalType('object', $results->FindCompaniesResult);
+        $results = $results->FindCompaniesResult->CompanyFindResult;
+        if ($limit === 1) {
+            $this->assertFindCompanyStructure($results);
+        } else {
+            $this->assertInternalType('array', $results);
+            foreach ($results as $result) {
+                $this->assertFindCompanyStructure($result);
+            }
+        }
     }
 
     /**
-     * @depends testAddCompany
+     * @param $data
+     * @param $results
      */
-    public function testDeleteCompany($compData)
+    private function assertCompanyStructure($data, $results)
     {
-        $this->assertInternalType('object', $this->fixture->deleteCompany($compData['Id']));
+        $this->assertInternalType('object', $results);
+        $this->assertInternalType('object', $results->Addresses);
+        $this->assertInternalType('object', $results->Addresses->CompanyAddress);
+        $this->assertInternalType('object', $results->Addresses->CompanyAddress->StreetLines);
+        $this->assertInternalType('array', $results->Addresses->CompanyAddress->StreetLines->string);
+        $this->assertNull($results->Addresses->CompanyAddress->StreetLines->string[0]);
+        $this->assertNull($results->Addresses->CompanyAddress->StreetLines->string[1]);
+        $this->assertInternalType('string', $results->Addresses->CompanyAddress->Country);
+        $this->assertInternalType('integer', $results->Addresses->CompanyAddress->Id);
+        $this->assertSame($data['DefaultAddress']['DefaultFlag'], $results->Addresses->CompanyAddress->DefaultFlag);
+        $this->assertInternalType('integer', $results->Addresses->CompanyAddress->CompanyRecid);
+        $this->assertSame($data['DefaultAddress']['SiteName'], $results->Addresses->CompanyAddress->SiteName);
+        $this->assertSame($data['DefaultAddress']['InactiveFlag'], $results->Addresses->CompanyAddress->InactiveFlag);
+        $this->assertSame($data['CompanyName'], $results->CompanyName);
+        $this->assertSame($data['CompanyID'], $results->CompanyID);
+        $this->assertSame((string)$data['PhoneNumber'], $results->PhoneNumber);
+        $this->assertSame((string)$data['FaxNumber'], $results->FaxNumber);
+        $this->assertSame($data['WebSite'], $results->WebSite);
+        $this->assertInternalType('integer', $results->Id);
+        $this->assertInternalType('string', $results->Type);
+        $this->assertInternalType('string', $results->Status);
+        $this->assertInternalType('string', $results->AccountNbr);
+        $this->assertInternalType('integer', $results->DefaultContactId);
+        $this->assertInternalType('integer', $results->DefaultBillingContactId);
+        $this->assertNotFalse(strtotime($results->LastUpdate));
+    }
+
+    private function assertFindCompanyStructure($result)
+    {
+        $this->assertInternalType('object', $result);
+        $this->assertInternalType('integer', $result->CompanyRecID);
+        $this->assertInternalType('string', $result->CompanyName);
+        $this->assertInternalType('string', $result->CompanyID);
+        $this->assertInternalType('string', $result->PhoneNumber);
+        $this->assertInternalType('string', $result->AddressLine1);
+        $this->assertInternalType('string', $result->AddressLine2);
+        $this->assertInternalType('string', $result->City);
+        $this->assertInternalType('string', $result->State);
+        $this->assertInternalType('string', $result->Zip);
+        $this->assertInternalType('string', $result->Country);
+        $this->assertInternalType('string', $result->Type);
+        $this->assertInternalType('string', $result->Status);
+        $this->assertInternalType('string', $result->Territory);
+        $this->assertInternalType('string', $result->Website);
+        if (isset($result->Market)) {
+            $this->assertInternalType('string', $result->Market);
+        }
+    }
+
+    public function limitDataProvider()
+    {
+        return [
+            [1],
+            [2]
+        ];
     }
 }

@@ -33,9 +33,9 @@ class DocumentTest extends PHPUnit_Framework_TestCase
      */
     public function testAddDocumentsObjectIdNotNumeric()
     {
-
         $this->document->addDocuments('string', null, []);
-
+        Route::get('', ['as' => '', 'before' => '', 'uses' => '']);
+        Route::get('test', ['as' => 'test', 'before' => '', 'uses' => '']);
     }
 
     /**
@@ -118,5 +118,4 @@ class DocumentTest extends PHPUnit_Framework_TestCase
         $this->document->getDocument($documentId);
 
     }
-
 }

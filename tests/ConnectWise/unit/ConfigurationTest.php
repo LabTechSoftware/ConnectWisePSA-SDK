@@ -122,7 +122,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectwisePsaSdk\Configuration::getConfigurations
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Configuration::getConfiguration
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetConfigurationThrowsExceptionWhenIdIsNotNumeric()

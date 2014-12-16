@@ -16,10 +16,7 @@
     "autoload": {
         "psr-0": {
             "LabtechSoftware\\ConnectwisePsaSdk": "src/"
-        },
-        "files": [
-            "tests/ConnectWise/integration/PsaTestCase.php"
-        ]
+        }
     },
     "minimum-stability": "dev"
 }

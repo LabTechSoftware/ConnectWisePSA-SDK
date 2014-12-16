@@ -17,6 +17,7 @@ class ConnectwiseApiFactory
      */
     public function make($api, $config = '')
     {
+//        throw new \Exception('Duh');
         // Check for proper value type for API variable
         // We don't do this for the 2nd variable (config) since we may not need it
         if (is_string($api) === false) {

@@ -67,7 +67,7 @@ class Contact
     
     /**
      * Adds or updates a contact's communication item
-     * If the communicationItem id (inside of $commItemData) is 0, the communication item is added. 
+     * If the communicationItem id (inside of $commItemData) is 0, the communication item is added.
      * If non-zero, the existing communicationItem with that Id is updated.
      *
      * @throws ApiException
@@ -118,7 +118,7 @@ class Contact
      * @todo Disabled until CW fixes authentication issues -- DO NOT USE THIS METHOD!
      * @throws ApiException
      *
-     * f/ Marc: 
+     * f/ Marc:
      * This is a very dangerous method right now. You should not use this unless you know what it does.
      * I recommend if your trying to authenticate via portal password you use the FindContacts method
      * @param array $params

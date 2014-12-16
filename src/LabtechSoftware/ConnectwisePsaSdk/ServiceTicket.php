@@ -1,7 +1,7 @@
 <?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
-
 use LabtechSoftware\ConnectwisePsaSdk\ApiException;
+
 /**
  * ConnectWise Service Ticket API
  *
@@ -17,8 +17,8 @@ class ServiceTicket
     }
     
     /**
-     * Adds or updates a service ticket for a company identified by the text-based company id. 
-     * If the service ticket number is 0, the service ticket is added. 
+     * Adds or updates a service ticket for a company identified by the text-based company id.
+     * If the service ticket number is 0, the service ticket is added.
      * If non-zero, the existing service ticket with that ticket number is updated.
      *
      * @throws ApiException
@@ -41,8 +41,8 @@ class ServiceTicket
     }
 
     /**
-     * Adds or updates a service ticket for a company identified by managed id. 
-     * If the service ticket number is 0, the service ticket is added. 
+     * Adds or updates a service ticket for a company identified by managed id.
+     * If the service ticket number is 0, the service ticket is added.
      * If non-zero, the existing service ticket with that ticket number is updated.
      * @todo This is untested: need a valid managed id to test this method
      *

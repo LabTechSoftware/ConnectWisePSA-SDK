@@ -1,11 +1,13 @@
-<?php
+<?php namespace LabtechSoftware\ConnectwisePsaSdk;
+
 use LabtechSoftware\ConnectwisePsaSdk\ApiException;
 use LabtechSoftware\ConnectwisePsaSdk\ConnectwiseApiFactory;
-abstract class PsaTestCase extends PHPUnit_Framework_TestCase
+
+abstract class PsaTestCase extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        $configArray = include 'src/LabtechSoftware/ConnectwisePsaSdk/config/config.php';
+        $configArray = include '/vagrant/labtechapi/vendor/labtech-software/connectwise-psa-sdk/src/LabtechSoftware/ConnectwisePsaSdk/config/config.php';
 
         if (getenv('SOAP_VERSION')) {
             $configArray['soap']['soap_version'] = trim(getenv('SOAP_VERSION'));

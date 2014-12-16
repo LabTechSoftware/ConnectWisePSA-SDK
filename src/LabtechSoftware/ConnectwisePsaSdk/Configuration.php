@@ -2,7 +2,7 @@
 
 /**
  * ConnectWise Configuration API
- * 
+ *
  * @package ConnectwisePsaSdk
  */
 class Configuration

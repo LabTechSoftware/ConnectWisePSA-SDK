@@ -31,7 +31,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @covers Contact::addContactToGroup
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::addContactToGroup
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testAddContactToGroupThrowsExceptionWhenContactIdIsNotNumeric()
@@ -85,7 +85,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::findContacts
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::findContacts
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testFindContactsThrowsExceptionWhenLimitIsNotNumeric()
@@ -94,7 +94,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::findContacts
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::findContacts
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testFindContactsThrowsExceptionWhenSkipIsNotNumeric()
@@ -103,7 +103,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::findContacts
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::findContacts
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testFindContactsThrowsExceptionWhenOrderByIsNotAString()
@@ -112,7 +112,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::findContacts
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::findContacts
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testFindContactsThrowsExceptionWhenConditionsIsNotAString()
@@ -121,7 +121,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::findContactsCount
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::findContactsCount
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testFindContactsCountThrowsExceptionWhenConditionsIsNotAString()
@@ -130,7 +130,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getAllContactCommunicationItems
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getAllContactCommunicationItems
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetAllContactCommunicationItemsThrowsExceptionWhenContactIdIsNotNumeric()
@@ -139,7 +139,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getAllContactNotes
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getAllContactNotes
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetAllContactNotesThrowsExceptionWhenContactRecIdIsNotNumeric()
@@ -149,7 +149,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getContact
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getContact
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactThrowsExceptionWhenIdIsNotNumeric()
@@ -158,7 +158,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getContactCommunicationItem
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getContactCommunicationItem
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactCommunicationItemThrowsExceptionWhenContactIdIsNotNumeric()
@@ -167,7 +167,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getContactCommunicationItem
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getContactCommunicationItem
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactCommunicationItemThrowsExceptionWhenTypeIsNotAString()
@@ -176,7 +176,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getContactCommunicationItem
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getContactCommunicationItem
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactCommunicationItemThrowsExceptoinWhenDescriptionIsNotAString()
@@ -185,7 +185,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getContactNote
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getContactNote
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactNoteThrowsExceptionWhenContactIdIsNotNumeric()
@@ -194,7 +194,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getContactNote
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getContactNote
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetContactNoteThrowsExceptionWhenNoteIdIsNotNumeric()
@@ -203,7 +203,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getPortalConfigSettings
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getPortalConfigSettings
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalConfigSettingsThrowsExceptionWhenPortalNameIsNotAString()
@@ -212,7 +212,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getPortalLoginCustomizations
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getPortalLoginCustomizations
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalLoginCustomizationsThrowsExceptionWhenPortalNameIsNotAString()
@@ -221,7 +221,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getPortalSecurity
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getPortalSecurity
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalSecurityThrowsExceptionWhenPortalContIdIsNotNumeric()
@@ -230,7 +230,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::getPortalSecurity
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::getPortalSecurity
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testGetPortalSecurityThrowsExceptionWhenPortalCompNameIsNotAString()
@@ -240,7 +240,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::removeContactFromGroup
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::removeContactFromGroup
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testRemoveContactFromGroupThrowsExceptionWhenContactIdIsNotNumeric()
@@ -249,7 +249,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::removeContactFromGroup
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::removeContactFromGroup
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testRemoveContactFromGroupThrowsExceptionWhenGroupIdIsNotNumeric()
@@ -258,7 +258,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::removeContactFromGroup
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::removeContactFromGroup
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testRemoveContactFromGroupThrowsExceptionWhenNoteIsNotAString()
@@ -267,7 +267,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::requestPassword
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::requestPassword
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testRequestPasswordThrowsExceptionWhenEmailAddressIsNotAString()
@@ -276,7 +276,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::setDefaultContactCommunicationItem
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::setDefaultContactCommunicationItem
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testSetDefaultContactCommunicationItemThrowsExceptionWhenContactIdIsNotNumeric()
@@ -285,7 +285,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::setDefaultContactCommunicationItem
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::setDefaultContactCommunicationItem
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testSetDefaultContactCommunicationItemThrowsExceptionWhenCommunicationTypeIsNotAString()
@@ -294,7 +294,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::setDefaultContactCommunicationItem
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::setDefaultContactCommunicationItem
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testSetDefaultContactCommunicationItemThrowsExceptionWhenCommunicationDescriptionIsNotAString()
@@ -303,7 +303,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::deleteContact
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::deleteContact
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactThrowsExceptionWhenIdIsNotNumeric()
@@ -312,7 +312,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::deleteContactCommunicationItem
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::deleteContactCommunicationItem
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactCommunicationItemThrowsExceptionWhenContactIdIsNotNumeric()
@@ -321,7 +321,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::deleteContactCommunicationItem
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::deleteContactCommunicationItem
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactCommunicationItemThrowsExceptionWhenTypeIsNotAString()
@@ -330,7 +330,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::deleteContactCommunicationItem
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::deleteContactCommunicationItem
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteContactCommunicationItemThrowsExceptionWhenDescriptionIsNotAString()
@@ -339,7 +339,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::deleteNote
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::deleteNote
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteNoteThrowsExceptionWhenNoteIdIsNotNumeric()
@@ -348,7 +348,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LabtechSoftware\ConnectiwsePsaSdk\Contact::deleteNote
+     * @covers LabtechSoftware\ConnectwisePsaSdk\Contact::deleteNote
      * @expectedException LabtechSoftware\ConnectwisePsaSdk\ApiException
      */
     public function testDeleteNoteThrowsExceptionWhenContactIdIsNotNumeric()

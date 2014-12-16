@@ -1,76 +1,85 @@
-<?php
-
-use LabtechSoftware\ConnectwisePsaSdk\ApiException;
-use LabtechSoftware\ConnectwisePsaSdk\ConnectwiseApiFactory;
+<?php namespace LabtechSoftware\ConnectwisePsaSdk;
 
 class DocumentIntegrationTest extends PsaTestCase
 {
+    protected $configuration;
+    protected $factory;
     protected $fixture;
 
     protected function setUp()
     {
-        $configArray = parent::setUp();
-        $configArray['url']['cw_api_main'] = 'https://%s/v4_6_release/apis/2.0/%s.asmx?wsdl';
-
-        $factory = new ConnectwiseApiFactory();
-        $this->fixture = $factory->make('Document', $configArray);
+        $this->configuration = parent::setUp();
+        $this->configuration['url']['cw_api_main'] = 'https://%s/v4_6_release/apis/2.0/%s.asmx?wsdl';
+        $this->factory = new ConnectwiseApiFactory();
+        $this->fixture = $this->factory->make('Document', $this->configuration);
     }
 
-
-    public function testAddDocuments()
+    public function testAddDocument()
     {
-        $params = [
-            'objectId' => 1167,
-            'documentTableReference' => 'Ticket',
-            'documentInfo' => [
-                'Id' => 0,
-                'Title' => "install_wiz_end_points",
-                "FileName" => "install_wiz_end_points.txt",
-                "LastUpdated" => "2014-10-10",
-                "IsLink" => false,
-                "IsImage" => false,
-                "IsPublic" => false,
-                "Content" => "U29tZSByYW5kb20gdGV4dA=="
-            ]
+        $objectId = 1176;
+        $documentTableReference = 'Ticket';
+        $data = [
+            'Id' => 0,
+            'Title' => 'integration_test_file',
+            'FileName' => 'integration_test_file.txt',
+            'LastUpdated' => '2014-12-11',
+            'IsLink' => false,
+            'IsImage' => false,
+            'IsPublic' => true,
+            'Content' => 'VGhpcyBpcyBhIGZpbGUgZm9yIGludGVncmF0aW9uIHRlc3Rpbmcu'
         ];
 
-        $document = $this->fixture->addDocuments(
-            $params['objectId'],
-            $params['documentTableReference'],
-            [$params['documentInfo']]
-        );
+        $results = $this->fixture->addDocuments($objectId, $documentTableReference, [$data]);
+        $this->assertInternalType('object', $results->AddDocumentsResult);
+        $this->assertDocumentStructure($data, $results->AddDocumentsResult->DocumentInfo);
 
-        $this->assertInternalType('object', $document);
-        $this->assertInternalType('object', $document->AddDocumentsResult);
-        $this->assertInternalType('object', $document->AddDocumentsResult->DocumentInfo);
-        $this->assertInternalType('integer', $document->AddDocumentsResult->DocumentInfo->Id);
-        $this->assertInternalType('string', $document->AddDocumentsResult->DocumentInfo->Title);
-        $this->assertInternalType('string', $document->AddDocumentsResult->DocumentInfo->FileName);
-        $this->assertInternalType('string', $document->AddDocumentsResult->DocumentInfo->ServerFileName);
-        $this->assertInternalType('string', $document->AddDocumentsResult->DocumentInfo->Path);
-        $this->assertInternalType('string', $document->AddDocumentsResult->DocumentInfo->LastUpdated);
-        $this->assertInternalType('boolean', $document->AddDocumentsResult->DocumentInfo->IsLink);
-        $this->assertInternalType('boolean', $document->AddDocumentsResult->DocumentInfo->IsImage);
-        $this->assertInternalType('boolean', $document->AddDocumentsResult->DocumentInfo->IsPublic);
-        $this->assertInternalType('string', $document->AddDocumentsResult->DocumentInfo->Content);
+        return ['ID' =>$results->AddDocumentsResult->DocumentInfo->Id, 'Data' => $data];
+    }
 
-        return $document->AddDocumentsResult->DocumentInfo->Id;
+    public function testAddDocumentAsLink()
+    {
+        $objectId = 1176;
+        $documentTableReference = 'Ticket';
+        $data = [
+            'Id' => 0,
+            'Title' => 'http://pastebin.com/raw.php?i=vu43mBRF',
+            'FileName' => 'http://pastebin.com/raw.php?i=vu43mBRF',
+            'LastUpdated' => '2014-12-11',
+            'IsLink' => true,
+            'IsImage' => false,
+            'IsPublic' => true
+        ];
+
+        $results = $this->fixture->addDocuments($objectId, $documentTableReference, [$data]);
+        $this->assertInternalType('object', $results->AddDocumentsResult);
+        $this->assertDocumentStructure($data, $results->AddDocumentsResult->DocumentInfo, false);
     }
 
     /**
-     * @depends testAddDocuments
+     * @depends testAddDocument
+     * @param $res
      */
-    public function testGetDocument($documentId)
+    public function testGetDocument($res)
     {
-        $document = $this->fixture->getDocument($documentId);
-        $this->assertInternalType('object', $document);
-        $this->assertInternalType('object', $document->GetDocumentResult);
-        $this->assertInternalType('integer', $document->GetDocumentResult->Id);
-        $this->assertInternalType('string', $document->GetDocumentResult->FileName);
-        $this->assertInternalType('string', $document->GetDocumentResult->LastUpdated);
-        $this->assertInternalType('boolean', $document->GetDocumentResult->IsLink);
-        $this->assertInternalType('boolean', $document->GetDocumentResult->IsImage);
-        $this->assertInternalType('boolean', $document->GetDocumentResult->IsPublic);
-        $this->assertInternalType('string', $document->GetDocumentResult->Content);
+        $results = $this->fixture->getDocument($res['ID']);
+
+        $this->assertDocumentStructure($res['Data'], $results->GetDocumentResult);
+    }
+
+    private function assertDocumentStructure($data, $result, $withContent = true)
+    {
+        $this->assertInternalType('object', $result);
+        $this->assertInternalType('integer', $result->Id);
+        if (isset($result->Title)) {
+            $this->assertSame($data['Title'], $result->Title);
+        }
+        $this->assertSame($data['FileName'], $result->FileName);
+        $this->assertNotFalse(strtotime($result->LastUpdated));
+        $this->assertSame($data['IsLink'], $result->IsLink);
+        $this->assertSame($data['IsImage'], $result->IsImage);
+        $this->assertSame($data['IsPublic'], $result->IsPublic);
+        if ($withContent === true) {
+            $this->assertSame($data['Content'], $result->Content);
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 use LabtechSoftware\ConnectwisePsaSdk\SoapApiRequester;
 
-class SoapApiRequesterTest extends PHPUnit_Framework_testCase
+class SoapApiRequesterTest extends PHPUnit_Framework_TestCase
 {
     protected $fixture;
     protected $soapMock;
