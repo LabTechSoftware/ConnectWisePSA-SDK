@@ -11,8 +11,8 @@
 #------------------------------------------------------------------
 # The export statements below are REQUIRED to run integration tests
 #------------------------------------------------------------------
-export DOMAIN="test.connectwise.com"
-export COMPANYID="LabTech"
-export INTEGRATORLOGINID="webdev"
-export INTEGRATORPASSWORD="webdev"
-phpunit --testdox tests/ConnectWise/integration
+#export DOMAIN=""
+#export COMPANYID=""
+#export INTEGRATORLOGINID=""
+#export INTEGRATORPASSWORD=""
+phpunit tests/ConnectWise/integration
