@@ -55,7 +55,7 @@ class ConnectwiseApiFactory
         $cl->loadConfig($config);
 
         // New SoapClient instance
-        $soap = new SoapClient(
+        $soap = new Overrides\SoapClient(
             $cl->getSoapAddress($apiName),
             $cl->getSoapOptions()
         );
