@@ -80,7 +80,7 @@ class Reporting
 
         return $this->client->makeRequest('RunReportCount', $params);
     }
-    
+
     /**
      * Runs a particular report with a given set of conditions
      *
@@ -126,7 +126,12 @@ class Reporting
             $params['limit'] = $limit;
         }
 
-        return $this->prepareReport($this->client->makeRequest('RunReportQuery', $params));
+        $result = $this->getData(
+            $this->client->makeRequest('RunReportQuery', $params),
+            'RunReportQueryResult'
+        );
+
+        return $this->prepareReport($result);
     }
 
     /**
@@ -180,7 +185,14 @@ class Reporting
             $params['limit'] = $limit;
         }
 
-        return $this->client->makeRequest('RunReportQueryWithFilters', $params);
+        // make the request and get data from the returned object
+        $result = $this->getData(
+            $this->client->makeRequest('RunReportQueryWithFilters', $params),
+            'RunReportQueryWithFiltersResult'
+        );
+
+        // send pulled data to prepare report, for a more sane data structure
+        return $this->prepareReport($result);
     }
 
     /*
@@ -188,35 +200,48 @@ class Reporting
      */
     private function prepareReport($report)
     {
-        if (isset($report->RunReportQueryResult->ResultRow)) {
-            //we have a result from the api (at least one record)
-            $report = $report->RunReportQueryResult->ResultRow;
+        if (is_object($report)) {
+            $report = array($report);
+        }
 
-            if (is_object($report)) {
-                $report = array($report);
-            }
-
-            if (!is_array($report)) {
-                return false;
-            }
-
-            $items = array();
-            foreach ($report as $item) {
-
-                $tmpItems = new \stdClass();
-                foreach ($item->Value as $v) {
-                    $tmpItems->{$v->Name} = $v->_;
-                }
-                $items[] = $tmpItems;
-            }
-
-            return $items;
-        } elseif (isset($report->RunReportQueryResult)) {
-            // empty result set
-            return array();
-        } else {
-            // we have no result from the api
+        if (!is_array($report)) {
             return false;
         }
+
+        $items = array();
+        foreach ($report as $item) {
+
+            if (is_object($item->Value)) {
+                $item->Value = [$item->Value];
+            }
+
+            $tmpItems = new \stdClass();
+            foreach ($item->Value as $v) {
+                $tmpItems->{$v->Name} = $v->_;
+            }
+            $items[] = $tmpItems;
+        }
+
+        return $items;
+    }
+
+    /**
+     * Helper method, pulls the data structure giving from ConnectWise
+     *
+     * @param object $report The report as giving back from ConnectWise
+     * @param string $reportName The name of the method used on Reporting API
+     * @return array|bool
+     */
+    private function getData($report, $reportName)
+    {
+        if (isset($report->{$reportName}->ResultRow)) {
+            $report = $report->{$reportName}->ResultRow;
+        } elseif (isset($report->{$reportName})) {
+            $report = [];
+        } else {
+            $report = false;
+        }
+
+        return $report;
     }
 }
