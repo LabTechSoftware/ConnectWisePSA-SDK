@@ -198,23 +198,10 @@ class Reporting
     /*
      * Helper method, manipulates data structure given from ConnectWise, into a structure that is easier to work with
      */
-    private function prepareReport($report)
+    private function prepareReport(array $report)
     {
-        if (is_object($report)) {
-            $report = array($report);
-        }
-
-        if (!is_array($report)) {
-            return false;
-        }
-
         $items = array();
         foreach ($report as $item) {
-
-            if (is_object($item->Value)) {
-                $item->Value = [$item->Value];
-            }
-
             $tmpItems = new \stdClass();
             foreach ($item->Value as $v) {
                 $tmpItems->{$v->Name} = $v->_;
