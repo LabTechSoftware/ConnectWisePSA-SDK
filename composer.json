@@ -3,8 +3,8 @@
     "description": "LabTech's PHP SDK for the ConnectWise PSA",
     "authors": [
         {
-            "name": "Andre Zavala",
-            "email": "azavala@labtechsoftware.com"
+            "name": "ConnectWise Internal Development",
+            "email": "donotreply@connectwise.com"
         }
     ],
     "require": {
